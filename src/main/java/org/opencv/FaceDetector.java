@@ -7,6 +7,9 @@ import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.highgui.Highgui;
 import org.opencv.objdetect.CascadeClassifier;
 import org.slf4j.Logger;
@@ -19,6 +22,8 @@ import org.slf4j.LoggerFactory;
 public class FaceDetector {
 
     private static final Logger LOG = LoggerFactory.getLogger(FaceDetector.class);
+
+    private static final Scalar COLOR = new Scalar(0, 255, 0);
 
     private static final List<String> CLASSIFIER_FILES = newArrayList(
             //        "haarcascade_eye.xml",
@@ -36,38 +41,51 @@ public class FaceDetector {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    public boolean isFace(File imgFile) {
-        return !getFaceRect(imgFile).empty();
+    public boolean containsFace(File imgFile) {
+        return !getFaceRect(readImage(imgFile)).empty();
     }
-    
-    private MatOfRect getFaceRect(File imgFile){
-        MatOfRect faceRect = new MatOfRect();
+
+    public void markFace(File sourceFile, File targetFile) {
+        Mat image = readImage(sourceFile);
+        MatOfRect faceRect = getFaceRect(image);
+        if (!faceRect.empty()) {
+            faceRect.toList().forEach((rect) -> {
+                Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
+            });
+            Highgui.imwrite(targetFile.getPath(), image);
+        }
+    }
+
+    private Mat readImage(File imgFile) {
+        Mat image = new Mat();
+
         if (imgFile != null && imgFile.exists() && imgFile.canRead()) {
             String path = imgFile.getPath();
-            faceRect = getFaceRect(path);
+            image = Highgui.imread(path);
         }
-        return faceRect;
+        return image;
     }
 
-    private MatOfRect getFaceRect(String path) {
+    private MatOfRect getFaceRect(Mat image) {
         MatOfRect faceRect = new MatOfRect();
-        Mat image = Highgui.imread(path);
 
-        CLASSIFIER_FILES.forEach((cf) -> {
-            if (faceRect.empty()) {
-                URL resource = getClass().getResource(cf);
-                File cFile = new File(resource.getPath());
-                String cPath = cFile.getPath();
-                
-                CascadeClassifier classifier = new CascadeClassifier(cPath);
-                classifier.detectMultiScale(image, faceRect);
+        if (!image.empty()) {
+            CLASSIFIER_FILES.forEach((cf) -> {
+                if (faceRect.empty()) {
+                    URL resource = getClass().getResource(cf);
+                    File cFile = new File(resource.getPath());
+                    String cPath = cFile.getPath();
 
-                if (!faceRect.empty()) {
-                    LOG.debug("Detected faces: {}, with: {}", faceRect.toArray().length, cf);
+                    CascadeClassifier classifier = new CascadeClassifier(cPath);
+                    classifier.detectMultiScale(image, faceRect);
+
+                    if (!faceRect.empty()) {
+                        LOG.debug("Detected faces: {}, with: {}", faceRect.toList().size(), cf);
+                    }
                 }
-            }
-        });
-        
+            });
+        }
+
         return faceRect;
     }
 

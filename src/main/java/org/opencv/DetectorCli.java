@@ -13,7 +13,7 @@ public class DetectorCli {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         
         FaceDetector detector = new FaceDetector();
-        detector.isFace(null);
+        detector.containsFace(null);
                
     }
 }
