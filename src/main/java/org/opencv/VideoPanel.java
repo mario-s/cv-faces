@@ -1,10 +1,13 @@
 package org.opencv;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import org.opencv.core.Mat;
@@ -23,6 +26,14 @@ public class VideoPanel extends JPanel {
 
     private BufferedImage image;
 
+    public VideoPanel() {
+        setOpaque(true);
+        setForeground(Color.white);
+        setBackground(Color.black);
+    }
+    
+    
+
     /**
      * Converts/writes a Mat into a BufferedImage.
      *
@@ -38,18 +49,22 @@ public class VideoPanel extends JPanel {
             InputStream in = new ByteArrayInputStream(byteArray);
             image = ImageIO.read(in);
             
-            repaint();
         } catch (IOException e) {
-            LOG.warn(e.getMessage(), e);
+            LOG.warn(e.getMessage());
+        }finally {
+            repaint();
+            
         }
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (this.image == null) {
+        if (image == null) {
+            g.drawString("Camera ...", 10, 10);
             return;
         }
         g.drawImage(this.image, 10, 10, this.image.getWidth(), this.image.getHeight(), null);
     }
+
 }

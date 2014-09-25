@@ -45,14 +45,14 @@ public class FileFaceDetectorTest {
     @Test
     public void testMarkKoalaFace() {
         File sourceFile = createFile("koala.jpg");
-        classUnderTest.markFace(sourceFile, targetFile);
+        classUnderTest.saveMarkedFaces(sourceFile, targetFile);
         assertFalse(targetFile.exists());
     }
     
     @Test
     public void testMarkHumanFace() {
         File sourceFile = createFile("face.jpg");
-        classUnderTest.markFace(sourceFile, targetFile);
+        classUnderTest.saveMarkedFaces(sourceFile, targetFile);
         assertTrue(targetFile.exists());
     }
 }

@@ -7,7 +7,10 @@ import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.highgui.Highgui;
 import org.opencv.objdetect.CascadeClassifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +40,15 @@ public class FaceDetector {
     public FaceDetector() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
+    
+     public void markFaces(Mat image) {
+        MatOfRect faceRect = findFace(image);
+        if (!faceRect.empty()) {
+            faceRect.toList().forEach((Rect rect) -> {
+                Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
+            });
+        }
+    }
 
 
     public MatOfRect findFace(Mat image) {
@@ -52,7 +64,7 @@ public class FaceDetector {
                     CascadeClassifier classifier = new CascadeClassifier(cPath);
                     classifier.detectMultiScale(image, faceRect);
 
-                    if (!faceRect.empty()) {
+                    if (LOG.isDebugEnabled() && !faceRect.empty()) {
                         LOG.debug("Detected faces: {}, with: {}", faceRect.toList().size(), cf);
                     }
                 }

@@ -18,7 +18,7 @@ public class FileFaceDetector extends FaceDetector{
         return !findFace(readImage(imgFile)).empty();
     }
 
-    public void markFace(File sourceFile, File targetFile) {
+    public void saveMarkedFaces(File sourceFile, File targetFile) {
         Mat image = readImage(sourceFile);
         MatOfRect faceRect = findFace(image);
         if (!faceRect.empty()) {
