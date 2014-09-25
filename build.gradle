@@ -6,10 +6,9 @@ apply plugin: 'jacoco'
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+mainClassName = "org.opencv.MainCli"
 
 ext {
-    mainClass = 'org.opencv.DetectorCli'
-    mainClassName = mainClass
 
     //library path for native dependencies
     libs = '\\libs\\x'
@@ -25,7 +24,7 @@ ext {
 // prefer. In this case NetBeans will not add these tasks but you may rely on
 // your own implementation.
 if (!hasProperty('mainClass')) {
-    ext.mainClass = ''
+    ext.mainClass = mainClassName
 }
 
 jacoco {
