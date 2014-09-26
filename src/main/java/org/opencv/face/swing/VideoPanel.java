@@ -29,8 +29,6 @@ public class VideoPanel extends JPanel {
         setForeground(Color.white);
         setBackground(Color.black);
     }
-    
-    
 
     /**
      * Converts/writes a Mat into a BufferedImage.

@@ -64,6 +64,5 @@ public class CamWorker extends SwingWorker<Void, Mat> {
     protected void done() {
         capture.release();
     }
-
     
 }
