@@ -1,4 +1,4 @@
-package org.opencv.face;
+package org.opencv.face.swing;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -10,6 +10,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.face.AbstractFaceDetector;
 import org.opencv.objdetect.CascadeClassifier;
 
 /**
@@ -18,7 +19,7 @@ import org.opencv.objdetect.CascadeClassifier;
  */
 public class FaceDetector extends AbstractFaceDetector {
     
-    private static final String CF = "haarcascade_frontalface_alt.xml";
+    private static final String CF = "../haarcascade_frontalface_alt.xml";
 
     private final CascadeClassifier classifier;
 
