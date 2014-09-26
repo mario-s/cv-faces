@@ -3,6 +3,7 @@ package org.opencv.face;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import org.opencv.core.Mat;
@@ -49,30 +50,38 @@ public class VideoWindow extends JFrame {
         worker.execute();
     }
 
-    private SwingWorker createWorker() {
-        return new SwingWorker() {
+    private SwingWorker<Void, Mat> createWorker() {
+        return new SwingWorker<Void, Mat>() {
 
             @Override
-            protected Object doInBackground() throws Exception {
+            protected Void doInBackground() throws Exception {
                 final VideoCapture capture = new VideoCapture(0);
                 Thread.sleep(1000);
 
-                while (true) {
+                while (!isCancelled()) {
                     Mat webcamImage = new Mat();
                     capture.read(webcamImage);
                     if (!webcamImage.empty()) {
-                        setSize(webcamImage.width() + 40, webcamImage.height() + 60);
-                        //-- 3. Apply the classifier to the captured image  
-                        faceDetector.markFaces(webcamImage);
-                        //-- 4. Display the image  
-                        videoPanel.updateImage(webcamImage);
+                        publish(webcamImage);
                     } else {
                         LOG.warn(" --(!) No captured frame -- Break!");
                         break;
                     }
                 }
+
                 return null;
             }
+
+            @Override
+            protected void process(List<Mat> chunks) {
+                Mat img = chunks.get(0);
+                setSize(img.width() + 40, img.height() + 60);
+                //-- 3. Apply the classifier to the captured image  
+                faceDetector.markFaces(img);
+                //-- 4. Display the image  
+                videoPanel.updateImage(img);
+            }
+
         };
     }
 
