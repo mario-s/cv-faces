@@ -17,13 +17,15 @@ public class CamWorker extends SwingWorker<Void, Mat> {
     private static final Logger LOG = LoggerFactory.getLogger(CamWorker.class);
 
     private final VideoPanel videoPanel;
-    
+
     private final JFrame videoWindow;
-    
+
     private final FaceDetector faceDetector;
-    
+
     private final VideoCapture capture;
 
+    private boolean updated;
+    
     public CamWorker(JFrame videoWindow, VideoPanel videoPanel) {
         this.videoWindow = videoWindow;
         this.videoPanel = videoPanel;
@@ -35,13 +37,18 @@ public class CamWorker extends SwingWorker<Void, Mat> {
     protected Void doInBackground() throws Exception {
 
         Thread.sleep(1000);
-
+        Mat webcamImage = new Mat();
         while (!isCancelled()) {
-            Mat webcamImage = new Mat();
             capture.read(webcamImage);
             if (!webcamImage.empty()) {
+                
+                if(!updated){
+                    videoWindow.setSize(webcamImage.width() + 40, webcamImage.height() + 60);
+                    updated = true;
+                }
+                
                 faceDetector.markFaces(webcamImage);
-                publish(webcamImage);
+                videoPanel.updateImage(webcamImage);
             } else {
                 LOG.warn(" --(!) No captured frame -- Break!");
                 break;
@@ -52,15 +59,8 @@ public class CamWorker extends SwingWorker<Void, Mat> {
     }
 
     @Override
-    protected void process(List<Mat> chunks) {
-        Mat img = chunks.get(0);
-        videoWindow.setSize(img.width() + 40, img.height() + 60);
-        videoPanel.updateImage(img);
-    }
-
-    @Override
     protected void done() {
         capture.release();
     }
-    
+
 }
