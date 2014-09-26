@@ -1,10 +1,7 @@
 package org.opencv.face.swing;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 import java.io.File;
 import java.net.URL;
-import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
@@ -18,7 +15,7 @@ import org.opencv.objdetect.CascadeClassifier;
  * @author spindizzy
  */
 public class FaceDetector extends AbstractFaceDetector {
-    
+
     private static final String CF = "../haarcascade_frontalface_alt.xml";
 
     private final CascadeClassifier classifier;
@@ -43,16 +40,7 @@ public class FaceDetector extends AbstractFaceDetector {
     @Override
     public MatOfRect findFace(Mat image) {
         MatOfRect faceRect = new MatOfRect();
-
-        if (!image.empty()) {
-
-            classifier.detectMultiScale(image, faceRect);
-
-            if (log.isDebugEnabled() && !faceRect.empty()) {
-                log.debug("Detected faces: {}", faceRect.toList().size());
-            }
-        }
-
+        classifier.detectMultiScale(image, faceRect);
         return faceRect;
     }
 

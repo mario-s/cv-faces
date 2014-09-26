@@ -40,6 +40,7 @@ public class CamWorker extends SwingWorker<Void, Mat> {
             Mat webcamImage = new Mat();
             capture.read(webcamImage);
             if (!webcamImage.empty()) {
+                faceDetector.markFaces(webcamImage);
                 publish(webcamImage);
             } else {
                 LOG.warn(" --(!) No captured frame -- Break!");
@@ -54,9 +55,6 @@ public class CamWorker extends SwingWorker<Void, Mat> {
     protected void process(List<Mat> chunks) {
         Mat img = chunks.get(0);
         videoWindow.setSize(img.width() + 40, img.height() + 60);
-        //-- 3. Apply the classifier to the captured image  
-        faceDetector.markFaces(img);
-        //-- 4. Display the image  
         videoPanel.updateImage(img);
     }
 
