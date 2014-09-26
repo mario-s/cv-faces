@@ -1,4 +1,4 @@
-package org.opencv;
+package org.opencv.face;
 
 import javax.swing.SwingUtilities;
 import org.opencv.core.Core;

@@ -1,4 +1,4 @@
-package org.opencv;
+package org.opencv.face;
 
 import static com.google.common.collect.Lists.newArrayList;
 import java.io.File;

@@ -6,7 +6,7 @@ apply plugin: 'jacoco'
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-mainClassName = "org.opencv.MainCli"
+mainClassName = "org.opencv.face.MainCli"
 
 ext {
 

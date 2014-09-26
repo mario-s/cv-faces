@@ -1,4 +1,4 @@
-package org.opencv;
+package org.opencv.face;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;

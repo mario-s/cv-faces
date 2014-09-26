@@ -1,4 +1,4 @@
-package org.opencv;
+package org.opencv.face;
 
 import java.awt.Color;
 import java.awt.Graphics;
