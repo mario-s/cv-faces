@@ -1,6 +1,5 @@
 package org.opencv.face.swing;
 
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import org.opencv.core.Mat;

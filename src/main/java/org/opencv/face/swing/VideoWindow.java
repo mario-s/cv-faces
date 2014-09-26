@@ -5,9 +5,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
-import org.opencv.core.Mat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *

@@ -1,4 +1,4 @@
-face-detection
+Face Detection
 ==============
 
-face detection via Java binding for opencv as a gradle project
+Face detection samples via Java binding for opencv as a gradle project.
