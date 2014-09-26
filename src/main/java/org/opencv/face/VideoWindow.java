@@ -1,13 +1,9 @@
 package org.opencv.face;
 
 import java.awt.BorderLayout;
-import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.opencv.core.Mat;
 import org.opencv.highgui.VideoCapture;
@@ -16,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Mario
+ * @author spindizzy
  */
 public class VideoWindow extends JFrame {
 
@@ -40,6 +36,7 @@ public class VideoWindow extends JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
+                dispose();
                 System.exit(0);
             }
 
