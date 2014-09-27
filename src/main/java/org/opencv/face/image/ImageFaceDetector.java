@@ -1,13 +1,14 @@
-package org.opencv.face;
+package org.opencv.face.image;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.face.AbstractFaceDetector;
+import org.opencv.face.ClassifierFactory;
 import org.opencv.highgui.Highgui;
 import org.opencv.objdetect.CascadeClassifier;
 
@@ -17,7 +18,7 @@ import static com.google.common.collect.Lists.newArrayList;
  *
  * @author spindizzy
  */
-public class FileFaceDetector extends AbstractFaceDetector{
+public class ImageFaceDetector extends AbstractFaceDetector{
     
     private static final List<String> CLASSIFIER_FILES = newArrayList(
             //        "haarcascade_eye.xml",

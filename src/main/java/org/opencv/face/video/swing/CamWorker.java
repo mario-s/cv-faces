@@ -1,4 +1,4 @@
-package org.opencv.face.swing;
+package org.opencv.face.video.swing;
 
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;

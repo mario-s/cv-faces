@@ -1,4 +1,4 @@
-package org.opencv.face;
+package org.opencv.face.image;
 
 import java.io.File;
 
@@ -11,15 +11,15 @@ import org.junit.Test;
  *
  * @author spindizzy
  */
-public class FileFaceDetectorTest {
+public class ImageFaceDetectorTest {
     
-    private FileFaceDetector classUnderTest;
+    private ImageFaceDetector classUnderTest;
     
     private File targetFile;
     
     @Before
     public void setUp() {
-        classUnderTest = new FileFaceDetector();
+        classUnderTest = new ImageFaceDetector();
         
         targetFile = new File(getClass().getResource(".").getFile(), "out.png");
         if(targetFile.exists()){

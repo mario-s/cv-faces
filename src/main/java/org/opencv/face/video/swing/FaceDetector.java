@@ -1,7 +1,5 @@
-package org.opencv.face.swing;
+package org.opencv.face.video.swing;
 
-import java.io.File;
-import java.net.URL;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;

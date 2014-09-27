@@ -1,6 +1,6 @@
 package org.opencv.face;
 
-import org.opencv.face.swing.VideoWindow;
+import org.opencv.face.video.swing.VideoWindow;
 import javax.swing.SwingUtilities;
 import org.opencv.core.Core;
 

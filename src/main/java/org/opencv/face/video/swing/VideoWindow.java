@@ -1,4 +1,4 @@
-package org.opencv.face.swing;
+package org.opencv.face.video.swing;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
