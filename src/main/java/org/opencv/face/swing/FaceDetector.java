@@ -8,6 +8,7 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.face.AbstractFaceDetector;
+import org.opencv.face.ClassifierFactory;
 import org.opencv.objdetect.CascadeClassifier;
 
 /**
@@ -16,16 +17,12 @@ import org.opencv.objdetect.CascadeClassifier;
  */
 public class FaceDetector extends AbstractFaceDetector {
 
-    private static final String CF = "../haarcascade_frontalface_alt.xml";
+    private static final String CF = "haarcascade_frontalface_alt.xml";
 
     private final CascadeClassifier classifier;
 
     public FaceDetector() {
-        URL resource = getClass().getResource(CF);
-        File cFile = new File(resource.getPath());
-        String cPath = cFile.getPath();
-
-        classifier = new CascadeClassifier(cPath);
+        classifier = ClassifierFactory.Instance.create(CF);
     }
 
     public void markFaces(Mat image) {

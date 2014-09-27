@@ -62,11 +62,8 @@ public class FileFaceDetector extends AbstractFaceDetector{
         if (!image.empty()) {
             CLASSIFIER_FILES.forEach((cf) -> {
                 if (faceRect.empty()) {
-                    URL resource = getClass().getResource(cf);
-                    File cFile = new File(resource.getPath());
-                    String cPath = cFile.getPath();
-
-                    CascadeClassifier classifier = new CascadeClassifier(cPath);
+                    
+                    CascadeClassifier classifier = ClassifierFactory.Instance.create(cf);
                     classifier.detectMultiScale(image, faceRect);
 
                     if (log.isDebugEnabled() && !faceRect.empty()) {
