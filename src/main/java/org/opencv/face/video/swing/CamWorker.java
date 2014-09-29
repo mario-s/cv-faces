@@ -1,5 +1,6 @@
 package org.opencv.face.video.swing;
 
+import org.opencv.face.video.FaceDetector;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import org.opencv.core.Mat;

@@ -1,4 +1,4 @@
-package org.opencv.face.video.swing;
+package org.opencv.face.video;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -10,7 +10,7 @@ import org.opencv.face.ClassifierFactory;
 import org.opencv.objdetect.CascadeClassifier;
 
 /**
- *
+ * Simple face detector which uses only one classifier for frontal face.
  * @author spindizzy
  */
 public class FaceDetector extends AbstractFaceDetector {
