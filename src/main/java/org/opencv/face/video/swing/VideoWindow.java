@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 /**
@@ -15,6 +16,12 @@ public class VideoWindow extends JFrame {
     private final VideoPanel videoPanel;
 
     private SwingWorker worker;
+    
+    public static void launch() {
+        SwingUtilities.invokeLater(() -> {
+             new VideoWindow();
+         });
+    }
 
     public VideoWindow() {
         super("Face Detection");
