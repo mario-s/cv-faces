@@ -8,6 +8,8 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.highgui.Highgui;
 
 /**
  *
@@ -31,7 +33,9 @@ public final class ImageConverter {
     }
     
     public static Image toJavaFXImage(Mat matrix) {
-        return SwingFXUtils.toFXImage(toBufferedImage(matrix), null);
+        MatOfByte mem = new MatOfByte();
+        Highgui.imencode(".png", matrix, mem);
+        return new Image(new ByteArrayInputStream(mem.toArray()));
     }
     
     private static byte[] readPixel(Mat matrix) {

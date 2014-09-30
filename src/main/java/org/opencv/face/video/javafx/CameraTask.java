@@ -1,13 +1,8 @@
 package org.opencv.face.video.javafx;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import javafx.concurrent.Task;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javax.imageio.ImageIO;
 import org.opencv.core.Mat;
 import org.opencv.face.video.FaceDetector;
 import org.opencv.face.video.ImageConverter;
@@ -42,15 +37,18 @@ public class CameraTask extends Task<Void> {
             Mat webcamImage = new Mat();
             LOG.info("trying to read from webcam");
             capture.read(webcamImage);
-            LOG.info("trying to mark faces");
-            faceDetector.markFaces(webcamImage);
-            LOG.info("trying to convert");
-            Image image = ImageConverter.toJavaFXImage(webcamImage);
-            if (image != null) {
-                LOG.info("got image");
-                videoView.setImage(image);
-            } else {
-                LOG.warn("No image!");
+
+            if (!webcamImage.empty()) {
+                LOG.info("trying to mark faces");
+                faceDetector.markFaces(webcamImage);
+                LOG.info("trying to convert");
+                Image image = ImageConverter.toJavaFXImage(webcamImage);
+                if (image != null) {
+                    LOG.info("got image");
+//                    videoView.setImage(image);
+                } else {
+                    LOG.warn("No image!");
+                }
             }
         }
         LOG.info("finished");

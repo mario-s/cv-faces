@@ -2,11 +2,9 @@ package org.opencv.face.video;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import javafx.scene.image.Image;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;

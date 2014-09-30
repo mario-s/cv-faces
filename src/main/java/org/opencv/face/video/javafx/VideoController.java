@@ -1,9 +1,8 @@
 package org.opencv.face.video.javafx;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -12,15 +11,22 @@ import javafx.scene.image.Image;
 public class VideoController {
 
     @FXML
-    private VideoView videoView;
+    private ImageView videoView;
+    
+    private CameraTask cameraTask;
 
     @FXML
     protected void initialize() {
-
-        Task<Void> task = new CameraTask(videoView);
-        Thread th = new Thread(task);
-        th.start();
-
+        videoView.setPreserveRatio(true);
+        cameraTask = new CameraTask(videoView);
+        Thread thread = new Thread(cameraTask);
+        thread.start();
+    }
+    
+    void onClosing() {
+        if(cameraTask != null){
+            cameraTask.cancel();
+        }
     }
 
 }
