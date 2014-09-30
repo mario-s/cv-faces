@@ -28,7 +28,6 @@ public class CameraTask extends Task<Void> {
     private final VideoCapture capture;
 
     private final ImageView videoView;
-    
 
     public CameraTask(ImageView videoView) {
         this.videoView = videoView;
@@ -41,21 +40,17 @@ public class CameraTask extends Task<Void> {
         LOG.info("starting to get image");
         while (!isCancelled()) {
             Mat webcamImage = new Mat();
-            try {
-                LOG.info("trying to read from webcam");
-                capture.read(webcamImage);
-                LOG.info("trying to mark faces");
-                faceDetector.markFaces(webcamImage);
-                LOG.info("trying to convert");
-                Image image = ImageConverter.toJavaFXImage(webcamImage);
-                if (image != null) {
-                    LOG.info("got image");
-                    videoView.setImage(image);
-                } else {
-                    LOG.warn("No image!");
-                }
-            } catch (IOException ex) {
-                LOG.warn(ex.getMessage(), ex);
+            LOG.info("trying to read from webcam");
+            capture.read(webcamImage);
+            LOG.info("trying to mark faces");
+            faceDetector.markFaces(webcamImage);
+            LOG.info("trying to convert");
+            Image image = ImageConverter.toJavaFXImage(webcamImage);
+            if (image != null) {
+                LOG.info("got image");
+                videoView.setImage(image);
+            } else {
+                LOG.warn("No image!");
             }
         }
         LOG.info("finished");

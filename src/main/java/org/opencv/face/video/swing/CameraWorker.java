@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author spindizzy
  */
-public class CamWorker extends SwingWorker<Void, Mat> {
+public class CameraWorker extends SwingWorker<Void, Mat> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CamWorker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CameraWorker.class);
 
     private final VideoPanel videoPanel;
 
@@ -26,7 +26,7 @@ public class CamWorker extends SwingWorker<Void, Mat> {
 
     private boolean updated;
     
-    public CamWorker(JFrame videoWindow, VideoPanel videoPanel) {
+    public CameraWorker(JFrame videoWindow, VideoPanel videoPanel) {
         this.videoWindow = videoWindow;
         this.videoPanel = videoPanel;
         faceDetector = new FaceDetector();

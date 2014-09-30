@@ -2,6 +2,7 @@ package org.opencv.face.video;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import javafx.scene.image.Image;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -46,8 +47,7 @@ public class ImageConverterTest {
      * Test of toJavaFXImage method, of class ImageConverter.
      */
     @Test
-    @Ignore
-    public void testToJavaFXImage() throws Exception {
+    public void testToJavaFXImage() {
         Image result = ImageConverter.toJavaFXImage(matrix);
         assertNotNull(result);
     }

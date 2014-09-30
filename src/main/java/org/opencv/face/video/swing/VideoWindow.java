@@ -28,7 +28,7 @@ public class VideoWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         videoPanel = new VideoPanel();
         getContentPane().add(videoPanel, BorderLayout.CENTER);
-        worker = new CamWorker(this, videoPanel);
+        worker = new CameraWorker(this, videoPanel);
         
         pack();
         setSize(400, 400);

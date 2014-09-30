@@ -30,11 +30,8 @@ public final class ImageConverter {
         return image;
     }
     
-    public static Image toJavaFXImage(Mat matrix) throws IOException {
-        byte[] raw = readPixel(matrix);
-        ByteArrayInputStream bis = new ByteArrayInputStream(raw);
-        BufferedImage image = ImageIO.read(bis);
-        return SwingFXUtils.toFXImage(image, null);
+    public static Image toJavaFXImage(Mat matrix) {
+        return SwingFXUtils.toFXImage(toBufferedImage(matrix), null);
     }
     
     private static byte[] readPixel(Mat matrix) {
