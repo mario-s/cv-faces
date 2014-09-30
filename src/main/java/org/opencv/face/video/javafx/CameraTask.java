@@ -1,5 +1,7 @@
 package org.opencv.face.video.javafx;
 
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,36 +24,36 @@ public class CameraTask extends Task<Void> {
 
     private final VideoCapture capture;
 
-    private final ImageView videoView;
+    private final ObjectProperty<Image> imageProperty;
 
-    public CameraTask(ImageView videoView) {
-        this.videoView = videoView;
+    public CameraTask(ObjectProperty<Image> imageProperty) {
+        this.imageProperty = imageProperty;
+
         this.faceDetector = new FaceDetector();
         this.capture = new VideoCapture(0);
     }
 
     @Override
     protected Void call() throws Exception {
-        LOG.info("starting to get image");
+        
+        LOG.info("starting to grap images");
         while (!isCancelled()) {
             Mat webcamImage = new Mat();
-            LOG.info("trying to read from webcam");
             capture.read(webcamImage);
 
             if (!webcamImage.empty()) {
-                LOG.info("trying to mark faces");
                 faceDetector.markFaces(webcamImage);
-                LOG.info("trying to convert");
-                Image image = ImageConverter.toJavaFXImage(webcamImage);
-                if (image != null) {
-                    LOG.info("got image");
-//                    videoView.setImage(image);
-                } else {
-                    LOG.warn("No image!");
-                }
+                Platform.runLater(() -> {
+                    Image image = ImageConverter.toJavaFXImage(webcamImage);
+                    if (image != null) {
+                        imageProperty.set(image);
+                    } else {
+                        LOG.warn("No image!");
+                    }
+                });
+
             }
         }
-        LOG.info("finished");
         return null;
     }
 
