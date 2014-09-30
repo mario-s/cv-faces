@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import javax.swing.JPanel;
 import org.opencv.core.Mat;
+import org.opencv.face.video.MatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,11 +41,10 @@ public class VideoPanel extends JPanel {
         if (matrix.channels() > 1) {
             type = BufferedImage.TYPE_3BYTE_BGR;
         }
-        byte[] b = new byte[matrix.channels() * matrix.cols() * matrix.rows()];
-        matrix.get(0, 0, b); // get all the pixels
+        byte[] bytes = MatUtil.Instance.readPixel(matrix);
         image = new BufferedImage(matrix.cols(), matrix.rows(), type);
         final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        System.arraycopy(b, 0, targetPixels, 0, b.length);
+        System.arraycopy(bytes, 0, targetPixels, 0, bytes.length);
     }
 
     @Override
