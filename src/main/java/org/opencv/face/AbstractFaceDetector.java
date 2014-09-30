@@ -18,7 +18,6 @@ public abstract class AbstractFaceDetector {
     protected final Logger log;
 
     public AbstractFaceDetector() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         log = LoggerFactory.getLogger(getClass());
     }
 

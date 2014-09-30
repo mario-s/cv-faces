@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import javax.swing.JPanel;
 import org.opencv.core.Mat;
-import org.opencv.face.video.MatUtil;
+import org.opencv.face.video.ImageConverter;
 
 /**
  *
@@ -28,19 +28,8 @@ public class VideoPanel extends JPanel {
      * @param matrix Mat of type CV_8UC3 or CV_8UC1
      */
     public void updateImage(Mat matrix) {
-        toBufferedImage(matrix);
+        image = ImageConverter.toBufferedImage(matrix);
         repaint();
-    }
-
-    private void toBufferedImage(Mat matrix) {
-        int type = BufferedImage.TYPE_BYTE_GRAY;
-        if (matrix.channels() > 1) {
-            type = BufferedImage.TYPE_3BYTE_BGR;
-        }
-        byte[] bytes = MatUtil.Instance.readPixel(matrix);
-        image = new BufferedImage(matrix.cols(), matrix.rows(), type);
-        final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        System.arraycopy(bytes, 0, targetPixels, 0, bytes.length);
     }
 
     @Override
