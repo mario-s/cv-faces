@@ -7,16 +7,12 @@ import java.awt.image.DataBufferByte;
 import javax.swing.JPanel;
 import org.opencv.core.Mat;
 import org.opencv.face.video.MatUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author spindizzy
  */
 public class VideoPanel extends JPanel {
-
-    private static final Logger LOG = LoggerFactory.getLogger(VideoPanel.class);
 
     private BufferedImage image;
 

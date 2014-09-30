@@ -36,7 +36,7 @@ public class VideoView extends ImageView {
 
     private Image toJavaFXImage(byte[] raw) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(raw);
-        BufferedImage read = ImageIO.read(bis);
-        return SwingFXUtils.toFXImage(read, null);
+        BufferedImage image = ImageIO.read(bis);
+        return SwingFXUtils.toFXImage(image, null);
     }
 }
