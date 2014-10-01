@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.opencv.core.Mat;
 import org.opencv.face.video.FaceDetector;
 import org.opencv.face.video.ImageConverter;

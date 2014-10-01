@@ -1,11 +1,11 @@
 package org.opencv.face.video.javafx;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 /**
@@ -20,6 +20,8 @@ public class VideoApplication extends Application {
         Pane root = (Pane) loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Face Detection");
+        stage.initStyle(StageStyle.UTILITY);
         stage.show();
         
         VideoController controller = loader.getController();
