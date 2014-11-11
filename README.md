@@ -1,4 +1,6 @@
-Face Detection
-==============
+Computer Vision - Faces
+=======================
 
-Face detection samples via Java binding for opencv as a gradle project.
+This project includes samples for:
+ - face detection via Java binding for opencv
+ - face recognation with JavaCV
