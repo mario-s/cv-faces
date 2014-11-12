@@ -46,7 +46,8 @@ public class SimpleFaceRecognation {
     }
     
     public int predict(String imgName) {
-        Mat testImage = imread(imgName, CV_LOAD_IMAGE_GRAYSCALE);
+        File f = new File(imgName);
+        Mat testImage = imread(f.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
         return faceRecognizer.predict(testImage);
     }
    

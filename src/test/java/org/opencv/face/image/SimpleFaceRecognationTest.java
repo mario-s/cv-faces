@@ -6,6 +6,7 @@
 
 package org.opencv.face.image;
 
+import java.io.File;
 import java.net.URL;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -33,10 +34,11 @@ public class SimpleFaceRecognationTest {
      */
     @Test
     public void testPredict() {
-        String imgName = getClass().getResource("salma_hayek_test.jpg").getFile();
-        int expResult = 1;
+        String imgName = getClass().getResource("1_test.jpg").getFile();
+        File f = new File(imgName);
+        assertTrue(f.exists());
         int result = classUnderTest.predict(imgName);
-        assertEquals(expResult, result);
+        assertEquals(1, result);
     }
     
 }
