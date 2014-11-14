@@ -10,15 +10,23 @@ import org.bytedeco.javacpp.opencv_core.MatVector;
 import static org.bytedeco.javacpp.opencv_contrib.*;
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_highgui.*;
+
 /**
  *
  * @author schroeder
  */
 public class SimpleFaceRecognation {
-    
-    private FaceRecognizer faceRecognizer;
-    
+
+    private final FaceRecognizer faceRecognizer;
+
+    private int imageType;
+
     public SimpleFaceRecognation(String trainingDir) {
+        this(CV_LOAD_IMAGE_GRAYSCALE, trainingDir);
+    }
+
+    public SimpleFaceRecognation(int imageType, String trainingDir) {
+        this.imageType = imageType;
         faceRecognizer = createFisherFaceRecognizer();
         train(trainingDir);
     }
@@ -35,20 +43,20 @@ public class SimpleFaceRecognation {
         int counter = 0;
 
         for (File image : imageFiles) {
-            Mat img = imread(image.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
+            Mat img = imread(image.getAbsolutePath(), imageType);
             int label = Integer.parseInt(image.getName().split("\\-")[0]);
             images.put(counter, img);
             labelsBuf.put(counter, label);
             counter++;
         }
-        
+
         faceRecognizer.train(images, labels);
     }
-    
+
     public int predict(String imgName) {
         File f = new File(imgName);
-        Mat testImage = imread(f.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
+        Mat testImage = imread(f.getAbsolutePath(), imageType);
         return faceRecognizer.predict(testImage);
     }
-   
+
 }
