@@ -25,8 +25,8 @@ public class SimpleFaceRecognationTest {
     @Before
     public void setUp() {
         URL resource = getClass().getResource("training");
-        String path = resource.getPath();
-        classUnderTest = new SimpleFaceRecognation(path);
+        String trainingsPath = resource.getPath();
+        classUnderTest = new SimpleFaceRecognation(trainingsPath);
     }
 
     /**
@@ -35,10 +35,12 @@ public class SimpleFaceRecognationTest {
     @Test
     public void testPredict() {
         String imgName = getClass().getResource("1_test.jpg").getFile();
-        File f = new File(imgName);
-        assertTrue(f.exists());
         int result = classUnderTest.predict(imgName);
         assertEquals(1, result);
+        
+        imgName = getClass().getResource("2_test.jpg").getFile();
+        result = classUnderTest.predict(imgName);
+        assertEquals(2, result);
     }
     
 }
