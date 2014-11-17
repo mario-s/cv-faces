@@ -53,10 +53,13 @@ public class SimpleFaceRecognation {
         faceRecognizer.train(images, labels);
     }
 
-    public int predict(String imgName) {
+    private Mat readImage(String imgName) {
         File f = new File(imgName);
-        Mat testImage = imread(f.getAbsolutePath(), imageType);
-        return faceRecognizer.predict(testImage);
+        return imread(f.getAbsolutePath(), imageType);
+    }
+
+    public int predict(String imgName) {
+        return faceRecognizer.predict(readImage(imgName));
     }
 
 }
