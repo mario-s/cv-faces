@@ -20,5 +20,5 @@ public abstract class AbstractFaceDetector {
         log = LoggerFactory.getLogger(getClass());
     }
 
-    public abstract MatOfRect findFace(Mat image);
+    public abstract MatOfRect findFaces(Mat image);
 }

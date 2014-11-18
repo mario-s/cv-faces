@@ -24,7 +24,7 @@ public class FaceDetector extends AbstractFaceDetector {
     }
 
     public void markFaces(Mat image) {
-        MatOfRect faceRect = findFace(image);
+        MatOfRect faceRect = findFaces(image);
         if (!faceRect.empty()) {
             faceRect.toList().forEach((Rect rect) -> {
                 Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
@@ -33,7 +33,7 @@ public class FaceDetector extends AbstractFaceDetector {
     }
 
     @Override
-    public MatOfRect findFace(Mat image) {
+    public MatOfRect findFaces(Mat image) {
         MatOfRect faceRect = new MatOfRect();
         classifier.detectMultiScale(image, faceRect);
         return faceRect;
