@@ -41,6 +41,10 @@ public class SimpleFaceRecognationTest {
         imgName = getClass().getResource("2_test.jpg").getFile();
         result = classUnderTest.predict(imgName);
         assertEquals(2, result);
+        
+        imgName = getClass().getResource("3_test.jpg").getFile();
+        result = classUnderTest.predict(imgName);
+        assertEquals(3, result);
     }
     
 }
