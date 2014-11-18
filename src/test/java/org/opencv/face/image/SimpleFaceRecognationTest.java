@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author schroeder
+ * @author spindizzy
  */
 public class SimpleFaceRecognationTest {
     

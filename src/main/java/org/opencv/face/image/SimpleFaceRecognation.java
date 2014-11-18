@@ -13,7 +13,7 @@ import static org.bytedeco.javacpp.opencv_highgui.*;
 
 /**
  *
- * @author schroeder
+ * @author spindizzy
  */
 public class SimpleFaceRecognation {
 
@@ -27,7 +27,7 @@ public class SimpleFaceRecognation {
 
     public SimpleFaceRecognation(int imageType, String trainingDir) {
         this.imageType = imageType;
-        faceRecognizer = createFisherFaceRecognizer();
+        faceRecognizer = createEigenFaceRecognizer();
         train(trainingDir);
     }
 
