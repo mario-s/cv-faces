@@ -3,7 +3,6 @@ package org.opencv.face.video.swing;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import javax.swing.JPanel;
 import org.opencv.core.Mat;
 import org.opencv.face.video.ImageConverter;

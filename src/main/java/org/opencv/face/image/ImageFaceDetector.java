@@ -21,6 +21,9 @@ import static com.google.common.collect.Lists.newArrayList;
  */
 public class ImageFaceDetector extends AbstractFaceDetector {
 
+    private static final String FACE = "_face_";
+    private static final String JPG = ".jpg";
+    
     private static final List<String> CLASSIFIER_FILES = newArrayList(
             //        "haarcascade_eye.xml",
             //        "haarcascade_eye_tree_eyeglasses.xml",
@@ -82,9 +85,8 @@ public class ImageFaceDetector extends AbstractFaceDetector {
     private File createFaceFile(File sourceFile, int id, File targetDirectory) {
         String sourceName = sourceFile.getName();
         int dotPos = sourceName.lastIndexOf(".");
-        String name = sourceName.substring(0, dotPos) + "_face_" + id + ".jpg";
-        File targetFile = new File(targetDirectory, name);
-        return targetFile;
+        String name = sourceName.substring(0, dotPos) + FACE + id + JPG;
+        return new File(targetDirectory, name);
     }
 
     private Mat readImage(File imgFile) {
