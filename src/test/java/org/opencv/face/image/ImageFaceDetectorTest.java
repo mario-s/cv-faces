@@ -1,7 +1,10 @@
 package org.opencv.face.image;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.Assert.*;
 
@@ -64,5 +67,18 @@ public class ImageFaceDetectorTest {
         File sourceFile = createFile("face.jpg");
         classUnderTest.saveMarkedFaces(sourceFile, targetFile);
         assertTrue(targetFile.exists());
+    }
+    
+    @Test
+    public void testExtractFaces() throws IOException {
+        File sourceFile = createFile("face.jpg");
+        File targetDir = new File(targetFile.getParentFile(), "extracted");
+        Path path = targetDir.toPath();
+        Files.deleteIfExists(path);
+        Files.createDirectory(path);
+        classUnderTest.extractFaces(sourceFile, targetDir);
+        assertTrue(targetDir.exists());
+        File result = new File(targetDir, "face_face_0.jpg");
+        assertTrue(result.exists());
     }
 }

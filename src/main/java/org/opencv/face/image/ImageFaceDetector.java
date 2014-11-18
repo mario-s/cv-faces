@@ -32,19 +32,59 @@ public class ImageFaceDetector extends AbstractFaceDetector{
     //        "haarcascade_upperbody.xml"
     );
 
+    /**
+     * Returns <code>true</code> when at least one face is found, otherwise
+     * <code>false</code>.
+     * @param imgFile
+     * @return boolean
+     */
     public boolean containsFace(File imgFile) {
         return !findFace(readImage(imgFile)).empty();
     }
 
+    /**
+     * Marks all faces which were found and save the result to a new image.
+     * @param sourceFile image to look for faces
+     * @param targetFile image with the marked faces.
+     */
     public void saveMarkedFaces(File sourceFile, File targetFile) {
         Mat image = readImage(sourceFile);
         MatOfRect faceRect = findFace(image);
         if (!faceRect.empty()) {
             faceRect.toList().forEach((Rect rect) -> {
+                //draw the rectangle
                 Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
             });
             Highgui.imwrite(targetFile.getPath(), image);
         }
+    }
+    
+    /**
+     * Extracts all faces which were found to new image files in the given directory.
+     * @param sourceFile image to look for faces
+     * @param targetDirectory directory to save extracted faces.
+     */
+    public void extractFaces(File sourceFile, File targetDirectory) {
+        Mat image = readImage(sourceFile);
+        MatOfRect faceRect = findFace(image);
+        if (!faceRect.empty()) {
+            int id = 0;
+            for(Rect rect : faceRect.toList()){
+                //extract the face
+                Mat face = image.submat(rect);
+                File targetFile = createFaceFile(sourceFile, id, targetDirectory);
+                Highgui.imwrite(targetFile.getPath(), face);
+                id++;
+            }
+        }
+    }
+
+    private File createFaceFile(File sourceFile, int id, File targetDirectory) {
+        String sourceName = sourceFile.getName();
+        int dotPos = sourceName.lastIndexOf(".");
+        String name = sourceName.substring(0, dotPos) + "_face_" + id + ".jpg";
+        File targetFile = new File(targetDirectory, name);
+        return targetFile;
     }
 
     private Mat readImage(File imgFile) {
