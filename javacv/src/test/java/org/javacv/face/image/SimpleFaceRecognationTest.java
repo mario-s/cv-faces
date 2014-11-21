@@ -4,12 +4,10 @@
  * and open the template in the editor.
  */
 
-package org.opencv.face.image;
+package org.javacv.face.image;
 
-import java.io.File;
 import java.net.URL;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

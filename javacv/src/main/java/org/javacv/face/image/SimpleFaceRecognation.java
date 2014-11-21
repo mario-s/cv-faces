@@ -1,4 +1,4 @@
-package org.opencv.face.image;
+package org.javacv.face.image;
 
 import java.io.File;
 import java.io.FilenameFilter;
