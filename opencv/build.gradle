@@ -1,0 +1,26 @@
+sourceCompatibility = '1.8'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+mainClassName = "org.opencv.face.MainCli"
+
+ext {
+
+    //library path for native dependencies
+    libs = '\\libs\\x'
+    lib = projectDir.path + libs + System.getProperty('sun.arch.data.model')
+    libPath = System.getProperty('java.library.path') + ";" + lib 
+}
+
+dependencies {
+    //opencv dependency
+    compile files ('libs/opencv-249.jar')
+}
+
+test {
+	//lib path for opencv
+    systemProperty "java.library.path", libPath  
+}
+
+run {
+	//lib path for opencv
+    systemProperty "java.library.path", libPath    
+}

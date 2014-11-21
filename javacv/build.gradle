@@ -1,0 +1,7 @@
+dependencies {
+    //JavaCV and more
+    compile group: 'org.bytedeco', name: 'javacv', version: '0.9'
+    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.9-0.9'
+    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.9-0.9', classifier: 'windows-x86_64'
+	
+}
