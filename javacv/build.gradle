@@ -1,3 +1,5 @@
+mainClassName = "org.javacv.face.image.video.CanvasDemo"
+
 dependencies {
     //JavaCV and more
     compile group: 'org.bytedeco', name: 'javacv', version: '0.9'
