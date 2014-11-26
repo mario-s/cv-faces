@@ -1,7 +1,7 @@
 package org.opencv.face;
 
 import org.opencv.core.Core;
-import org.opencv.face.video.javafx.VideoApplication;
+import org.opencv.face.video.swing.VideoWindow;
 
 /**
  *
@@ -16,9 +16,9 @@ public class MainCli {
 //        FileFaceDetector detector = new FileFaceDetector();
 //        detector.containsFace(null);
         
-//         VideoWindow.launch();
+         VideoWindow.launch();
         
-        VideoApplication.main(args);
+//        VideoApplication.main(args);
                
     }
 }
