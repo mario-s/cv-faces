@@ -1,7 +1,6 @@
 package org.javacv.face.image;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import org.bytedeco.javacpp.opencv_contrib.FaceRecognizer;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
@@ -17,8 +16,6 @@ import static org.bytedeco.javacpp.opencv_highgui.*;
 public class FaceRecognition {
 
     private final FaceRecognizer faceRecognizer;
-
-    private int imageType;
 
     public FaceRecognition() {
         faceRecognizer = createEigenFaceRecognizer();

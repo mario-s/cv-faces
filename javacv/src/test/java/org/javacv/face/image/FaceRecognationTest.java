@@ -30,10 +30,8 @@ public class FaceRecognationTest {
      */
     @Test
     public void testPredictGreyScale() {
-        URL resource = getClass().getResource("train/bw");
-        String trainingsPath = resource.getPath();
-        Trainable trainer = new GrayScaleTrainer(trainingsPath);
-        classUnderTest.train(trainer);
+        String path = getClass().getResource("train/bw").getPath();
+        classUnderTest.train(new GrayScaleTrainer(path));
         
         String imgName = getClass().getResource("1_test.jpg").getFile();
         int result = classUnderTest.predictGrayScale(imgName);
