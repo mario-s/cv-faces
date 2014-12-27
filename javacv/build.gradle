@@ -2,8 +2,8 @@ mainClassName = "org.javacv.face.image.video.CanvasDemo"
 
 dependencies {
     //JavaCV and more
-    compile group: 'org.bytedeco', name: 'javacv', version: '0.9'
-    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.9-0.9'
-    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.9-0.9', classifier: 'windows-x86_64'
+    compile group: 'org.bytedeco', name: 'javacv', version: '0.10'
+    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.9-0.10'
+    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.9-0.10', classifier: 'windows-x86_64'
 	
 }
