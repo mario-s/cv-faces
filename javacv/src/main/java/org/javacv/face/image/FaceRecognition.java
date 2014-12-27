@@ -50,14 +50,13 @@ public class FaceRecognition {
         File[] imageFiles = root.listFiles(filter);
         MatVector images = new MatVector(imageFiles.length);
         Mat labels = new Mat(imageFiles.length, 1, CV_32SC1);
-        IntBuffer labelsBuf = labels.getIntBuffer();
         int counter = 0;
 
         for (File image : imageFiles) {
             Mat img = imread(image.getAbsolutePath(), imageType);
             int label = Integer.parseInt(image.getName().split("\\-")[0]);
             images.put(counter, img);
-            labelsBuf.put(counter, label);
+            labels.getIntBuffer().put(counter, label);
             counter++;
         }
 
