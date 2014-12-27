@@ -15,17 +15,17 @@ import static org.bytedeco.javacpp.opencv_highgui.*;
  *
  * @author spindizzy
  */
-public class SimpleFaceRecognation {
+public class FaceRecognition {
 
     private final FaceRecognizer faceRecognizer;
 
     private int imageType;
 
-    public SimpleFaceRecognation(String trainingDir) {
+    public FaceRecognition(String trainingDir) {
         this(CV_LOAD_IMAGE_GRAYSCALE, trainingDir);
     }
 
-    public SimpleFaceRecognation(int imageType, String trainingDir) {
+    public FaceRecognition(int imageType, String trainingDir) {
         this.imageType = imageType;
         faceRecognizer = createEigenFaceRecognizer();
         train(trainingDir);

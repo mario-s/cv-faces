@@ -16,15 +16,15 @@ import static org.junit.Assert.*;
  *
  * @author spindizzy
  */
-public class SimpleFaceRecognationTest {
+public class FaceRecognationTest {
     
-    private SimpleFaceRecognation classUnderTest;
+    private FaceRecognition classUnderTest;
     
     @Before
     public void setUp() {
         URL resource = getClass().getResource("train/bw");
         String trainingsPath = resource.getPath();
-        classUnderTest = new SimpleFaceRecognation(trainingsPath);
+        classUnderTest = new FaceRecognition(trainingsPath);
     }
 
     /**
