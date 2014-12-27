@@ -60,6 +60,10 @@ public class FaceRecognition {
             counter++;
         }
 
+        train(images, labels);
+    }
+
+    public void train(MatVector images, Mat labels) {
         faceRecognizer.train(images, labels);
     }
 
