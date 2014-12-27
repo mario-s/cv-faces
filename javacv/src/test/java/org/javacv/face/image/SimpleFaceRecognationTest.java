@@ -22,7 +22,7 @@ public class SimpleFaceRecognationTest {
     
     @Before
     public void setUp() {
-        URL resource = getClass().getResource("training");
+        URL resource = getClass().getResource("train/bw");
         String trainingsPath = resource.getPath();
         classUnderTest = new SimpleFaceRecognation(trainingsPath);
     }
