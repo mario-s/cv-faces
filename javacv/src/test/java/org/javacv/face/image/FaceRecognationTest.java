@@ -22,26 +22,29 @@ public class FaceRecognationTest {
     
     @Before
     public void setUp() {
-        URL resource = getClass().getResource("train/bw");
-        String trainingsPath = resource.getPath();
-        classUnderTest = new FaceRecognition(trainingsPath);
+        classUnderTest = new FaceRecognition();
     }
 
     /**
      * Test of predict method, of class SimpleFaceRecognation.
      */
     @Test
-    public void testPredict() {
+    public void testPredictGreyScale() {
+        URL resource = getClass().getResource("train/bw");
+        String trainingsPath = resource.getPath();
+        Trainable trainer = new GrayScaleTrainer(trainingsPath);
+        classUnderTest.train(trainer);
+        
         String imgName = getClass().getResource("1_test.jpg").getFile();
-        int result = classUnderTest.predict(imgName);
+        int result = classUnderTest.predictGrayScale(imgName);
         assertEquals(1, result);
         
         imgName = getClass().getResource("2_test.jpg").getFile();
-        result = classUnderTest.predict(imgName);
+        result = classUnderTest.predictGrayScale(imgName);
         assertEquals(2, result);
         
         imgName = getClass().getResource("3_test.jpg").getFile();
-        result = classUnderTest.predict(imgName);
+        result = classUnderTest.predictGrayScale(imgName);
         assertEquals(3, result);
     }
     
