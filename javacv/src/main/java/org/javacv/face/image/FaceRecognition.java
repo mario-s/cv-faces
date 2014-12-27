@@ -21,6 +21,14 @@ public class FaceRecognition {
 
     private int imageType;
 
+    public FaceRecognition() {
+        this(null);
+    }
+
+    public FaceRecognition(int imageType) {
+        this(imageType, null);
+    }
+
     public FaceRecognition(String trainingDir) {
         this(CV_LOAD_IMAGE_GRAYSCALE, trainingDir);
     }
@@ -28,15 +36,18 @@ public class FaceRecognition {
     public FaceRecognition(int imageType, String trainingDir) {
         this.imageType = imageType;
         faceRecognizer = createEigenFaceRecognizer();
-        train(trainingDir);
+
+        if (trainingDir != null) {
+            train(trainingDir);
+        }
     }
 
     private void train(String trainingDir) {
         File root = new File(trainingDir);
 
-        FilenameFilter pngFilter = (File dir, String name) -> name.toLowerCase().endsWith(".jpg");
+        FilenameFilter filter = (File dir, String name) -> name.toLowerCase().endsWith(".jpg");
 
-        File[] imageFiles = root.listFiles(pngFilter);
+        File[] imageFiles = root.listFiles(filter);
         MatVector images = new MatVector(imageFiles.length);
         Mat labels = new Mat(imageFiles.length, 1, CV_32SC1);
         IntBuffer labelsBuf = labels.getIntBuffer();
