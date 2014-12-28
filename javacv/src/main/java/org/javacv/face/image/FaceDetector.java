@@ -6,7 +6,6 @@
 package org.javacv.face.image;
 
 import java.io.File;
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Rect;
@@ -51,8 +50,9 @@ public class FaceDetector {
     public void saveMarkedFaces(ImageProvideable provider, File targetFile) {
         Mat image = provider.provide();
         Rect rect = findFaces(image);
-        if (rect.limit() > 0) {
-            for (int i = 0; i < rect.limit(); i++) {
+        int limit = rect.limit();
+        if (limit > 0) {
+            for (int i = 0; i < limit; i++) {
                 Rect pos = rect.position(i);
                 rectangle(image, pos, color);
             }
