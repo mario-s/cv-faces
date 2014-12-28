@@ -24,10 +24,12 @@ public class FaceDetectorTest {
      */
     @Test
     public void testIsFace() {
+        final ImageProvideable provider = () -> {
+            return read(new File(getClass().getResource("squad.jpg").getPath()));
+        };
 
-        assertTrue(classUnderTest.isFace(() -> {
-            return read(new File(getClass().getResource("face.jpg").getPath()));
-        }));
+        assertTrue(classUnderTest.isFace(provider));
+        assertEquals(28, classUnderTest.countFaces(provider));
         
 //        assertFalse(classUnderTest.isFace(() -> {
 //            return read(new File(getClass().getResource("back.jpg").getPath()));

@@ -25,11 +25,15 @@ public class FaceDetector {
     }
 
     public boolean isFace(ImageProvideable provider) {
+        return countFaces(provider) > 0;
+    }
+    
+    public int countFaces(ImageProvideable provider) {
         final Rect rect = findFaces(provider.provide());
-        return rect.capacity() > 0;
+        return rect.capacity();
     }
 
-    public Rect findFaces(Mat image) {
+    private Rect findFaces(Mat image) {
         Rect rect = new Rect();
         classifier.detectMultiScale(image, rect);
         return rect;

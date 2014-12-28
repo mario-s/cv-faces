@@ -53,6 +53,7 @@ public class ImageFaceDetectorTest {
         assertFalse("expected no human face for back", classUnderTest.containsFace(createFile("back.jpg")));
 
         assertTrue("expected human face", classUnderTest.containsFace(createFile("face.jpg")));
+        assertTrue("expected human face", classUnderTest.containsFace(createFile("squad.jpg")));
     }
 
     @Test
@@ -64,21 +65,21 @@ public class ImageFaceDetectorTest {
 
     @Test
     public void testMarkHumanFace() {
-        File sourceFile = createFile("face.jpg");
+        File sourceFile = createFile("squad.jpg");
         classUnderTest.saveMarkedFaces(sourceFile, targetFile);
         assertTrue(targetFile.exists());
     }
     
     @Test
     public void testExtractFaces() throws IOException {
-        File sourceFile = createFile("face.jpg");
+        File sourceFile = createFile("squad.jpg");
         File targetDir = new File(targetFile.getParentFile(), "extracted");
         Path path = targetDir.toPath();
         Files.deleteIfExists(path);
         Files.createDirectory(path);
         classUnderTest.extractFaces(sourceFile, targetDir);
         assertTrue(targetDir.exists());
-        File result = new File(targetDir, "face_face_0.jpg");
+        File result = new File(targetDir, "squad_face_0.jpg");
         assertTrue(result.exists());
     }
 }
