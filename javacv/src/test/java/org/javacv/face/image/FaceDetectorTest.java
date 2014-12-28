@@ -5,6 +5,7 @@ import static org.javacv.face.image.ImageProvideable.read;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -13,10 +14,17 @@ import static org.junit.Assert.*;
 public class FaceDetectorTest {
 
     private FaceDetector classUnderTest;
+    
+    private File targetFile;
 
     @Before
     public void setUp() {
         classUnderTest = new FaceDetector();
+        
+        targetFile = new File(getClass().getResource(".").getFile(), "out.png");
+        if (targetFile.exists()) {
+            targetFile.delete();
+        }
     }
 
     /**
@@ -24,16 +32,39 @@ public class FaceDetectorTest {
      */
     @Test
     public void testIsFace() {
-        final ImageProvideable provider = () -> {
+
+        assertTrue(classUnderTest.hasFace(() -> {
+            return read(new File(getClass().getResource("face.jpg").getPath()));
+        }));
+
+        ImageProvideable provider = () -> {
             return read(new File(getClass().getResource("squad.jpg").getPath()));
         };
 
-        assertTrue(classUnderTest.isFace(provider));
+        assertTrue(classUnderTest.hasFace(provider));
         assertEquals(28, classUnderTest.countFaces(provider));
-        
-//        assertFalse(classUnderTest.isFace(() -> {
-//            return read(new File(getClass().getResource("back.jpg").getPath()));
-//        }));
+
+        assertFalse(classUnderTest.hasFace(() -> {
+            return read(new File(getClass().getResource("tree.jpg").getPath()));
+        }));
+    }
+
+    @Test
+    public void testSaveMarkedFaces() {
+
+        classUnderTest.saveMarkedFaces(() -> {
+            return read(new File(getClass().getResource("squad.jpg").getPath()));
+        }, targetFile);
+        assertTrue(targetFile.exists());
+    }
+    
+    @Test
+    public void testNoSaveMarkedFaces() {
+
+        classUnderTest.saveMarkedFaces(() -> {
+            return read(new File(getClass().getResource("tree.jpg").getPath()));
+        }, targetFile);
+        assertFalse(targetFile.exists());
     }
 
 }
