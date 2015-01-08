@@ -1,6 +1,7 @@
 package org.javacv.face.image;
 
 import java.io.File;
+import java.io.IOException;
 import static org.javacv.face.image.ImageProvideable.read;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,8 @@ public class FaceDetectorTest {
     private FaceDetector classUnderTest;
     
     private File targetFile;
+    
+    private File targetFolder;
 
     @Before
     public void setUp() {
@@ -24,6 +27,12 @@ public class FaceDetectorTest {
         if (targetFile.exists()) {
             targetFile.delete();
         }
+        
+        targetFolder = new File(targetFile.getParent(), "extracted");
+        if(targetFolder.exists()){
+            targetFolder.delete();
+        }
+        targetFolder.mkdir();
     }
 
     /**
@@ -55,6 +64,15 @@ public class FaceDetectorTest {
             return read(new File(getClass().getResource("squad.jpg").getPath()));
         }, targetFile));
         assertTrue(targetFile.exists());
+    }
+    
+    @Test
+    public void testExtractFaces() {
+
+        assertTrue(classUnderTest.extractFaces(() -> {
+            return read(new File(getClass().getResource("squad.jpg").getPath()));
+        }, targetFolder));
+        assertTrue(targetFolder.exists());
     }
     
     @Test

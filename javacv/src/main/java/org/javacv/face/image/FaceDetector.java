@@ -19,9 +19,9 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
  * @author schroeder
  */
 public class FaceDetector {
-    
+
     private static final String CASCADE_XML = "haarcascade_frontalface_alt_tree.xml";
-    
+
     private final Scalar color;
 
     private final CascadeClassifier classifier;
@@ -42,12 +42,35 @@ public class FaceDetector {
     }
 
     /**
+     * Extracts all faces from the source image and saves it to a new folder.
+     *
+     * @param provider object which provides the image
+     * @param targetFolder folder with extracted images
+     * @return <code>true</code> if any face was extracted and saved in the
+     * folder
+     */
+    public boolean extractFaces(ImageProvideable provider, File targetFolder) {
+        Mat image = provider.provide();
+        Rect rect = findFaces(image);
+        int limit = rect.limit();
+        if (limit > 0) {
+            for (int i = 0; i < limit; i++) {
+                Rect pos = rect.position(i);
+                Mat face = image.apply(pos);
+                String name = i + ".jpg";
+                File f = new File(targetFolder, name);
+                imwrite(f.getPath(), face);
+            }
+        }
+        return limit > 0;
+    }
+
+    /**
      * Marks all faces which were found and save the result to a new image.
      *
      * @param provider object which provides the image
      * @param targetFile file with the marked faces
-     * 
-     * @return <code>true</code> if any face was saved to a new image
+     * @return <code>true</code> if any face was marked and saved to the image
      */
     public boolean saveMarkedFaces(ImageProvideable provider, File targetFile) {
         Mat image = provider.provide();
