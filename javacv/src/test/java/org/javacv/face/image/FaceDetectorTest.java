@@ -5,7 +5,6 @@ import static org.javacv.face.image.ImageProvideable.read;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -52,18 +51,18 @@ public class FaceDetectorTest {
     @Test
     public void testSaveMarkedFaces() {
 
-        classUnderTest.saveMarkedFaces(() -> {
+        assertTrue(classUnderTest.saveMarkedFaces(() -> {
             return read(new File(getClass().getResource("squad.jpg").getPath()));
-        }, targetFile);
+        }, targetFile));
         assertTrue(targetFile.exists());
     }
     
     @Test
     public void testNoSaveMarkedFaces() {
 
-        classUnderTest.saveMarkedFaces(() -> {
+        assertFalse(classUnderTest.saveMarkedFaces(() -> {
             return read(new File(getClass().getResource("tree.jpg").getPath()));
-        }, targetFile);
+        }, targetFile));
         assertFalse(targetFile.exists());
     }
 

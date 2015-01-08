@@ -45,9 +45,11 @@ public class FaceDetector {
      * Marks all faces which were found and save the result to a new image.
      *
      * @param provider object which provides the image
-     * @param targetFile image with the marked faces.
+     * @param targetFile folder with the saved images
+     * 
+     * @return <code>true</code> if any face was saved to a new image
      */
-    public void saveMarkedFaces(ImageProvideable provider, File targetFile) {
+    public boolean saveMarkedFaces(ImageProvideable provider, File targetFile) {
         Mat image = provider.provide();
         Rect rect = findFaces(image);
         int limit = rect.limit();
@@ -58,6 +60,7 @@ public class FaceDetector {
             }
             imwrite(targetFile.getPath(), image);
         }
+        return limit > 0;
     }
 
     private Rect findFaces(Mat image) {
