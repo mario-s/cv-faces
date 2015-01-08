@@ -45,7 +45,7 @@ public class FaceDetector {
      * Marks all faces which were found and save the result to a new image.
      *
      * @param provider object which provides the image
-     * @param targetFile folder with the saved images
+     * @param targetFile file with the marked faces
      * 
      * @return <code>true</code> if any face was saved to a new image
      */
