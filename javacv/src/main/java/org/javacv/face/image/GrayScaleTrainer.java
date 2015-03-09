@@ -13,7 +13,7 @@ public class GrayScaleTrainer extends AbstractTrainer{
     }
     
     @Override
-    protected int getImageType() {
+    public int getImageType() {
         return CV_LOAD_IMAGE_GRAYSCALE;
     }
 }

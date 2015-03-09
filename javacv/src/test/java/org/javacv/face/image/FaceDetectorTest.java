@@ -1,7 +1,6 @@
 package org.javacv.face.image;
 
 import java.io.File;
-import java.io.IOException;
 import static org.javacv.face.image.ImageProvideable.read;
 import org.junit.Before;
 import org.junit.Test;

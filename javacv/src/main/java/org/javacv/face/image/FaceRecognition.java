@@ -15,14 +15,17 @@ import static org.bytedeco.javacpp.opencv_highgui.*;
  */
 public class FaceRecognition {
 
+    private final Trainable trainer;
     private final FaceRecognizer faceRecognizer;
 
-    public FaceRecognition() {
+    public FaceRecognition(Trainable trainer) {
+        this.trainer = trainer;
         faceRecognizer = createEigenFaceRecognizer();
+        train();
     }
 
-    public void train(Trainable trainable) {
-        train(trainable.getParameter());
+    private void train() {
+        train(trainer.getParameter());
     }
     
     private void train(TrainingParameter param) {
@@ -38,8 +41,8 @@ public class FaceRecognition {
         return imread(f.getAbsolutePath(), imageType);
     }
 
-    public int predictGrayScale(String imgName) {
-        return predict(readImage(imgName, CV_LOAD_IMAGE_GRAYSCALE));
+    public int predict(String imgName) {
+        return predict(readImage(imgName, trainer.getImageType()));
     }
     
     private int predict(Mat image) {

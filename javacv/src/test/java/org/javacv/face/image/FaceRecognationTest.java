@@ -18,31 +18,24 @@ import static org.junit.Assert.*;
  */
 public class FaceRecognationTest {
     
-    private FaceRecognition classUnderTest;
-    
-    @Before
-    public void setUp() {
-        classUnderTest = new FaceRecognition();
-    }
-
     /**
      * Test of predict method, of class SimpleFaceRecognation.
      */
     @Test
     public void testPredictGreyScale() {
         String path = getClass().getResource("train/bw").getPath();
-        classUnderTest.train(new GrayScaleTrainer(path));
+        FaceRecognition classUnderTest = new FaceRecognition(new GrayScaleTrainer(path));
         
         String imgName = getClass().getResource("1_test.jpg").getFile();
-        int result = classUnderTest.predictGrayScale(imgName);
+        int result = classUnderTest.predict(imgName);
         assertEquals(1, result);
         
         imgName = getClass().getResource("2_test.jpg").getFile();
-        result = classUnderTest.predictGrayScale(imgName);
+        result = classUnderTest.predict(imgName);
         assertEquals(2, result);
         
         imgName = getClass().getResource("3_test.jpg").getFile();
-        result = classUnderTest.predictGrayScale(imgName);
+        result = classUnderTest.predict(imgName);
         assertEquals(3, result);
     }
     

@@ -47,5 +47,4 @@ abstract class AbstractTrainer implements Trainable{
         return root.listFiles(filter);
     }
 
-    protected abstract int getImageType();
 }
