@@ -1,7 +1,7 @@
 package org.javacv.face.image;
 
 import java.io.File;
-import java.io.FilenameFilter;
+import static java.lang.Integer.parseInt;
 import java.nio.IntBuffer;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 import org.bytedeco.javacpp.opencv_core.Mat;
@@ -13,38 +13,28 @@ import static org.bytedeco.javacpp.opencv_highgui.imread;
  *
  * @author spindizzy
  */
-public class GrayScaleTrainer implements Trainable{
-    
-    public static final String SUFFIX = ".jpg";
-    
-    private final String trainingDir;
+public class GrayScaleTrainer extends AbstractTrainer{
     
     public GrayScaleTrainer(String trainingDir) {
-        this.trainingDir = trainingDir;
+        super(trainingDir);
     }
     
     @Override
     public TrainingParameter getParameter() {
-        File root = new File(trainingDir);
-
-        FilenameFilter filter = (File dir, String name) -> name.toLowerCase().endsWith(SUFFIX);
-
-        File[] imageFiles = root.listFiles(filter);
+        File[] imageFiles = filterImageFiles(JPG);
+        
         MatVector images = new MatVector(imageFiles.length);
         Mat labels = new Mat(imageFiles.length, 1, CV_32SC1);
         IntBuffer buffer = labels.createBuffer();
         int counter = 0;
 
-        for (File image : imageFiles) {
-            Mat img = imread(image.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
-            int label = Integer.parseInt(image.getName().split("\\-")[0]);
+        for (File file : imageFiles) {
+            Mat img = imread(file.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
             images.put(counter, img);
-            buffer.put(counter, label);
+            buffer.put(counter, parseInt(file.getName().split("\\-")[0]));
             counter++;
         }
         
         return new TrainingParameter(images, labels);
     }
-    
-    
 }
