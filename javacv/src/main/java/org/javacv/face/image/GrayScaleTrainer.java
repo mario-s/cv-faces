@@ -25,13 +25,13 @@ public class GrayScaleTrainer extends AbstractTrainer{
         
         MatVector images = new MatVector(imageFiles.length);
         Mat labels = new Mat(imageFiles.length, 1, CV_32SC1);
-        IntBuffer buffer = labels.createBuffer();
+        IntBuffer labelBuffer = labels.createBuffer();
         int counter = 0;
 
         for (File file : imageFiles) {
             Mat img = imread(file.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
             images.put(counter, img);
-            buffer.put(counter, parseInt(file.getName().split("\\-")[0]));
+            labelBuffer.put(counter, parseInt(file.getName().split("\\-")[0]));
             counter++;
         }
         
