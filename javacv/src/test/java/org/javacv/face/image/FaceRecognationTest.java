@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -22,7 +23,7 @@ public class FaceRecognationTest {
      * Test of predict method, of class SimpleFaceRecognation.
      */
     @Test
-    public void testPredictGreyScale() {
+    public void testPredict_GrayScale() {
         String path = getClass().getResource("train/bw").getPath();
         FaceRecognition classUnderTest = new FaceRecognition(new GrayScaleTrainer(path));
         
@@ -39,4 +40,17 @@ public class FaceRecognationTest {
         assertEquals(3, result);
     }
     
+     /**
+     * Test of predict method, of class SimpleFaceRecognation.
+     */
+    @Test
+    @Ignore
+    public void testPredict_Color() {
+        String path = getClass().getResource("train/col").getPath();
+        FaceRecognition classUnderTest = new FaceRecognition(new ColorTrainer(path));
+        
+        String imgName = getClass().getResource("3_salma_test.jpg").getFile();
+        int result = classUnderTest.predict(imgName);
+        assertEquals(3, result);
+    }
 }

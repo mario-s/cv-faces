@@ -27,7 +27,7 @@ public class FaceRecognition {
     private void train() {
         train(trainer.getParameter());
     }
-    
+
     private void train(TrainingParameter param) {
         train(param.getImages(), param.getLabels());
     }
@@ -41,12 +41,12 @@ public class FaceRecognition {
         return imread(f.getAbsolutePath(), imageType);
     }
 
-    public int predict(String imgName) {
-        return predict(readImage(imgName, trainer.getImageType()));
-    }
-    
     private int predict(Mat image) {
         return faceRecognizer.predict(image);
     }
 
+    public int predict(String imgName) {
+        Mat img = readImage(imgName, trainer.getImageType());
+        return predict(img);
+    }
 }
