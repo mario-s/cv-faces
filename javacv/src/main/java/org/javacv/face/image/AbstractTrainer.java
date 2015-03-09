@@ -6,7 +6,8 @@ import static java.lang.Integer.parseInt;
 import java.nio.IntBuffer;
 import org.bytedeco.javacpp.opencv_core;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
-import static org.bytedeco.javacpp.opencv_highgui.CV_LOAD_IMAGE_GRAYSCALE;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.MatVector;
 import static org.bytedeco.javacpp.opencv_highgui.imread;
 
 /**
@@ -25,8 +26,8 @@ abstract class AbstractTrainer implements Trainable{
     public TrainingParameter getParameter() {
         File[] imageFiles = filterImageFiles(JPG);
         
-        opencv_core.MatVector images = new opencv_core.MatVector(imageFiles.length);
-        opencv_core.Mat labels = new opencv_core.Mat(imageFiles.length, 1, CV_32SC1);
+        MatVector images = new MatVector(imageFiles.length);
+        Mat labels = new Mat(imageFiles.length, 1, CV_32SC1);
         IntBuffer labelBuffer = labels.createBuffer();
         int counter = 0;
 
