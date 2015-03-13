@@ -1,24 +1,23 @@
 package org.javacv.face.image;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import static java.lang.Integer.parseInt;
 import java.nio.IntBuffer;
-import org.bytedeco.javacpp.opencv_core;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
+import static org.bytedeco.javacpp.opencv_highgui.CV_LOAD_IMAGE_GRAYSCALE;
 import static org.bytedeco.javacpp.opencv_highgui.imread;
 
 /**
  *
  * @author spindizzy
  */
-abstract class AbstractTrainer implements Trainable{
+public class DefaultTrainer implements Trainable{
     public static final String JPG = ".jpg";
     private final String trainingDir;
 
-    public AbstractTrainer(String trainingDir) {
+    public DefaultTrainer(String trainingDir) {
         this.trainingDir = trainingDir;
     }
     
@@ -32,19 +31,26 @@ abstract class AbstractTrainer implements Trainable{
         int counter = 0;
 
         for (File file : imageFiles) {
-            opencv_core.Mat img = imread(file.getAbsolutePath(), getImageType());
+            Mat img = read(file.getAbsolutePath());
             images.put(counter, img);
-            labelBuffer.put(counter, parseInt(file.getName().split("\\-")[0]));
+            labelBuffer.put(counter, createLabel(file));
             counter++;
         }
         
         return new TrainingParameter(images, labels);
     }
 
+    protected static int createLabel(File file) {
+        return parseInt(file.getName().split("\\-")[0]);
+    }
+
     protected File[] filterImageFiles(String suffix) {
         File root = new File(trainingDir);
-        FilenameFilter filter = (File dir, String name) -> name.toLowerCase().endsWith(suffix);
-        return root.listFiles(filter);
+        return root.listFiles((File dir, String name) -> name.toLowerCase().endsWith(suffix));
+    }
+    
+    private Mat read(String path){
+        return imread(path, CV_LOAD_IMAGE_GRAYSCALE);
     }
 
 }

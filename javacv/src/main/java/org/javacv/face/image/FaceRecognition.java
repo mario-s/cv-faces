@@ -20,7 +20,7 @@ public class FaceRecognition {
 
     public FaceRecognition(Trainable trainer) {
         this.trainer = trainer;
-        faceRecognizer = createEigenFaceRecognizer();
+        faceRecognizer = createEigenFaceRecognizer();//requires grayscale images
         train();
     }
 
