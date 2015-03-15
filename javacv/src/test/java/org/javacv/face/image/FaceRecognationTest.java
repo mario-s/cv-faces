@@ -24,7 +24,7 @@ public class FaceRecognationTest {
      */
     @Test
     public void testPredict_GrayScale() {
-        String path = getClass().getResource("train/bw").getPath();
+        String path = getClass().getResource("train").getPath();
         FaceRecognition classUnderTest = new FaceRecognition(new DefaultTrainer(path));
         
         String imgName = getClass().getResource("1_test.jpg").getFile();
@@ -38,18 +38,10 @@ public class FaceRecognationTest {
         imgName = getClass().getResource("3_test.jpg").getFile();
         result = classUnderTest.predict(imgName);
         assertEquals(3, result);
-    }
-    
-     /**
-     * Test of predict method, of class SimpleFaceRecognation.
-     */
-    @Test
-    public void testPredict_Color() {
-        String path = getClass().getResource("train/col").getPath();
-        FaceRecognition classUnderTest = new FaceRecognition(new DefaultTrainer(path));
         
-        String imgName = getClass().getResource("3_salma_test.jpg").getFile();
-        int result = classUnderTest.predict(imgName);
+        imgName = getClass().getResource("3_salma_test.jpg").getFile();
+        result = classUnderTest.predict(imgName);
         assertEquals(3, result);
     }
+    
 }
