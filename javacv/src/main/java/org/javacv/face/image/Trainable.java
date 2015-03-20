@@ -11,8 +11,5 @@ public interface Trainable {
     
     TrainingParameter getParameter();
     
-    default int getImageType(){
-        return CV_LOAD_IMAGE_GRAYSCALE;
-    }
     
 }

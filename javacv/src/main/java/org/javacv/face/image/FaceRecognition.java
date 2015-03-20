@@ -15,16 +15,17 @@ import static org.bytedeco.javacpp.opencv_highgui.*;
  */
 public class FaceRecognition {
 
-    private final Trainable trainer;
     private final FaceRecognizer faceRecognizer;
 
-    public FaceRecognition(Trainable trainer) {
-        this.trainer = trainer;
-        faceRecognizer = createEigenFaceRecognizer();//requires grayscale images
-        train();
+    public FaceRecognition(RecognizerType type) {
+        if (type == RecognizerType.Fisher) {
+            faceRecognizer = createFisherFaceRecognizer();
+        } else {
+            faceRecognizer = createEigenFaceRecognizer();
+        }
     }
 
-    private void train() {
+    public void train(Trainable trainer) {
         train(trainer.getParameter());
     }
 
@@ -36,9 +37,9 @@ public class FaceRecognition {
         faceRecognizer.train(images, labels);
     }
 
-    private Mat readImage(String imgName, int imageType) {
+    private Mat readImage(String imgName) {
         File f = new File(imgName);
-        return imread(f.getAbsolutePath(), imageType);
+        return ImageReader.Instance.read(f.getAbsolutePath());
     }
 
     private int predict(Mat image) {
@@ -46,7 +47,7 @@ public class FaceRecognition {
     }
 
     public int predict(String imgName) {
-        Mat img = readImage(imgName, trainer.getImageType());
+        Mat img = readImage(imgName);
         return predict(img);
     }
 }

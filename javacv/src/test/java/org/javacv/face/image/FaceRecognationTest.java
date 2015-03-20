@@ -23,9 +23,10 @@ public class FaceRecognationTest {
      * Test of predict method, of class SimpleFaceRecognation.
      */
     @Test
-    public void testPredict_GrayScale() {
+    public void testPredict_EigenFaces() {
+        FaceRecognition classUnderTest = new FaceRecognition(RecognizerType.Eigen);
         String path = getClass().getResource("train").getPath();
-        FaceRecognition classUnderTest = new FaceRecognition(new DefaultTrainer(path));
+        classUnderTest.train(new DefaultTrainer(path));
         
         String imgName = getClass().getResource("1_test.jpg").getFile();
         int result = classUnderTest.predict(imgName);

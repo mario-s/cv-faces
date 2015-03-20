@@ -31,7 +31,7 @@ public class DefaultTrainer implements Trainable{
         int counter = 0;
 
         for (File file : imageFiles) {
-            Mat img = read(file.getAbsolutePath());
+            Mat img = ImageReader.Instance.read(file.getAbsolutePath());
             images.put(counter, img);
             labelBuffer.put(counter, createLabel(file));
             counter++;
@@ -49,8 +49,4 @@ public class DefaultTrainer implements Trainable{
         return root.listFiles((File dir, String name) -> name.toLowerCase().endsWith(suffix));
     }
     
-    private Mat read(String path){
-        return imread(path, CV_LOAD_IMAGE_GRAYSCALE);
-    }
-
 }
