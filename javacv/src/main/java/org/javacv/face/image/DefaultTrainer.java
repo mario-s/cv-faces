@@ -40,8 +40,8 @@ public class DefaultTrainer implements Trainable{
         return new TrainingParameter(images, labels);
     }
 
-    protected static int createLabel(File file) {
-        return parseInt(file.getName().split("\\-")[0]);
+    protected int createLabel(File file) {
+        return parseInt(file.getName().split("\\-")[1]);
     }
 
     protected File[] filterImageFiles(String suffix) {
