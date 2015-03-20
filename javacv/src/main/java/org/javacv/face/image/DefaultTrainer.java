@@ -6,8 +6,6 @@ import java.nio.IntBuffer;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
-import static org.bytedeco.javacpp.opencv_highgui.CV_LOAD_IMAGE_GRAYSCALE;
-import static org.bytedeco.javacpp.opencv_highgui.imread;
 
 /**
  *
