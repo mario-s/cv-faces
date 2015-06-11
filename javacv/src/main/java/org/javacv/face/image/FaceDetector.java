@@ -6,8 +6,11 @@
 package org.javacv.face.image;
 
 import java.io.File;
+import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.CvScalar;
+import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Point;
 import org.bytedeco.javacpp.opencv_core.Rect;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import static org.bytedeco.javacpp.opencv_core.rectangle;
@@ -55,14 +58,22 @@ public class FaceDetector {
         int limit = rect.limit();
         if (limit > 0) {
             for (int i = 0; i < limit; i++) {
-                Rect pos = rect.position(i);
-                Mat face = image.apply(pos);
-                String name = i + ".jpg";
-                File f = new File(targetFolder, name);
-                imwrite(f.getPath(), face);
+                Mat face = extractFace(rect, i, image);
+                saveFace(targetFolder, face, i);
             }
         }
         return limit > 0;
+    }
+
+    private Mat extractFace(Rect rect, int position, Mat image) {
+        Rect pos = rect.position(position);
+        return image.apply(pos);
+    }
+
+    private void saveFace(File targetFolder, Mat face, int position) {
+        String name = position + ".jpg";
+        File f = new File(targetFolder, name);
+        imwrite(f.getPath(), face);
     }
 
     /**
@@ -74,6 +85,24 @@ public class FaceDetector {
      */
     public boolean saveMarkedFaces(ImageProvideable provider, File targetFile) {
         Mat image = provider.provide();
+        int limit = markFaces(image);
+        if (limit > 0) {
+            imwrite(targetFile.getPath(), image);
+        }
+        return limit > 0;
+    }
+    
+    public int markFaces(IplImage img){
+        return markFaces(new Mat(img));
+    }
+
+    /**
+     * Marks the faces on the image.
+     *
+     * @param image
+     * @return number of detected faces.
+     */
+    public int markFaces(Mat image) {
         Rect rect = findFaces(image);
         int limit = rect.limit();
         if (limit > 0) {
@@ -81,9 +110,8 @@ public class FaceDetector {
                 Rect pos = rect.position(i);
                 rectangle(image, pos, color);
             }
-            imwrite(targetFile.getPath(), image);
         }
-        return limit > 0;
+        return limit;
     }
 
     private Rect findFaces(Mat image) {
