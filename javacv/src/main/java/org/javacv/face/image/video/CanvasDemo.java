@@ -1,10 +1,9 @@
 package org.javacv.face.image.video;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.IplImage;
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_highgui;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
@@ -17,43 +16,68 @@ import org.slf4j.LoggerFactory;
  * @author spindizzy
  */
 public class CanvasDemo {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CanvasDemo.class);
-    
-    private void run() {
+
+    private final FrameGrabber grabber;
+
+    private final CanvasFrame canvas;
+
+    private boolean run = true;
+
+    public CanvasDemo() {
+        grabber = new OpenCVFrameGrabber(0);
+
         //Create canvas frame for displaying video.
-        CanvasFrame canvas = new CanvasFrame("VideoCanvas");        
-        
+        canvas = new CanvasFrame("VideoCanvas");
+
         canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        FrameGrabber grabber = new OpenCVFrameGrabber(0);
-        
-        FaceDetector detector = new FaceDetector();
-        
-        try {
+        canvas.addWindowListener(new WindowAdapter() {
 
+            @Override
+            public void windowClosing(WindowEvent e) {
+                run = false;
+                try {
+                    grabber.release();
+                } catch (FrameGrabber.Exception ex) {
+                    LOG.warn(ex.getMessage(), ex);
+                }
+            }
+
+        });
+    }
+
+    private void run() {
+        boolean sizeAdjusted = false;
+        FaceDetector detector = new FaceDetector();
+
+        try {
             //Start grabber to capture video
             grabber.start();
 
-            while (true) {
+            while (run) {
 
-                //inser grabed video fram to IplImage img
+                if (!sizeAdjusted) {
+                    //Set canvas size as per dimentions of video frame.
+                    canvas.setCanvasSize(grabber.getImageWidth(), grabber.getImageHeight());
+                }
+
+                //insert grabed video fram to IplImage img
                 IplImage img = grabber.grab();
-                
-                //Set canvas size as per dimentions of video frame.
-                canvas.setCanvasSize(grabber.getImageWidth(), grabber.getImageHeight());                
-                
+
                 if (img != null) {
+                    sizeAdjusted = true;
                     //Show video frame in canvas
                     detector.markFaces(img);
-                    canvas.showImage(img);                    
+                    canvas.showImage(img);
                 }
             }
-        } catch (Exception e) {            
+        } catch (Exception e) {
             LOG.warn(e.getMessage(), e);
         }
     }
-    
+
     public static void main(String[] args) {
         CanvasDemo demo = new CanvasDemo();
         demo.run();
