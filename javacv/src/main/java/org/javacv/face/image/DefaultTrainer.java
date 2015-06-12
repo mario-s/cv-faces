@@ -29,7 +29,7 @@ public class DefaultTrainer implements Trainable{
         int counter = 0;
 
         for (File file : imageFiles) {
-            Mat img = ImageReader.Instance.read(file.getAbsolutePath());
+            Mat img = ImageUtility.Instance.read(file.getAbsolutePath());
             images.put(counter, img);
             labelBuffer.put(counter, createLabel(file));
             counter++;

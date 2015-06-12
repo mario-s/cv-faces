@@ -7,12 +7,16 @@ import org.bytedeco.javacpp.opencv_core.MatVector;
 
 import static org.bytedeco.javacpp.opencv_contrib.*;
 import static org.bytedeco.javacpp.opencv_core.*;
+import org.bytedeco.javacpp.opencv_imgproc;
+
 
 /**
  *
  * @author spindizzy
  */
 public class FaceRecognition implements FaceRecognitionable{
+    
+    private Size trainingImageSize;
 
     private final FaceRecognizer faceRecognizer;
 
@@ -35,16 +39,26 @@ public class FaceRecognition implements FaceRecognitionable{
 
     private void train(MatVector images, Mat labels) {
         faceRecognizer.train(images, labels);
+        trainingImageSize = images.get(0L).size();
     }
 
     private Mat readImage(String imgName) {
         File f = new File(imgName);
-        return ImageReader.Instance.read(f.getAbsolutePath());
+        return ImageUtility.Instance.read(f.getAbsolutePath());
     }
 
     @Override
     public int predict(Mat image) {
-        return faceRecognizer.predict(image);
+        Mat target = resizeImage(image);
+        return faceRecognizer.predict(target);
+    }
+
+    private Mat resizeImage(Mat image) {
+        Mat target = image;
+        if(!image.size().equals(trainingImageSize)){
+            target = ImageUtility.Instance.resize(image, trainingImageSize);
+        }
+        return target;
     }
 
     public int predict(String imgName) {
