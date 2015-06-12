@@ -8,6 +8,8 @@ import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 import org.javacv.face.image.FaceDetector;
+import org.javacv.face.image.FaceRecognition;
+import org.javacv.face.image.RecognizerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,13 +22,19 @@ public class CanvasDemo {
     private static final Logger LOG = LoggerFactory.getLogger(CanvasDemo.class);
 
     private final FrameGrabber grabber;
+    
+    private final FaceDetector detector;
+    
+    private final FaceRecognition recognition;
 
     private final CanvasFrame canvas;
 
     private boolean run = true;
-
+    
     public CanvasDemo() {
         grabber = new OpenCVFrameGrabber(0);
+        detector = new FaceDetector();
+        recognition = new FaceRecognition(RecognizerType.Fisher);
 
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("VideoCanvas");
@@ -50,7 +58,6 @@ public class CanvasDemo {
 
     private void run() {
         boolean sizeAdjusted = false;
-        FaceDetector detector = new FaceDetector();
 
         try {
             //Start grabber to capture video
@@ -63,13 +70,17 @@ public class CanvasDemo {
                     canvas.setCanvasSize(grabber.getImageWidth(), grabber.getImageHeight());
                 }
 
-                //insert grabed video fram to IplImage img
+                //insert grabed video frame to IplImage img
                 IplImage img = grabber.grab();
 
                 if (img != null) {
                     sizeAdjusted = true;
                     //Show video frame in canvas
-                    detector.markFaces(img);
+                    int faces = detector.markFaces(img);
+                    if(faces > 0){
+                        //TODO recognition
+                    }
+                    
                     canvas.showImage(img);
                 }
             }
