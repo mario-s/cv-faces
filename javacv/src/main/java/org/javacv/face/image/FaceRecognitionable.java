@@ -9,5 +9,7 @@ import org.bytedeco.javacpp.opencv_core;
 public interface FaceRecognitionable {
 
     int predict(opencv_core.Mat image);
+
+    void train(Trainable trainer);
     
 }

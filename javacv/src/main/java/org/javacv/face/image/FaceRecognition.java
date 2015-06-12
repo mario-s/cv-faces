@@ -24,6 +24,7 @@ public class FaceRecognition implements FaceRecognitionable{
         }
     }
 
+    @Override
     public void train(Trainable trainer) {
         train(trainer.getParameter());
     }

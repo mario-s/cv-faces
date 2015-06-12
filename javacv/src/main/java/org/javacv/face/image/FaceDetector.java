@@ -6,14 +6,17 @@
 package org.javacv.face.image;
 
 import java.io.File;
-import org.bytedeco.javacpp.opencv_core;
+import java.util.Optional;
+import static java.util.Optional.ofNullable;
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Point;
 import org.bytedeco.javacpp.opencv_core.Rect;
 import org.bytedeco.javacpp.opencv_core.Scalar;
+import static org.bytedeco.javacpp.opencv_core.putText;
 import static org.bytedeco.javacpp.opencv_core.rectangle;
+import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
 import static org.bytedeco.javacpp.opencv_highgui.imwrite;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 
@@ -28,9 +31,16 @@ public class FaceDetector {
     private final Scalar color;
 
     private final CascadeClassifier classifier;
-
+    
+    private Optional<FaceRecognitionable> recogOpt;
+    
     public FaceDetector() {
-        color = new Scalar(CvScalar.GREEN);
+        this(null);
+    }
+
+    public FaceDetector(FaceRecognitionable recognitionable) {
+        this.recogOpt = ofNullable(recognitionable);
+        this.color = new Scalar(CvScalar.GREEN);
         File file = new File(getClass().getResource(CASCADE_XML).getPath());
         this.classifier = new CascadeClassifier(file.getAbsolutePath());
     }
@@ -109,9 +119,19 @@ public class FaceDetector {
             for (int i = 0; i < limit; i++) {
                 Rect pos = rect.position(i);
                 rectangle(image, pos, color);
+                predict(image, pos);
             }
         }
         return limit;
+    }
+
+    private void predict(Mat image, Rect pos) {
+        if(recogOpt.isPresent()){
+            Mat face = image.apply(pos);
+            int lbl = recogOpt.get().predict(face);
+            Point point = new Point(pos.x(), pos.y());
+            putText(image, Integer.toString(lbl), point, CV_FONT_NORMAL, 1, color);
+        }
     }
 
     private Rect findFaces(Mat image) {

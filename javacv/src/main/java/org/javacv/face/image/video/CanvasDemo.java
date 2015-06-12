@@ -9,6 +9,7 @@ import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 import org.javacv.face.image.FaceDetector;
 import org.javacv.face.image.FaceRecognition;
+import org.javacv.face.image.GenderTrainer;
 import org.javacv.face.image.RecognizerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +26,18 @@ public class CanvasDemo {
     
     private final FaceDetector detector;
     
-    private final FaceRecognition recognition;
-
     private final CanvasFrame canvas;
 
     private boolean run = true;
     
     public CanvasDemo() {
         grabber = new OpenCVFrameGrabber(0);
+        
+        FaceRecognition recognition = new FaceRecognition(RecognizerType.Fisher);
+        String trainingPath = getClass().getResource("../train").getPath();
+        recognition.train(new GenderTrainer(trainingPath));
+        
         detector = new FaceDetector();
-        recognition = new FaceRecognition(RecognizerType.Fisher);
 
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("VideoCanvas");
@@ -76,11 +79,7 @@ public class CanvasDemo {
                 if (img != null) {
                     sizeAdjusted = true;
                     //Show video frame in canvas
-                    int faces = detector.markFaces(img);
-                    if(faces > 0){
-                        //TODO recognition
-                    }
-                    
+                    detector.markFaces(img);
                     canvas.showImage(img);
                 }
             }
