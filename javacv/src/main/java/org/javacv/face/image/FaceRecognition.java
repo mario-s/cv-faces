@@ -12,7 +12,7 @@ import static org.bytedeco.javacpp.opencv_core.*;
  *
  * @author spindizzy
  */
-public class FaceRecognition {
+public class FaceRecognition implements FaceRecognitionable{
 
     private final FaceRecognizer faceRecognizer;
 
@@ -41,7 +41,8 @@ public class FaceRecognition {
         return ImageReader.Instance.read(f.getAbsolutePath());
     }
 
-    private int predict(Mat image) {
+    @Override
+    public int predict(Mat image) {
         return faceRecognizer.predict(image);
     }
 
