@@ -8,9 +8,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.highgui.Highgui;
 
 import static org.junit.Assert.*;
+import static org.opencv.imgcodecs.Imgcodecs.imread;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ImageConverterTest {
     public void setUp() {
         File file = new File(getClass().getResource("../horses.jpg").getFile());
         String path = file.getPath();
-        matrix = Highgui.imread(path);
+        matrix = imread(path);
     }
 
     /**

@@ -1,12 +1,12 @@
 package org.opencv.face.video;
 
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.face.AbstractFaceDetector;
 import org.opencv.face.ClassifierFactory;
+import static org.opencv.imgproc.Imgproc.rectangle;
 import org.opencv.objdetect.CascadeClassifier;
 
 /**
@@ -27,7 +27,7 @@ public class FaceDetector extends AbstractFaceDetector {
         MatOfRect faceRect = findFaces(image);
         if (!faceRect.empty()) {
             faceRect.toList().forEach((Rect rect) -> {
-                Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
+                rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
             });
         }
     }

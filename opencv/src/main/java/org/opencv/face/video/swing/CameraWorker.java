@@ -4,7 +4,7 @@ import org.opencv.face.video.FaceDetector;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import org.opencv.core.Mat;
-import org.opencv.highgui.VideoCapture;
+import org.opencv.videoio.VideoCapture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

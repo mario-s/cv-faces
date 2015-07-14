@@ -6,7 +6,7 @@ import java.io.ByteArrayInputStream;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
-import org.opencv.highgui.Highgui;
+import static org.opencv.imgcodecs.Imgcodecs.imencode;
 
 /**
  *
@@ -37,7 +37,7 @@ public final class ImageConverter {
 
     public static Image toJavaFXImage(Mat matrix) {
         MatOfByte mem = new MatOfByte();
-        Highgui.imencode(".png", matrix, mem);
+        imencode(".png", matrix, mem);
         return new Image(new ByteArrayInputStream(mem.toArray()));
     }
 

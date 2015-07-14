@@ -3,17 +3,18 @@ package org.opencv.face.image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.face.AbstractFaceDetector;
 import org.opencv.face.ClassifierFactory;
-import org.opencv.highgui.Highgui;
 import org.opencv.objdetect.CascadeClassifier;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.opencv.imgcodecs.Imgcodecs.imread;
+import static org.opencv.imgcodecs.Imgcodecs.imwrite;
+import static org.opencv.imgproc.Imgproc.rectangle;
 
 /**
  *
@@ -59,9 +60,9 @@ public class ImageFaceDetector extends AbstractFaceDetector {
         if (!faceRect.empty()) {
             faceRect.toList().forEach((Rect rect) -> {
                 //draw the rectangle
-                Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
+                rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), COLOR);
             });
-            Highgui.imwrite(targetFile.getPath(), image);
+            imwrite(targetFile.getPath(), image);
         }
     }
 
@@ -77,7 +78,7 @@ public class ImageFaceDetector extends AbstractFaceDetector {
         int id = 0;
         for (Mat face : faces) {
             File targetFile = createFaceFile(sourceFile, id, targetDirectory);
-            Highgui.imwrite(targetFile.getPath(), face);
+            imwrite(targetFile.getPath(), face);
             id++;
         }
     }
@@ -93,7 +94,7 @@ public class ImageFaceDetector extends AbstractFaceDetector {
         Mat image = new Mat();
         if (imgFile != null && imgFile.exists() && imgFile.canRead()) {
             String path = imgFile.getPath();
-            image = Highgui.imread(path);
+            image = imread(path);
         }
         return image;
     }

@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 import org.opencv.face.video.FaceDetector;
 import org.opencv.face.video.ImageConverter;
-import org.opencv.highgui.VideoCapture;
+import org.opencv.videoio.VideoCapture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
