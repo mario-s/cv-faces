@@ -1,2 +1,2 @@
 include 'opencv', 'javacv'
-rootProject.name = 'cv-faces'
+rootProject.name = 'cv'
