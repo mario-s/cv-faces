@@ -16,6 +16,7 @@ import static org.opencv.imgcodecs.Imgcodecs.imread;
 import static org.opencv.imgcodecs.Imgcodecs.imwrite;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
+
 /**
  *
  * @author spindizzy
@@ -90,14 +91,7 @@ public class ImageFaceDetector extends AbstractFaceDetector {
         return new File(targetDirectory, name);
     }
 
-    private Mat readImage(File imgFile) {
-        Mat image = new Mat();
-        if (imgFile != null && imgFile.exists() && imgFile.canRead()) {
-            String path = imgFile.getPath();
-            image = imread(path);
-        }
-        return image;
-    }
+    
 
     /**
      * Extracts all faces from the given image.
@@ -136,6 +130,15 @@ public class ImageFaceDetector extends AbstractFaceDetector {
         }
 
         return faceRect;
+    }
+    
+    private static Mat readImage(File imgFile) {
+        Mat image = new Mat();
+        if (imgFile != null && imgFile.exists() && imgFile.canRead()) {
+            String path = imgFile.getPath();
+            image = imread(path);
+        }
+        return image;
     }
 
 }
