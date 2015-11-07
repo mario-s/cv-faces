@@ -47,7 +47,9 @@ public class FaceRecognition implements FaceRecognitionable{
     }
     
     public int predict(IplImage img) {
-        return predict(new Mat(img));
+        Mat target = resizeImage(new Mat(img));
+        target = ImageUtility.Instance.toGrayscale(target);
+        return faceRecognizer.predict(target);
     }
 
     @Override
