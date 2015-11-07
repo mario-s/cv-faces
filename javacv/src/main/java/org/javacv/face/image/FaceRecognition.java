@@ -7,7 +7,6 @@ import org.bytedeco.javacpp.opencv_core.MatVector;
 
 import static org.bytedeco.javacpp.opencv_contrib.*;
 import static org.bytedeco.javacpp.opencv_core.*;
-import org.bytedeco.javacpp.opencv_imgproc;
 
 
 /**
