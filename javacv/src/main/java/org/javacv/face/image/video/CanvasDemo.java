@@ -2,6 +2,8 @@ package org.javacv.face.image.video;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.CanvasFrame;
@@ -22,74 +24,42 @@ public class CanvasDemo {
 
     private static final Logger LOG = LoggerFactory.getLogger(CanvasDemo.class);
 
-    private final FrameGrabber grabber;
-    
-    private final FaceDetector detector;
-    
     private final FaceRecognition recognition;
     
     private final CanvasFrame canvas;
-
-    private boolean run = true;
     
+    private final ExecutorService executorService;
+    
+    private final DetectorService detectorService;
+
     public CanvasDemo() {
-        grabber = new OpenCVFrameGrabber(0);
         
         recognition = new FaceRecognition(RecognizerType.Fisher);
         String trainingPath = getClass().getResource("../train").getPath();
         recognition.train(new GenderTrainer(trainingPath));
         
-        detector = new FaceDetector();
-        
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("VideoCanvas");
 
         canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        canvas.setCanvasSize(200, 200);
 
         canvas.addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                run = false;
-                try {
-                    grabber.release();
-                } catch (FrameGrabber.Exception ex) {
-                    LOG.warn(ex.getMessage(), ex);
-                }
+                detectorService.stop();
+                executorService.shutdown();
             }
 
         });
+        
+        detectorService = new DetectorService(canvas, recognition);
+        executorService = Executors.newFixedThreadPool(3);
     }
 
     private void run() {
-        boolean sizeAdjusted = false;
-
-        try {
-            //Start grabber to capture video
-            grabber.start();
-
-            while (run) {
-
-                if (!sizeAdjusted) {
-                    //Set canvas size as per dimentions of video frame.
-                    canvas.setCanvasSize(grabber.getImageWidth(), grabber.getImageHeight());
-                }
-
-                //insert grabed video frame to IplImage img
-                IplImage img = grabber.grab();
-
-                if (img != null) {
-                    sizeAdjusted = true;
-                    int gender = recognition.predict(img);
-                    System.out.println(gender);
-                    //Show video frame in canvas
-                    detector.markFaces(img);
-                    canvas.showImage(img);
-                }
-            }
-        } catch (Exception e) {
-            LOG.warn(e.getMessage(), e);
-        }
+        executorService.execute(detectorService);
     }
 
     public static void main(String[] args) {
