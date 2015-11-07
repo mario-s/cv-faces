@@ -80,6 +80,8 @@ public class CanvasDemo {
 
                 if (img != null) {
                     sizeAdjusted = true;
+                    int gender = recognition.predict(img);
+                    System.out.println(gender);
                     //Show video frame in canvas
                     detector.markFaces(img);
                     canvas.showImage(img);
