@@ -5,6 +5,7 @@ import org.bytedeco.javacpp.opencv_core.Size;
 import static org.bytedeco.javacpp.opencv_highgui.CV_LOAD_IMAGE_GRAYSCALE;
 import static org.bytedeco.javacpp.opencv_highgui.imread;
 import org.bytedeco.javacpp.opencv_imgproc;
+import static org.bytedeco.javacpp.opencv_imgproc.CV_RGB2GRAY;
 
 /**
  * Provides methods usefull, when dealing with images.
@@ -22,6 +23,12 @@ enum ImageUtility {
     Mat resize(Mat src, Size size) {
         Mat target = new Mat();
         opencv_imgproc.resize(src, target, size);
+        return target;
+    }
+    
+    Mat toGrayscale(Mat src) {
+        Mat target = new Mat();
+        opencv_imgproc.cvtColor(src, target, CV_RGB2GRAY);
         return target;
     }
 }
