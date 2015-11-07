@@ -26,6 +26,8 @@ public class CanvasDemo {
     
     private final FaceDetector detector;
     
+    private final FaceRecognition recognition;
+    
     private final CanvasFrame canvas;
 
     private boolean run = true;
@@ -33,12 +35,12 @@ public class CanvasDemo {
     public CanvasDemo() {
         grabber = new OpenCVFrameGrabber(0);
         
-        FaceRecognition recognition = new FaceRecognition(RecognizerType.Fisher);
+        recognition = new FaceRecognition(RecognizerType.Fisher);
         String trainingPath = getClass().getResource("../train").getPath();
         recognition.train(new GenderTrainer(trainingPath));
         
         detector = new FaceDetector();
-
+        
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("VideoCanvas");
 

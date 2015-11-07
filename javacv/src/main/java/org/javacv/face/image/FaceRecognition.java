@@ -45,6 +45,10 @@ public class FaceRecognition implements FaceRecognitionable{
         File f = new File(imgName);
         return ImageUtility.Instance.read(f.getAbsolutePath());
     }
+    
+    public int predict(IplImage img) {
+        return predict(new Mat(img));
+    }
 
     @Override
     public int predict(Mat image) {
