@@ -2,6 +2,7 @@ package org.opencv.hdr;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,14 +18,14 @@ import org.opencv.photo.Photo;
 /**
  * This class loads images with different EL creates a HDR image and saves it as a LDR image.
  */
-public class HdrProcessor {
+public class MertensProcessor {
 
-    public boolean create(Map<String, Double> picsEv, File out) {
+    public boolean create(Collection<String> pics, File out) {
         boolean val = false;
 
-        if (!picsEv.isEmpty()) {
+        if (!pics.isEmpty()) {
             
-            List<Mat> images = loadImages(picsEv.keySet());
+            List<Mat> images = loadImages(pics);
             
             Mat fusion = new Mat();
             MergeMertens mergeMertens = Photo.createMergeMertens();
@@ -45,7 +46,7 @@ public class HdrProcessor {
         Imgcodecs.imwrite(out.getPath(), result);
     }
 
-    private List<Mat> loadImages(Set<String> pics) {
+    private List<Mat> loadImages(Collection<String> pics) {
         List<Mat> imgs = new ArrayList<>();
         
         pics.forEach(e -> {
