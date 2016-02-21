@@ -32,14 +32,14 @@ public class FaceDetector {
 
     private final CascadeClassifier classifier;
     
-    private Optional<FaceRecognitionable> recogOpt;
+    private Optional<FaceRecognitionable> faceRecognator;
     
     public FaceDetector() {
         this(null);
     }
 
     public FaceDetector(FaceRecognitionable recognitionable) {
-        this.recogOpt = ofNullable(recognitionable);
+        this.faceRecognator = ofNullable(recognitionable);
         this.color = new Scalar(CvScalar.GREEN);
         File file = new File(getClass().getResource(CASCADE_XML).getPath());
         this.classifier = new CascadeClassifier(file.getAbsolutePath());
@@ -126,10 +126,10 @@ public class FaceDetector {
     }
 
     private void predict(Mat image, Rect pos) {
-        if(recogOpt.isPresent()){
+        if(faceRecognator.isPresent()){
             Mat face = image.apply(pos);
             face = ImageUtility.Instance.toGrayscale(face);
-            int lbl = recogOpt.get().predict(face);
+            int lbl = faceRecognator.get().predict(face);
             Point point = new Point(pos.x(), pos.y() - 3);
             putText(image, Integer.toString(lbl), point, CV_FONT_NORMAL, 0.5, color);
         }
