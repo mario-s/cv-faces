@@ -129,10 +129,19 @@ public class FaceDetector {
         if(faceRecognator.isPresent()){
             Mat face = image.apply(pos);
             face = ImageUtility.Instance.toGrayscale(face);
-            int lbl = faceRecognator.get().predict(face);
+            String lbl = getLabel(face);
             Point point = new Point(pos.x(), pos.y() - 3);
-            putText(image, Integer.toString(lbl), point, CV_FONT_NORMAL, 0.5, color);
+            putText(image, lbl, point, CV_FONT_NORMAL, 0.5, color);
         }
+    }
+
+    private String getLabel(Mat face) {
+        String val = "female";
+        int lbl = faceRecognator.get().predict(face);
+        if(lbl == 1){
+            val = "male";
+        }
+        return val;
     }
 
     private Rect findFaces(Mat image) {
