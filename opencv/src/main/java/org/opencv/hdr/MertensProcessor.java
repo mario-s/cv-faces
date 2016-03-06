@@ -12,11 +12,15 @@ import static org.opencv.imgcodecs.Imgcodecs.imread;
 import org.opencv.photo.MergeMertens;
 
 import org.opencv.photo.Photo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class loads images with different EL creates a HDR image and saves it as a LDR image.
  */
 public class MertensProcessor {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(MertensProcessor.class);
 
     public boolean create(Collection<String> pics, File out) {
         boolean val = false;
@@ -25,11 +29,15 @@ public class MertensProcessor {
             
             List<Mat> images = loadImages(pics);
             
+            LOG.debug("number of images to merge: {}", images.size());
+            
             Mat fusion = new Mat();
             MergeMertens mergeMertens = Photo.createMergeMertens();
             mergeMertens.process(images, fusion);
 
             write(fusion, out);
+            
+            LOG.debug("merged images into: {}", out);
 
             val = true;
         }

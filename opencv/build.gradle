@@ -1,4 +1,4 @@
-mainClassName = "org.opencv.face.MainCli"
+mainClassName = "org.opencv.Gui"
 
 ext {
 
