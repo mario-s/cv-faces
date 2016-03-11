@@ -17,7 +17,7 @@ public class Gui extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = getParent();
-        Scene scene = new Scene(root, 400, 200);
+        Scene scene = new Scene(root, 300, 180);
 
         stage.setTitle("OpenCV");
         stage.setScene(scene);
