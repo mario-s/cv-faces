@@ -1,4 +1,5 @@
 .gradle
 build/
 /.nb-gradle/private/
-/MapTest/nbproject/private/
+.iml
+.idea

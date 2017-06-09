@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cv.iml" filepath="$PROJECT_DIR$/.idea/modules/cv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cv_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cv_main.iml" group="cv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cv_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cv_test.iml" group="cv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javacv/javacv.iml" filepath="$PROJECT_DIR$/.idea/modules/javacv/javacv.iml" group="javacv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javacv/javacv_main.iml" filepath="$PROJECT_DIR$/.idea/modules/javacv/javacv_main.iml" group="javacv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javacv/javacv_test.iml" filepath="$PROJECT_DIR$/.idea/modules/javacv/javacv_test.iml" group="javacv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opencv/opencv.iml" filepath="$PROJECT_DIR$/.idea/modules/opencv/opencv.iml" group="opencv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opencv/opencv_main.iml" filepath="$PROJECT_DIR$/.idea/modules/opencv/opencv_main.iml" group="opencv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opencv/opencv_test.iml" filepath="$PROJECT_DIR$/.idea/modules/opencv/opencv_test.iml" group="opencv" />
+    </modules>
+  </component>
+</project>
