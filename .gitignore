@@ -1,5 +1,5 @@
 .gradle
 build/
 /.nb-gradle/private/
-.iml
+*.iml
 .idea
