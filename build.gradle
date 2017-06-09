@@ -34,6 +34,6 @@ allprojects {
     }
 
     wrapper {
-        gradleVersion = '3.5.0'
+        gradleVersion = '3.5'
     }
 }
