@@ -10,7 +10,7 @@ ext {
 
 dependencies {
     //opencv dependency
-    compile files ('libs/opencv-300.jar')
+    compile files ('libs/opencv-320.jar')
 }
 
 test {
