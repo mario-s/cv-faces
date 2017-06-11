@@ -1,10 +1,22 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 mainClassName = "org.opencv.Gui"
 
 ext {
+    os = ""
+    [Os.FAMILY_WINDOWS, Os.FAMILY_MAC].each { osName ->
+        if (Os.isFamily(osName)) {
+            os = osName
+        }
+    }
+    if(os.isEmpty()){
+        throw new UnsupportedOperationException("OS is not supported")
+    }
 
     //library path for native dependencies
-    libs = '\\libs\\x'
-    lib = projectDir.path + libs + System.getProperty('sun.arch.data.model')
+    libs = '/libs/'+os+'/x'
+    arch = System.getProperty('sun.arch.data.model')
+    lib = projectDir.path + libs + arch
     libPath = System.getProperty('java.library.path') + ";" + lib 
 }
 

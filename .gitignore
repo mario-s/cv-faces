@@ -5,3 +5,4 @@ build/
 .idea
 gradle-app.setting
 hs_err*.log
+.DS_Store
