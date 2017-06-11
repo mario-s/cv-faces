@@ -17,7 +17,8 @@ ext {
     libs = '/libs/'+os+'/x'
     arch = System.getProperty('sun.arch.data.model')
     lib = projectDir.path + libs + arch
-    libPath = System.getProperty('java.library.path') + ";" + lib 
+    sep = (os.equals(Os.FAMILY_MAC)) ? ":" : ";"
+    libPath = System.getProperty('java.library.path') + sep + lib 
 }
 
 dependencies {
@@ -33,4 +34,9 @@ test {
 run {
 	//lib path for opencv
     systemProperty "java.library.path", libPath    
+}
+
+task lib {
+    println System.getProperty('java.library.path')
+    println libPath
 }
