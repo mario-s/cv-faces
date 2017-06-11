@@ -42,15 +42,13 @@ public class CameraTask extends Task<Void> {
 
             if (!webcamImage.empty()) {
                 faceDetector.markFaces(webcamImage);
-                Platform.runLater(() -> {
-                    Image image = ImageConverter.toJavaFXImage(webcamImage);
-                    if (image != null) {
-                        imageProperty.set(image);
-                    } else {
-                        LOG.warn("No image!");
-                    }
-                });
-
+                
+                Image image = ImageConverter.toJavaFXImage(webcamImage);
+                if (image != null) {
+                    imageProperty.set(image);
+                } else {
+                    LOG.warn("No image!");
+                }
             }
         }
         return null;

@@ -14,10 +14,8 @@ import org.opencv.face.video.ImageConverter;
  * @author spindizzy
  */
 public class VideoPanel extends Canvas {
-
+    
     private BufferedImage image;
-
-    private Image offscreenImage;
 
     public VideoPanel() {
         setForeground(Color.white);
@@ -47,9 +45,7 @@ public class VideoPanel extends Canvas {
     public void update(Graphics g) {
         Rectangle box = g.getClipBounds();
         // create the offscreenImage buffer and associated Graphics
-        if (offscreenImage == null) {
-            offscreenImage = createImage(box.width, box.height);
-        }
+        Image offscreenImage = createImage(box.width, box.height);
         Graphics offscreenGraphics = offscreenImage.getGraphics();
         offscreenGraphics.setColor(getBackground());
         offscreenGraphics.fillRect(0, 0, box.width, box.height);
