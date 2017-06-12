@@ -8,6 +8,7 @@ import java.nio.file.Path;
 
 import static org.junit.Assert.*;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -74,9 +75,8 @@ public class ImageFaceDetectorTest {
     public void testExtractFaces() throws IOException {
         File sourceFile = createFile("squad.jpg");
         File targetDir = new File(targetFile.getParentFile(), "extracted");
-        Path path = targetDir.toPath();
-        Files.deleteIfExists(path);
-        Files.createDirectory(path);
+        FileUtils.deleteQuietly(targetDir);
+        Files.createDirectory(targetDir.toPath());
         classUnderTest.extractFaces(sourceFile, targetDir);
         assertTrue(targetDir.exists());
         File result = new File(targetDir, "squad_face_0.jpg");
