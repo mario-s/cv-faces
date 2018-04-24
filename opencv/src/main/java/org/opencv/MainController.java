@@ -14,7 +14,7 @@ import javafx.scene.Node;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.opencv.face.video.swing.VideoWindow;
-import org.opencv.hdr.MertensProcessor;
+import org.opencv.img.MertensProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
