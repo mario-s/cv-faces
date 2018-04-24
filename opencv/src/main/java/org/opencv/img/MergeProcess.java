@@ -11,7 +11,7 @@ import org.opencv.photo.Photo;
  *
  * Process to merge images.
  */
-public class Merge {
+public class MergeProcess {
 
     public Mat merge(List<Mat> images) {
 

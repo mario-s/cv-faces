@@ -13,11 +13,11 @@ import org.slf4j.LoggerFactory;
 /**
  * This class loads images with different EL creates a HDR image and saves it as a LDR image.
  */
-public class MertensProcessor {
+public class FusionProcessor {
     
-    private static final Logger LOG = LoggerFactory.getLogger(MertensProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FusionProcessor.class);
 
-    public boolean create(Collection<String> pics, File out) {
+    public boolean process(Collection<String> pics, File out) {
         boolean val = false;
 
         if (!pics.isEmpty()) {
@@ -26,7 +26,7 @@ public class MertensProcessor {
             
             LOG.debug("number of images to merge: {}", images.size());
             
-            Mat merge = new Merge().merge(images);
+            Mat merge = new MergeProcess().merge(images);
             Mat result = multipy(merge);
             
 

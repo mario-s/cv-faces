@@ -1,5 +1,6 @@
-package org.opencv.hdr;
+package org.opencv.img;
 
+import org.opencv.img.FusionProcessor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,9 +19,9 @@ import org.opencv.imgcodecs.Imgcodecs;
  *
  * @author schroeder
  */
-public class MertensProcessorTest {
+public class FusionProcessorTest {
     
-    private MertensProcessor classUnderTest;
+    private FusionProcessor classUnderTest;
     
     private Collection<String> images;
     
@@ -33,7 +34,7 @@ public class MertensProcessorTest {
     
     @Before
     public void setUp() {
-        classUnderTest = new MertensProcessor();
+        classUnderTest = new FusionProcessor();
         images = new ArrayList<>();
         out = new File(getClass().getResource(".").getFile(), "ldr.jpg");
         if(out.exists()){
@@ -42,15 +43,15 @@ public class MertensProcessorTest {
     }
 
     /**
-     * Test of create method, of class MertensProcessor.
+     * Test of process method, of class FusionProcessor.
      */
     @Test
     public void create_Empty() {
-        assertFalse(classUnderTest.create(images, out));
+        assertFalse(classUnderTest.process(images, out));
     }
     
      /**
-     * Test of create method, of class MertensProcessor.
+     * Test of process method, of class FusionProcessor.
      */
     @Test
     public void create_Memorial() {
@@ -58,7 +59,7 @@ public class MertensProcessorTest {
         images.add(getClass().getResource("memorial0064.png").getFile());
         images.add(getClass().getResource("memorial0067.png").getFile());
         
-        assertTrue(classUnderTest.create(images, out));
+        assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());
     }
     
@@ -68,7 +69,7 @@ public class MertensProcessorTest {
         images.add(getClass().getResource("Picture_201508010708_1.jpg").getFile());
         images.add(getClass().getResource("Picture_201508010708_2.jpg").getFile());
         
-        assertTrue(classUnderTest.create(images, out));
+        assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());
     }
     
