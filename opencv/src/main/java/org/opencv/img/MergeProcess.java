@@ -1,7 +1,5 @@
 package org.opencv.img;
 
-import java.io.File;
-import java.util.Collection;
 import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.photo.MergeMertens;
