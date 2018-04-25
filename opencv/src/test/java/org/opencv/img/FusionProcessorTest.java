@@ -52,7 +52,7 @@ public class FusionProcessorTest {
      * Test of process method, of class FusionProcessor.
      */
     @Test
-    public void create_Memorial() {
+    public void process_memorial() {
         images.add(getClass().getResource("memorial0061.png").getFile());
         images.add(getClass().getResource("memorial0064.png").getFile());
         images.add(getClass().getResource("memorial0067.png").getFile());
@@ -62,10 +62,21 @@ public class FusionProcessorTest {
     }
     
     @Test
-    public void create_Pic() {
+    public void process_merge() {
         images.add(getClass().getResource("Picture_201508010708_0.jpg").getFile());
         images.add(getClass().getResource("Picture_201508010708_1.jpg").getFile());
         images.add(getClass().getResource("Picture_201508010708_2.jpg").getFile());
+        
+        assertTrue(classUnderTest.process(images, out));
+        assertTrue(out.exists());
+    }
+    
+    @Test
+    public void process_with_align() {
+        //source images are not matching when put on stack, needs alignment
+        images.add(getClass().getResource("stat_1.jpg").getFile());
+        images.add(getClass().getResource("stat_2.jpg").getFile());
+        images.add(getClass().getResource("stat_3.jpg").getFile());
         
         assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());

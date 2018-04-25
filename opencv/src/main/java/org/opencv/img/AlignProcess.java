@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.video.Video;
 
@@ -43,10 +42,9 @@ public class AlignProcess {
     }
 
     private Mat warp(Mat first, Mat img) {
-        Video.findTransformECC(first, toGray(img), warpMatrix, Video.MOTION_HOMOGRAPHY);
-        Size imgSize = img.size();
+        Video.findTransformECC(toGray(img), first, warpMatrix, Video.MOTION_HOMOGRAPHY);
         Mat dest = new Mat();
-        Imgproc.warpPerspective(img, dest, warpMatrix, imgSize);
+        Imgproc.warpPerspective(img, dest, warpMatrix, first.size());
         return dest;
     }
 

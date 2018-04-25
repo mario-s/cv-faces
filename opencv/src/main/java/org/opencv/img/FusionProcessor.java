@@ -25,8 +25,8 @@ public class FusionProcessor {
             
             List<Mat> images = loadImages(pics);
             
-            images = new AlignProcess().align(images);
-            Mat merge = new MergeProcess().merge(images);
+            List<Mat> aligned = new AlignProcess().align(images);
+            Mat merge = new MergeProcess().merge(aligned);
             Mat result = multipy(merge);
 
             write(result, out);
