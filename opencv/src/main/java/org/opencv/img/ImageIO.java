@@ -4,11 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
-import static org.opencv.imgcodecs.Imgcodecs.imread;
+import static org.opencv.imgcodecs.Imgcodecs.*;
 
 /**
  *
@@ -30,6 +27,6 @@ public final class ImageIO {
     }
     
     public static void write(Mat img, File out) {
-        Imgcodecs.imwrite(out.getPath(), img);
+        imwrite(out.getPath(), img);
     }
 }

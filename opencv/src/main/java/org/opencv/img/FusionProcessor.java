@@ -21,14 +21,13 @@ public class FusionProcessor {
         boolean val = false;
 
         if (!pics.isEmpty()) {
+            LOG.debug("number of images to merge: {}", pics.size());
             
             List<Mat> images = loadImages(pics);
             
-            LOG.debug("number of images to merge: {}", images.size());
-            
+            images = new AlignProcess().align(images);
             Mat merge = new MergeProcess().merge(images);
             Mat result = multipy(merge);
-            
 
             write(result, out);
             

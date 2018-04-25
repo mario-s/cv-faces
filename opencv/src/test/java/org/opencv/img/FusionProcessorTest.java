@@ -1,6 +1,5 @@
 package org.opencv.img;
 
-import org.opencv.img.FusionProcessor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
