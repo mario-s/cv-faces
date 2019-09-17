@@ -7,20 +7,23 @@ package org.javacv.face.image;
 
 import java.io.File;
 import java.util.Optional;
+
 import static java.util.Optional.ofNullable;
+
 import org.bytedeco.javacpp.opencv_core.CvScalar;
-import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Point;
 import org.bytedeco.javacpp.opencv_core.Rect;
+import org.bytedeco.javacpp.opencv_core.RectVector;
 import org.bytedeco.javacpp.opencv_core.Scalar;
-import static org.bytedeco.javacpp.opencv_core.putText;
-import static org.bytedeco.javacpp.opencv_core.rectangle;
-import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
-import static org.bytedeco.javacpp.opencv_highgui.imwrite;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
+
+import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
+import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
+import static org.bytedeco.javacpp.opencv_imgproc.putText;
+import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
 
 /**
  *
@@ -55,9 +58,9 @@ public class FaceDetector {
         return countFaces(provider) > 0;
     }
 
-    public int countFaces(ImageProvideable provider) {
-        final Rect rect = findFaces(provider.provide());
-        return rect.limit();
+    public long countFaces(ImageProvideable provider) {
+        final RectVector rect = findFaces(provider.provide());
+        return rect.size();
     }
 
     /**
@@ -70,8 +73,8 @@ public class FaceDetector {
      */
     public boolean extractFaces(ImageProvideable provider, File targetFolder) {
         Mat image = provider.provide();
-        Rect rect = findFaces(image);
-        int limit = rect.limit();
+        RectVector rect = findFaces(image);
+        long limit = rect.limit();
         if (limit > 0) {
             for (int i = 0; i < limit; i++) {
                 Mat face = extractFace(rect, i, image);
@@ -81,8 +84,8 @@ public class FaceDetector {
         return limit > 0;
     }
 
-    private Mat extractFace(Rect rect, int position, Mat image) {
-        Rect pos = rect.position(position);
+    private Mat extractFace(RectVector rect, int position, Mat image) {
+        Rect pos = rect.get(position);
         return image.apply(pos);
     }
 
@@ -101,14 +104,14 @@ public class FaceDetector {
      */
     public boolean saveMarkedFaces(ImageProvideable provider, File targetFile) {
         Mat image = provider.provide();
-        int limit = markFaces(image);
+        long limit = markFaces(image);
         if (limit > 0) {
             imwrite(targetFile.getPath(), image);
         }
         return limit > 0;
     }
     
-    public int markFaces(Frame img){
+    public long markFaces(Frame img){
         return markFaces(converterToMat.convert(img));
     }
 
@@ -118,17 +121,15 @@ public class FaceDetector {
      * @param image
      * @return number of detected faces.
      */
-    public int markFaces(Mat image) {
-        Rect rect = findFaces(image);
-        int limit = rect.limit();
-        if (limit > 0) {
-            for (int i = 0; i < limit; i++) {
-                Rect pos = rect.position(i);
-                rectangle(image, pos, color);
-                predict(image, pos);
-            }
+    public long markFaces(Mat image) {
+        RectVector rect = findFaces(image);
+        long size = rect.size();
+        for (int i = 0; i < size; i++) {
+            Rect pos = rect.get(i);
+            rectangle(image, pos, color);
+            predict(image, pos);
         }
-        return limit;
+        return size;
     }
 
     private void predict(Mat image, Rect pos) {
@@ -150,8 +151,8 @@ public class FaceDetector {
         return val;
     }
 
-    private Rect findFaces(Mat image) {
-        Rect rect = new Rect();
+    private RectVector findFaces(Mat image) {
+        RectVector rect = new RectVector();
         classifier.detectMultiScale(image, rect);
         return rect;
     }

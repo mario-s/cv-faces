@@ -12,4 +12,6 @@ Please refer [OpenCV's documentation](http://opencv-java-tutorials.readthedocs.i
 
 
 ---
-It still requires Oracle's Java SDK since there are dependencies to JavaFX.
+=== Known Issues ===
+Might work properly on windows only, depending on the version of OpenCV.
+It still requires Oracle's Java 8 SDK since there are dependencies to JavaFX.

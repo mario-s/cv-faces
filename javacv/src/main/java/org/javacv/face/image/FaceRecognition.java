@@ -1,11 +1,12 @@
 package org.javacv.face.image;
 
 import java.io.File;
-import org.bytedeco.javacpp.opencv_contrib.FaceRecognizer;
+import org.bytedeco.javacpp.opencv_face.FaceRecognizer;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
+import org.bytedeco.javacpp.opencv_face.EigenFaceRecognizer;
+import org.bytedeco.javacpp.opencv_face.FisherFaceRecognizer;
 
-import static org.bytedeco.javacpp.opencv_contrib.*;
 import static org.bytedeco.javacpp.opencv_core.*;
 
 
@@ -21,9 +22,9 @@ public class FaceRecognition implements FaceRecognitionable{
 
     public FaceRecognition(RecognizerType type) {
         if (type == RecognizerType.Fisher) {
-            faceRecognizer = createFisherFaceRecognizer();
+            faceRecognizer = FisherFaceRecognizer.create();
         } else {
-            faceRecognizer = createEigenFaceRecognizer();
+            faceRecognizer = EigenFaceRecognizer.create();
         }
     }
 
@@ -49,7 +50,7 @@ public class FaceRecognition implements FaceRecognitionable{
     @Override
     public int predict(Mat image) {
         Mat target = resizeImage(image);
-        return faceRecognizer.predict(target);
+        return faceRecognizer.predict_label(target);
     }
 
     private Mat resizeImage(Mat image) {

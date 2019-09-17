@@ -33,24 +33,28 @@ public class FaceDetectorTest {
         }
         targetFolder.mkdir();
     }
+    
+    @Test
+    public void oneFace_ExpectTrue() {
+        assertTrue(classUnderTest.hasFace(() -> {
+            return read(new File(getClass().getResource("face.jpg").getPath()));
+        }));
+    }
 
     /**
      * Test of isFace method, of class FaceDetector.
      */
     @Test
-    public void testIsFace() {
-
-        assertTrue(classUnderTest.hasFace(() -> {
-            return read(new File(getClass().getResource("face.jpg").getPath()));
-        }));
-
+    public void twentyEightFaces_ExpectTrue() {
         ImageProvideable provider = () -> {
             return read(new File(getClass().getResource("squad.jpg").getPath()));
         };
 
-        assertTrue(classUnderTest.hasFace(provider));
         assertEquals(28, classUnderTest.countFaces(provider));
-
+    }
+    
+    @Test
+    public void noFace_ExpectFalse() {
         assertFalse(classUnderTest.hasFace(() -> {
             return read(new File(getClass().getResource("tree.jpg").getPath()));
         }));
