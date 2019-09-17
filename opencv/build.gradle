@@ -16,20 +16,17 @@ ext {
     sep = (os.equals(Os.FAMILY_WINDOWS)) ? ";" : ":"
 
     //library path for native dependencies
-    if(os.equals(Os.FAMILY_MAC)) {
-        libPath = System.getProperty('java.library.path') + sep + '/usr/local/Cellar/opencv/3.4.0_1/share/OpenCV/java'
-    } else {
-        libs = '/libs/'+os+'/x'
-        arch = System.getProperty('sun.arch.data.model')
-        lib = projectDir.path + libs + arch
-        libPath = System.getProperty('java.library.path') + sep + lib 
-    }
+
+    libs = '/libs/'+os+'/x'
+    arch = System.getProperty('sun.arch.data.model')
+    lib = projectDir.path + libs + arch
+    libPath = System.getProperty('java.library.path') + sep + lib
 }
 
 dependencies {
-    //opencv dependency
-    compile files ('/usr/local/Cellar/opencv/3.4.0_1/share/OpenCV/java/opencv-340.jar')
-    //compile files ('libs/opencv-320.jar')
+    //local opencv dependency
+    //compile files ('/usr/local/Cellar/opencv/3.4.0_1/share/OpenCV/java/opencv-340.jar')
+    compile files ('libs/opencv-320.jar')
 }
 
 test {

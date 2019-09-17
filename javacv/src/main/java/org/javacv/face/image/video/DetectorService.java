@@ -2,6 +2,7 @@ package org.javacv.face.image.video;
 
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.CanvasFrame;
+import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 import org.javacv.face.image.FaceDetector;
@@ -50,7 +51,7 @@ final class DetectorService implements Runnable {
                 }
 
                 //insert grabed video frame to IplImage img
-                opencv_core.IplImage img = grabber.grab();
+                Frame img = grabber.grab();
 
                 if (img != null) {
                     sizeAdjusted = true;

@@ -9,3 +9,7 @@ A playground for the Opencv library with Java bindings. This project includes sa
 == Installing OpenCV ==
 
 Please refer [OpenCV's documentation](http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html)
+
+
+---
+It still requires Oracle's Java SDK since there are dependencies to JavaFX.

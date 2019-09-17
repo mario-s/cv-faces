@@ -19,6 +19,8 @@ import static org.bytedeco.javacpp.opencv_core.rectangle;
 import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
 import static org.bytedeco.javacpp.opencv_highgui.imwrite;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 
 /**
  *
@@ -33,6 +35,8 @@ public class FaceDetector {
     private final CascadeClassifier classifier;
     
     private Optional<FaceRecognitionable> faceRecognator;
+
+    private OpenCVFrameConverter.ToMat converterToMat;
     
     public FaceDetector() {
         this(null);
@@ -41,6 +45,8 @@ public class FaceDetector {
     public FaceDetector(FaceRecognitionable recognitionable) {
         this.faceRecognator = ofNullable(recognitionable);
         this.color = new Scalar(CvScalar.GREEN);
+        this.converterToMat = new OpenCVFrameConverter.ToMat();
+
         File file = new File(getClass().getResource(CASCADE_XML).getPath());
         this.classifier = new CascadeClassifier(file.getAbsolutePath());
     }
@@ -102,8 +108,8 @@ public class FaceDetector {
         return limit > 0;
     }
     
-    public int markFaces(IplImage img){
-        return markFaces(new Mat(img));
+    public int markFaces(Frame img){
+        return markFaces(converterToMat.convert(img));
     }
 
     /**
