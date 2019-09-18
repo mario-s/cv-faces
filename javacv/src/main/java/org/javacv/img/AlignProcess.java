@@ -3,6 +3,8 @@ package org.javacv.img;
 import java.util.ArrayList;
 import java.util.List;
 import org.bytedeco.javacpp.opencv_core.Mat;
+import org.javacv.ImageUtility;
+
 import static org.bytedeco.javacpp.opencv_core.CV_32F;
 import static org.bytedeco.javacpp.opencv_imgproc.cvtColor;
 import static org.bytedeco.javacpp.opencv_imgproc.warpPerspective;
@@ -15,9 +17,12 @@ import static org.bytedeco.javacpp.opencv_imgproc.COLOR_BGR2GRAY;
  */
 public class AlignProcess {
     
+    private final ImageUtility imageUtility;
+    
     private final Mat warpMatrix;
     
     public AlignProcess() {
+        imageUtility = ImageUtility.Instance;
         warpMatrix = Mat.eye(3, 3, CV_32F).a();
     }
 
@@ -51,8 +56,6 @@ public class AlignProcess {
     }
 
     private Mat toGray(Mat bgr) {
-        Mat gray = new Mat(bgr.size(), CV_32F);
-        cvtColor(bgr, gray, COLOR_BGR2GRAY);
-        return gray;
+        return imageUtility.toGrayscale(bgr);
     }
 }
