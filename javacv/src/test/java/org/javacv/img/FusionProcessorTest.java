@@ -1,17 +1,18 @@
-package org.opencv.img;
+package org.javacv.img;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Scalar;
+import org.javacv.ImageUtility;
+
 import static org.hamcrest.CoreMatchers.is;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 
 /**
  *
@@ -24,11 +25,6 @@ public class FusionProcessorTest {
     private Collection<String> images;
     
     private File out;
-    
-    @BeforeClass
-    public static void init() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }
     
     @Before
     public void setUp() {
@@ -84,10 +80,10 @@ public class FusionProcessorTest {
     
     @Test
     public void multiply() {
-        Mat src = Imgcodecs.imread(getClass().getResource("Picture_201508010708_0.jpg").getFile());
-        Scalar s = new Scalar(255,0,255);
+        Mat src = ImageUtility.Instance.read(getClass().getResource("Picture_201508010708_0.jpg").getFile());
+        Scalar s = new Scalar(255.0,0.0,255.0,0.0);
         Mat filter = new Mat(src.rows(), src.cols(), src.type(), s);
-        Mat dest = src.mul(filter);
+        Mat dest = src.mul(filter).a();
         assertThat(dest.empty(), is(false));
     }
     

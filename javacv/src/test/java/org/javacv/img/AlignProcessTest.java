@@ -1,23 +1,21 @@
-package org.opencv.img;
+package org.javacv.img;
 
 import java.util.Arrays;
 import java.util.List;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.javacv.ImageUtility;
+
 import static org.hamcrest.CoreMatchers.equalTo;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
 
 public class AlignProcessTest {
 
     private AlignProcess classUnderTest;
 
-    @BeforeClass
-    public static void init() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }
 
     @Before
     public void setUp() {
@@ -29,7 +27,7 @@ public class AlignProcessTest {
                 getClass().getResource("Picture_201508010708_0.jpg").getFile(),
                 getClass().getResource("Picture_201508010708_1.jpg").getFile(),
                 getClass().getResource("Picture_201508010708_2.jpg").getFile());
-        return ImageIO.loadImages(names);
+        return ImageUtility.Instance.loadImages(names);
     }
 
     /**
