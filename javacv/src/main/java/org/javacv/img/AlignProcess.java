@@ -51,7 +51,7 @@ public class AlignProcess {
     }
 
     private Mat toGray(Mat bgr) {
-        Mat gray = new Mat();
+        Mat gray = new Mat(bgr.size(), CV_32F);
         cvtColor(bgr, gray, COLOR_BGR2GRAY);
         return gray;
     }
