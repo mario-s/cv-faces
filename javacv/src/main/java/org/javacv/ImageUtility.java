@@ -49,7 +49,7 @@ public enum ImageUtility {
     }
     
     public Mat toGrayscale(Mat src) {
-        Mat target = new Mat();
+        Mat target = new Mat(src.size(), src.type());
         opencv_imgproc.cvtColor(src, target, CV_RGB2GRAY);
         return target;
     }
