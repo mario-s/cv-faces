@@ -12,14 +12,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AlignProcessTest {
+public class AffineAlignmentProcessTest {
 
-    private AlignProcess classUnderTest;
+    private AffineAlignmentProcess classUnderTest;
 
 
     @Before
     public void setUp() {
-        classUnderTest = new AlignProcess();
+        classUnderTest = new AffineAlignmentProcess();
     }
 
     private List<Mat> loadImage() {

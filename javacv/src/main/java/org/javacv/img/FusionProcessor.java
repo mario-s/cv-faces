@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.javacv.ImageUtility;
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_core.Scalar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,23 +19,20 @@ public class FusionProcessor {
 
     private final ImageUtility imageUtility = ImageUtility.Instance;
 
-    private final Scalar scalar = new Scalar(255);
-
     public boolean process(Collection<String> pics, File out) {
         boolean success = false;
 
         if (!pics.isEmpty()) {
-            LOG.debug("number of images to merge: {}", pics.size());
+            LOG.debug("number of images to process: {}", pics.size());
             
             List<Mat> images = imageUtility.loadImages(pics);
             
-            List<Mat> aligned = new AlignProcess().align(images);
+            List<Mat> aligned = new AffineAlignmentProcess().align(images);
             Mat merge = new MergeProcess().merge(aligned);
-            Mat result = multipy(merge);
 
-            imageUtility.write(result, out);
+            imageUtility.write(merge, out);
             
-            LOG.debug("merged images into: {}", out);
+            LOG.debug("processed images into: {}", out);
 
             success = true;
         }
@@ -44,9 +40,6 @@ public class FusionProcessor {
         return success;
     }
 
-    private Mat multipy(Mat src) {
-        Mat filter = new Mat(src.size(), src.type(), scalar);
-        return src.mul(filter).a();
-    }
+
 
 }
