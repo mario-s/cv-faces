@@ -136,7 +136,7 @@ public class FaceDetector {
     private void predict(Mat image, Rect pos) {
         if(faceRecognator.isPresent()){
             Mat face = image.apply(pos);
-            face = ImageUtility.Instance.toGrayscale(face);
+            face = ImageUtility.Instance.toGray(face);
             String lbl = getLabel(face);
             Point point = new Point(pos.x(), pos.y() - 3);
             putText(image, lbl, point, CV_FONT_NORMAL, 0.5, color);

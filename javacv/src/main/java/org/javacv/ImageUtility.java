@@ -47,8 +47,13 @@ public enum ImageUtility {
         opencv_imgproc.resize(src, target, size);
         return target;
     }
-    
-    public Mat toGrayscale(Mat src) {
+
+    /**
+     * Converts a RGB color image to a gray image.
+     * @param src source image
+     * @return image as gray
+     */
+    public Mat toGray(Mat src) {
         Mat target = new Mat(src.size(), src.type());
         opencv_imgproc.cvtColor(src, target, CV_RGB2GRAY);
         return target;

@@ -4,18 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.bytedeco.javacpp.opencv_core.TermCriteria;
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_imgproc;
 import org.javacv.ImageUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.bytedeco.javacpp.opencv_core.*;
-import static org.bytedeco.javacpp.opencv_imgproc.CV_RGB2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.warpAffine;
 import static org.bytedeco.javacpp.opencv_video.findTransformECC;
-import static org.bytedeco.javacpp.opencv_video.MOTION_HOMOGRAPHY;
 
 /**
  * An affine transform is a combination of rotation, translation ( shift ), scale, and shear.
@@ -45,8 +41,8 @@ public class AffineAlignmentProcess {
             List<Mat> tail = images.subList(1, size);
             
             //convert first image to gray
-            Mat headGray = toGray(head);
-            //align
+            Mat headGray = imageUtility.toGray(head);
+            //warp each other image
             result.addAll(tail.stream().map(i -> warp(headGray, i)).collect(Collectors.toList()));
 
             LOG.debug("aligned {} images", size);
@@ -59,7 +55,7 @@ public class AffineAlignmentProcess {
     }
 
     private Mat warp(Mat template, Mat img) {
-        Mat gray = toGray(img);
+        Mat gray = imageUtility.toGray(img);
         findTransformECC(template, gray, warpMatrix);
 
         Mat dest = new Mat();
@@ -68,9 +64,4 @@ public class AffineAlignmentProcess {
         return dest;
     }
 
-    private Mat toGray(Mat src) {
-        Mat target = new Mat(src.size(), CV_32F);
-        opencv_imgproc.cvtColor(src, target, CV_RGB2GRAY);
-        return target;
-    }
 }
