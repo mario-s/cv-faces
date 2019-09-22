@@ -34,7 +34,9 @@ public class CanvasDemo {
     public CanvasDemo() {
         
         recognition = new FaceRecognition(RecognizerType.Fisher);
+
         String trainingPath = getClass().getResource("../train").getPath();
+        LOG.debug("using images from {}", trainingPath);
         recognition.train(new GenderTrainer(trainingPath));
         
         //Create canvas frame for displaying video.
