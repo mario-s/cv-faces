@@ -14,7 +14,6 @@ import javafx.scene.Node;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.opencv.face.video.swing.VideoWindow;
-import org.opencv.img.FusionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,16 +42,7 @@ public class MainController {
         FileChooser fileChooser = new FileChooser();
         File srcFile = fileChooser.showOpenDialog(getOwner(event));
         LOG.debug("got source: {}", srcFile);
-        
-        if(srcFile != null){
-            FusionProcessor processor = new FusionProcessor();
-            File out = new File(srcFile.getParent(), "result.jpg");
-            try {
-                processor.process(readPaths(srcFile), out);
-            } catch (IOException ex) {
-                LOG.warn(ex.getMessage(), ex);
-            }
-        }
+
     }
     
     @FXML
