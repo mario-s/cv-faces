@@ -1,4 +1,4 @@
-mainClassName = "org.javacv.face.image.video.CanvasDemo"
+mainClassName = "org.javacv.ui.CanvasDemo"
 
 dependencies {
     //JavaCV and more

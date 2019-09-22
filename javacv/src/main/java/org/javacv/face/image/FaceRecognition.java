@@ -6,7 +6,7 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.bytedeco.javacpp.opencv_face.EigenFaceRecognizer;
 import org.bytedeco.javacpp.opencv_face.FisherFaceRecognizer;
-import org.javacv.ImageUtility;
+import org.javacv.common.ImageUtility;
 
 import static org.bytedeco.javacpp.opencv_core.*;
 

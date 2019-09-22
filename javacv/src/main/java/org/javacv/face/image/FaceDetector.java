@@ -19,7 +19,7 @@ import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
-import org.javacv.ImageUtility;
+import org.javacv.common.ImageUtility;
 
 import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;

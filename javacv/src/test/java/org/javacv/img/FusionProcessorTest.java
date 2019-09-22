@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.javacv.ImageUtility;
+import org.javacv.common.ImageUtility;
 
 import static org.hamcrest.CoreMatchers.is;
 

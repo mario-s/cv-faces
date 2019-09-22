@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
-import org.javacv.ImageUtility;
+import org.javacv.common.ImageUtility;
 import org.bytedeco.javacpp.opencv_core.Mat;
 
 import org.slf4j.Logger;

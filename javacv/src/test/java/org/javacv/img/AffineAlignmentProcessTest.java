@@ -3,7 +3,7 @@ package org.javacv.img;
 import java.util.Arrays;
 import java.util.List;
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.javacv.ImageUtility;
+import org.javacv.common.ImageUtility;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 

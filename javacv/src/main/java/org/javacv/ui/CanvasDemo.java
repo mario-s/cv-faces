@@ -1,14 +1,17 @@
-package org.javacv.face.image.video;
+package org.javacv.ui;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.JFrame;
+
 import org.bytedeco.javacv.CanvasFrame;
 import org.javacv.face.image.FaceRecognition;
+import org.javacv.face.image.DetectorService;
 import org.javacv.face.image.GenderTrainer;
 import org.javacv.face.image.RecognizerType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

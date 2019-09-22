@@ -1,4 +1,4 @@
-package org.javacv;
+package org.javacv.common;
 
 import java.io.File;
 import java.util.Collection;

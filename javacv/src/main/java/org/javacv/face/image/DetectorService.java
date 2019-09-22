@@ -1,12 +1,9 @@
-package org.javacv.face.image.video;
+package org.javacv.face.image;
 
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
-import org.javacv.face.image.FaceDetector;
-import org.javacv.face.image.FaceRecognition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +11,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author spindizzy
  */
-final class DetectorService implements Runnable {
+public final class DetectorService implements Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(DetectorService.class);
 
@@ -65,7 +62,7 @@ final class DetectorService implements Runnable {
         }
     }
 
-    void stop() {
+    public void stop() {
         run = false;
 
         try {
