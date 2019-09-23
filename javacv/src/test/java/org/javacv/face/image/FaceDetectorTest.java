@@ -36,9 +36,7 @@ public class FaceDetectorTest {
     
     @Test
     public void oneFace_ExpectTrue() {
-        assertTrue(classUnderTest.hasFace(() -> {
-            return read(new File(getClass().getResource("face.jpg").getPath()));
-        }));
+        assertTrue(classUnderTest.hasFace(() -> read(new File(getClass().getResource("face.jpg").getPath()))));
     }
 
     /**
@@ -46,44 +44,34 @@ public class FaceDetectorTest {
      */
     @Test
     public void twentyEightFaces_ExpectTrue() {
-        ImageProvideable provider = () -> {
-            return read(new File(getClass().getResource("squad.jpg").getPath()));
-        };
+        ImageProvideable provider = () -> read(new File(getClass().getResource("squad.jpg").getPath()));
 
         assertEquals(28, classUnderTest.countFaces(provider));
     }
     
     @Test
     public void noFace_ExpectFalse() {
-        assertFalse(classUnderTest.hasFace(() -> {
-            return read(new File(getClass().getResource("tree.jpg").getPath()));
-        }));
+        assertFalse(classUnderTest.hasFace(() -> read(new File(getClass().getResource("tree.jpg").getPath()))));
     }
 
     @Test
     public void testSaveMarkedFaces() {
 
-        assertTrue(classUnderTest.saveMarkedFaces(() -> {
-            return read(new File(getClass().getResource("squad.jpg").getPath()));
-        }, targetFile));
+        assertTrue(classUnderTest.saveMarkedFaces(() -> read(new File(getClass().getResource("squad.jpg").getPath())), targetFile));
         assertTrue(targetFile.exists());
     }
     
     @Test
     public void testExtractFaces() {
 
-        assertTrue(classUnderTest.extractFaces(() -> {
-            return read(new File(getClass().getResource("squad.jpg").getPath()));
-        }, targetFolder));
+        assertTrue(classUnderTest.extractFaces(() -> read(new File(getClass().getResource("squad.jpg").getPath())), targetFolder));
         assertTrue(targetFolder.exists());
     }
     
     @Test
     public void testNoSaveMarkedFaces() {
 
-        assertFalse(classUnderTest.saveMarkedFaces(() -> {
-            return read(new File(getClass().getResource("tree.jpg").getPath()));
-        }, targetFile));
+        assertFalse(classUnderTest.saveMarkedFaces(() -> read(new File(getClass().getResource("tree.jpg").getPath())), targetFile));
         assertFalse(targetFile.exists());
     }
 
