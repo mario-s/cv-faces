@@ -13,7 +13,7 @@ dependencies {
 private def copyData(path) {
     copy {
         from '../data/train'
-        into 'build/resources/'+path+'/org/javacv/ui/train'
+        into 'build/resources/'+path+'/org/javacv/train'
         include '*.*'
     }
 }

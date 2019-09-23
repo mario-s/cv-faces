@@ -1,4 +1,4 @@
-package org.javacv.face.image;
+package org.javacv.face.recognition;
 
 import java.net.URL;
 import org.junit.Before;
@@ -16,7 +16,7 @@ public class FaceRecognationTest {
     
     @Before
     public void setUp() {
-        URL res = FaceRecognition.class.getResource("train");
+        URL res = FaceRecognition.class.getResource("../../train");
         trainingPath = res.getPath();
     }
     

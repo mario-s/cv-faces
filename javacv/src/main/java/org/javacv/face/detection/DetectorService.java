@@ -1,9 +1,10 @@
-package org.javacv.face.image;
+package org.javacv.face.detection;
 
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
+import org.javacv.face.recognition.FaceRecognition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

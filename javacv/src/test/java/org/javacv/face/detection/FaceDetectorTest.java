@@ -1,7 +1,10 @@
-package org.javacv.face.image;
+package org.javacv.face.detection;
 
 import java.io.File;
-import static org.javacv.face.image.ImageProvideable.read;
+import static org.javacv.common.ImageProvideable.read;
+
+import org.javacv.common.ImageProvideable;
+import org.javacv.face.detection.FaceDetector;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

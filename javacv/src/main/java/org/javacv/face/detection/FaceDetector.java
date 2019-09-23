@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javacv.face.image;
+package org.javacv.face.detection;
 
 import java.io.File;
 import java.util.Optional;
@@ -19,7 +19,9 @@ import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
+import org.javacv.common.ImageProvideable;
 import org.javacv.common.ImageUtility;
+import org.javacv.face.recognition.FaceRecognitionable;
 
 import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;

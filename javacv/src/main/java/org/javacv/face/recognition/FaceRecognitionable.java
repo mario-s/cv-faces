@@ -1,4 +1,4 @@
-package org.javacv.face.image;
+package org.javacv.face.recognition;
 
 import org.bytedeco.javacpp.opencv_core;
 

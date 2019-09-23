@@ -1,4 +1,4 @@
-package org.javacv.face.image;
+package org.javacv.face.recognition;
 
 import java.io.File;
 import static java.lang.Integer.parseInt;

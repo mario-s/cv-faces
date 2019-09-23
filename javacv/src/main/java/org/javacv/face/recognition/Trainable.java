@@ -1,4 +1,4 @@
-package org.javacv.face.image;
+package org.javacv.face.recognition;
 
 /**
  *
@@ -8,6 +8,4 @@ package org.javacv.face.image;
 public interface Trainable {
     
     TrainingParameter getParameter();
-    
-    
 }

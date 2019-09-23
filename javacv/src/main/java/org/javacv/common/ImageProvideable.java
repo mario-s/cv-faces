@@ -1,4 +1,4 @@
-package org.javacv.face.image;
+package org.javacv.common;
 
 import java.io.File;
 import org.bytedeco.javacpp.opencv_core.Mat;

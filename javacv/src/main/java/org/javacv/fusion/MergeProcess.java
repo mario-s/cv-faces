@@ -1,4 +1,4 @@
-package org.javacv.img;
+package org.javacv.fusion;
 
 import java.util.List;
 
