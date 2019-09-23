@@ -3,7 +3,7 @@ package org.javacv.common;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Size;
@@ -23,19 +23,16 @@ public enum ImageUtility {
 
     Instance;
 
-    public Mat read(String path) {
+    public Mat readAsGray(String path) {
         return imread(path, CV_LOAD_IMAGE_GRAYSCALE);
     }
 
-    public List<Mat> loadImages(Collection<String> pics) {
-        List<Mat> imgs = new ArrayList<>();
+    private Mat readAsRgb(String path) {
+        return imread(path);
+    }
 
-        pics.forEach(e -> {
-            File f = new File(e);
-            Mat read = imread(f.getPath());
-            imgs.add(read);
-        });
-        return imgs;
+    public List<Mat> read(Collection<String> pics) {
+        return pics.stream().map(this::readAsRgb).collect(Collectors.toList());
     }
 
     public void write(Mat img, File out) {

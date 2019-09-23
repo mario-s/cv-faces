@@ -4,7 +4,10 @@ import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
+
 import org.javacv.face.recognition.FaceRecognition;
+
+import org.javacv.face.recognition.FaceRecognitionable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +27,7 @@ public final class DetectorService implements Runnable {
 
     private final CanvasFrame canvas;
 
-    public DetectorService(CanvasFrame canvas, FaceRecognition recognition) {
+    public DetectorService(CanvasFrame canvas, FaceRecognitionable recognition) {
         this.grabber = new OpenCVFrameGrabber(0);
         this.detector = new FaceDetector(recognition);
         this.canvas = canvas;

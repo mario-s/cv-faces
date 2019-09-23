@@ -25,7 +25,7 @@ public class FusionProcessor {
         if (!pics.isEmpty()) {
             LOG.debug("number of images to process: {}", pics.size());
             
-            List<Mat> images = imageUtility.loadImages(pics);
+            List<Mat> images = imageUtility.read(pics);
             
             List<Mat> aligned = new AffineAlignmentProcess().align(images);
             Mat merge = new MergeProcess().merge(aligned);

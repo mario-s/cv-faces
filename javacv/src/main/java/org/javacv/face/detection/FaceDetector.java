@@ -136,22 +136,22 @@ public class FaceDetector {
     }
 
     private void predict(Mat image, Rect pos) {
-        if(faceRecognator.isPresent()){
+        faceRecognator.ifPresent(fr -> {
             Mat face = image.apply(pos);
             face = ImageUtility.Instance.toGray(face);
-            String lbl = getLabel(face);
+            String lbl = getLabel(fr, face);
             Point point = new Point(pos.x(), pos.y() - 3);
             putText(image, lbl, point, CV_FONT_NORMAL, 0.5, color);
-        }
+        });
+
     }
 
-    private String getLabel(Mat face) {
-        String val = "female";
-        int lbl = faceRecognator.get().predict(face);
-        if(lbl == 1){
-            val = "male";
+    private String getLabel(FaceRecognitionable fr, Mat face) {
+        switch (fr.predict(face)) {
+            case 0: return "female";
+            case 1: return "male";
+            default: return "";
         }
-        return val;
     }
 
     private RectVector findFaces(Mat image) {

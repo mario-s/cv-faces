@@ -22,12 +22,12 @@ public class AffineAlignmentProcessTest {
         classUnderTest = new AffineAlignmentProcess();
     }
 
-    private List<Mat> loadImage() {
+    private List<Mat> load() {
         List<String> names = Arrays.asList(
                 getClass().getResource("Picture_201508010708_0.jpg").getFile(),
                 getClass().getResource("Picture_201508010708_1.jpg").getFile(),
                 getClass().getResource("Picture_201508010708_2.jpg").getFile());
-        return ImageUtility.Instance.loadImages(names);
+        return ImageUtility.Instance.read(names);
     }
 
     /**
@@ -35,7 +35,7 @@ public class AffineAlignmentProcessTest {
      */
     @Test
     public void align_SizeAsLoaded() {
-        final List<Mat> loaded = loadImage();
+        final List<Mat> loaded = load();
         List<Mat> result = classUnderTest.align(loaded);
         assertThat(result.size(), equalTo(loaded.size()));
     }

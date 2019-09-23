@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author schroeder
+ * @author spindizzy
  */
 public class FusionProcessorTest {
     
@@ -80,7 +80,7 @@ public class FusionProcessorTest {
     
     @Test
     public void multiply() {
-        Mat src = ImageUtility.Instance.read(getClass().getResource("Picture_201508010708_0.jpg").getFile());
+        Mat src = ImageUtility.Instance.readAsGray(getClass().getResource("Picture_201508010708_0.jpg").getFile());
         Scalar s = new Scalar(255.0,0.0,255.0,0.0);
         Mat filter = new Mat(src.rows(), src.cols(), src.type(), s);
         Mat dest = src.mul(filter).a();

@@ -45,7 +45,7 @@ public class FaceRecognition implements FaceRecognitionable{
 
     private Mat readImage(String imgName) {
         File f = new File(imgName);
-        return ImageUtility.Instance.read(f.getAbsolutePath());
+        return ImageUtility.Instance.readAsGray(f.getAbsolutePath());
     }
 
     @Override
