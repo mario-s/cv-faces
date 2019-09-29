@@ -53,8 +53,7 @@ public class FaceDetector {
         this.color = new Scalar(CvScalar.GREEN);
         this.converterToMat = new OpenCVFrameConverter.ToMat();
 
-        File file = new File(getClass().getResource(CASCADE_XML).getPath());
-        this.classifier = new CascadeClassifier(file.getAbsolutePath());
+        this.classifier = ClassifierFactory.Instance.create(CASCADE_XML);
     }
 
     public boolean hasFace(ImageProvideable provider) {

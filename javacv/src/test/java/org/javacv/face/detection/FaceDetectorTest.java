@@ -51,9 +51,14 @@ public class FaceDetectorTest {
 
         assertEquals(28, classUnderTest.countFaces(provider));
     }
-    
+
     @Test
     public void noFace_ExpectFalse() {
+        assertFalse(classUnderTest.hasFace(() -> read(new File(getClass().getResource("back.jpg").getPath()))));
+    }
+    
+    @Test
+    public void tree_ExpectFalse() {
         assertFalse(classUnderTest.hasFace(() -> read(new File(getClass().getResource("tree.jpg").getPath()))));
     }
 

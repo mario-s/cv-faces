@@ -3,7 +3,6 @@ package org.opencv.face.video;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
-import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import static org.opencv.imgcodecs.Imgcodecs.imencode;
@@ -35,10 +34,5 @@ public final class ImageConverter {
         return bytes;
     }
 
-    public static Image toJavaFXImage(Mat matrix) {
-        MatOfByte mem = new MatOfByte();
-        imencode(".png", matrix, mem);
-        return new Image(new ByteArrayInputStream(mem.toArray()));
-    }
 
 }

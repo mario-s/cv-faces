@@ -1,4 +1,4 @@
-package org.javacv.common;
+package org.javacv.ui;
 
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.opencv_core.Mat;
@@ -10,7 +10,7 @@ import java.awt.image.DataBufferByte;
  *
  * @author spindizzy
  */
-public final class ImageConverter {
+final class ImageConverter {
 
     private ImageConverter() {
     }
@@ -28,8 +28,10 @@ public final class ImageConverter {
     }
 
     private static byte[] readPixel(Mat matrix) {
+        byte[] bytes = new byte[matrix.channels() * matrix.cols() * matrix.rows()];
         BytePointer pointer = matrix.data();
-        return pointer.asBuffer().array();
+        pointer.get(bytes);
+        return bytes;
     }
 
 }

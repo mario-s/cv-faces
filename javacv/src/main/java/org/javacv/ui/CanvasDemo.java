@@ -59,12 +59,9 @@ public class CanvasDemo {
         executorService = Executors.newFixedThreadPool(3);
     }
 
-    private void run() {
+    public void run() {
         executorService.execute(detectorService);
     }
 
-    public static void main(String[] args) {
-        CanvasDemo demo = new CanvasDemo();
-        demo.run();
-    }
+
 }
