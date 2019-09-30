@@ -1,2 +1,2 @@
-include 'opencv', 'javacv'
+include 'javacv'
 rootProject.name = 'cv'
