@@ -10,7 +10,7 @@ public class Main {
         CanvasDemo demo = new CanvasDemo();
         demo.run();
 
-        VideoWindow.launch();
+        //VideoWindow.launch();
     }
 
 

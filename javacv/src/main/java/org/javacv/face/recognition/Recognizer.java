@@ -15,13 +15,13 @@ import static org.bytedeco.javacpp.opencv_core.*;
  *
  * @author spindizzy
  */
-public class FaceRecognition implements FaceRecognitionable{
+public class Recognizer implements Recognitionable {
     
     private Size trainingImageSize;
 
     private final FaceRecognizer faceRecognizer;
 
-    public FaceRecognition(RecognizerType type) {
+    public Recognizer(RecognizerType type) {
         if (type == RecognizerType.Fisher) {
             faceRecognizer = FisherFaceRecognizer.create();
         } else {

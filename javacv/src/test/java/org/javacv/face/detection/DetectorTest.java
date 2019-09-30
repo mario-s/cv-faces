@@ -4,7 +4,6 @@ import java.io.File;
 import static org.javacv.common.ImageProvideable.read;
 
 import org.javacv.common.ImageProvideable;
-import org.javacv.face.detection.FaceDetector;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,9 +12,9 @@ import static org.junit.Assert.*;
  *
  * @author spindizzy
  */
-public class FaceDetectorTest {
+public class DetectorTest {
 
-    private FaceDetector classUnderTest;
+    private Detector classUnderTest;
     
     private File targetFile;
     
@@ -23,7 +22,7 @@ public class FaceDetectorTest {
 
     @Before
     public void setUp() {
-        classUnderTest = new FaceDetector();
+        classUnderTest = new Detector();
         
         targetFile = new File(getClass().getResource(".").getFile(), "out.png");
         if (targetFile.exists()) {

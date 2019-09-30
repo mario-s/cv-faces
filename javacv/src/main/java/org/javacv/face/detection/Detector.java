@@ -7,6 +7,7 @@ package org.javacv.face.detection;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static java.util.Optional.ofNullable;
 
@@ -20,8 +21,6 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.javacv.common.ImageProvideable;
-import org.javacv.common.ImageUtility;
-import org.javacv.face.recognition.FaceRecognitionable;
 
 import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
@@ -32,27 +31,27 @@ import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
  *
  * @author schroeder
  */
-public class FaceDetector {
+public class Detector {
 
     private static final String CASCADE_XML = "haarcascade_frontalface_alt_tree.xml";
 
     private final Scalar color;
 
     private final CascadeClassifier classifier;
-    
-    private Optional<FaceRecognitionable> faceRecognator;
+
+    private Optional<Function<Mat, String>> prediction;
 
     private OpenCVFrameConverter.ToMat converterToMat;
     
-    public FaceDetector() {
+    public Detector() {
         this(null);
     }
 
-    public FaceDetector(FaceRecognitionable recognitionable) {
-        this.faceRecognator = ofNullable(recognitionable);
+    public Detector(Function<Mat, String> prediction) {
+        this.prediction = ofNullable(prediction);
+
         this.color = new Scalar(CvScalar.GREEN);
         this.converterToMat = new OpenCVFrameConverter.ToMat();
-
         this.classifier = ClassifierFactory.Instance.create(CASCADE_XML);
     }
 
@@ -135,22 +134,14 @@ public class FaceDetector {
     }
 
     private void predict(Mat image, Rect pos) {
-        faceRecognator.ifPresent(fr -> {
+        prediction.ifPresent(pred -> {
+            //crop out the face
             Mat face = image.apply(pos);
-            face = ImageUtility.Instance.toGray(face);
-            String lbl = getLabel(fr, face);
+            //get a label
+            String lbl = pred.apply(face);
             Point point = new Point(pos.x(), pos.y() - 3);
             putText(image, lbl, point, CV_FONT_NORMAL, 0.5, color);
         });
-
-    }
-
-    private String getLabel(FaceRecognitionable fr, Mat face) {
-        switch (fr.predict(face)) {
-            case 0: return "female";
-            case 1: return "male";
-            default: return "";
-        }
     }
 
     private RectVector findFaces(Mat image) {

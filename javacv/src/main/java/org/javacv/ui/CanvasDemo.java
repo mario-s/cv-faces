@@ -7,7 +7,8 @@ import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 
 import org.bytedeco.javacv.CanvasFrame;
-import org.javacv.face.recognition.FaceRecognition;
+import org.javacv.face.recognition.GenderPredictor;
+import org.javacv.face.recognition.Recognizer;
 import org.javacv.face.detection.DetectorService;
 import org.javacv.face.recognition.GenderTrainer;
 import org.javacv.face.recognition.RecognizerType;
@@ -23,8 +24,7 @@ public class CanvasDemo {
 
     private static final Logger LOG = LoggerFactory.getLogger(CanvasDemo.class);
 
-    private final FaceRecognition recognition;
-    
+
     private final CanvasFrame canvas;
     
     private final ExecutorService executorService;
@@ -32,12 +32,9 @@ public class CanvasDemo {
     private final DetectorService detectorService;
 
     public CanvasDemo() {
-        
-        recognition = new FaceRecognition(RecognizerType.Fisher);
-
         String trainingPath = getClass().getResource("../train").getPath();
         LOG.debug("using images from {}", trainingPath);
-        recognition.train(new GenderTrainer(trainingPath));
+
         
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("VideoCanvas");
@@ -55,7 +52,7 @@ public class CanvasDemo {
 
         });
         
-        detectorService = new DetectorService(canvas, recognition);
+        detectorService = new DetectorService(canvas, new GenderPredictor(trainingPath));
         executorService = Executors.newFixedThreadPool(3);
     }
 

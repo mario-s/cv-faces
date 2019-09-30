@@ -1,15 +1,16 @@
 package org.javacv.face.detection;
 
+import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
-import org.javacv.face.recognition.FaceRecognition;
-
-import org.javacv.face.recognition.FaceRecognitionable;
+import org.javacv.face.recognition.Recognitionable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Function;
 
 /**
  *
@@ -23,13 +24,13 @@ public final class DetectorService implements Runnable {
 
     private final FrameGrabber grabber;
 
-    private final FaceDetector detector;
+    private final Detector detector;
 
     private final CanvasFrame canvas;
 
-    public DetectorService(CanvasFrame canvas, FaceRecognitionable recognition) {
+    public DetectorService(CanvasFrame canvas, Function<Mat, String> prediction) {
         this.grabber = new OpenCVFrameGrabber(0);
-        this.detector = new FaceDetector(recognition);
+        this.detector = new Detector(prediction);
         this.canvas = canvas;
         run = true;
     }

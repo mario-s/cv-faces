@@ -16,7 +16,7 @@ public class FaceRecognationTest {
     
     @Before
     public void setUp() {
-        URL res = FaceRecognition.class.getResource("../../train");
+        URL res = Recognizer.class.getResource("../../train");
         trainingPath = res.getPath();
     }
     
@@ -25,7 +25,7 @@ public class FaceRecognationTest {
      */
     @Test
     public void testPredict_EigenFaces() {
-        FaceRecognition classUnderTest = new FaceRecognition(RecognizerType.Eigen);
+        Recognizer classUnderTest = new Recognizer(RecognizerType.Eigen);
         classUnderTest.train(new DefaultTrainer(trainingPath));
         
         String imgName = getClass().getResource("1_test.jpg").getFile();
@@ -48,7 +48,7 @@ public class FaceRecognationTest {
     @Test
     public void testPredict_Gender() {
         //0 == female, 1 == male
-        FaceRecognition classUnderTest = new FaceRecognition(RecognizerType.Fisher);
+        Recognizer classUnderTest = new Recognizer(RecognizerType.Fisher);
         classUnderTest.train(new GenderTrainer(trainingPath));
         
         String imgName = getClass().getResource("1_test.jpg").getFile();

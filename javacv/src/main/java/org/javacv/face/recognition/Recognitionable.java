@@ -6,7 +6,7 @@ import org.bytedeco.javacpp.opencv_core;
  *
  * @author spindizzy
  */
-public interface FaceRecognitionable {
+public interface Recognitionable {
 
     int predict(opencv_core.Mat image);
 

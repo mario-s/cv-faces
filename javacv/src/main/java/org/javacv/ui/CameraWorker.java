@@ -1,7 +1,7 @@
 package org.javacv.ui;
 
 import org.bytedeco.javacpp.opencv_core.Size;
-import org.javacv.face.detection.FaceDetector;
+import org.javacv.face.detection.Detector;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_videoio.VideoCapture;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
     private final JFrame videoWindow;
 
-    private final FaceDetector faceDetector;
+    private final Detector faceDetector;
 
     private final VideoCapture capture;
 
@@ -30,7 +30,7 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
     public CameraWorker(JFrame videoWindow, VideoPanel videoPanel) {
         this.videoWindow = videoWindow;
         this.videoPanel = videoPanel;
-        faceDetector = new FaceDetector();
+        faceDetector = new Detector();
         capture = new VideoCapture(0);
     }
 
