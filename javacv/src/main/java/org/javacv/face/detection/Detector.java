@@ -6,10 +6,9 @@
 package org.javacv.face.detection;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-
-import static java.util.Optional.ofNullable;
 
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.Mat;
@@ -22,6 +21,9 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.javacv.common.ImageProvideable;
 
+import static java.util.stream.Collectors.toList;
+import static java.util.Collections.singletonList;
+import static java.util.Optional.*;
 import static org.bytedeco.javacpp.opencv_highgui.CV_FONT_NORMAL;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
 import static org.bytedeco.javacpp.opencv_imgproc.putText;
@@ -33,26 +35,33 @@ import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
  */
 public class Detector {
 
+    /**
+     * Default cascade file. For others see the resource folder.
+     */
     private static final String CASCADE_XML = "haarcascade_frontalface_alt_tree.xml";
 
     private final Scalar color;
 
-    private final CascadeClassifier classifier;
+    private final List<CascadeClassifier> classifiers;
 
     private Optional<Function<Mat, String>> prediction;
 
     private OpenCVFrameConverter.ToMat converterToMat;
-    
+
     public Detector() {
-        this(null);
+        this(singletonList(CASCADE_XML));
     }
 
-    public Detector(Function<Mat, String> prediction) {
-        this.prediction = ofNullable(prediction);
+    public Detector(List<String> cascades) {
+        this.prediction = empty();
 
         this.color = new Scalar(CvScalar.GREEN);
         this.converterToMat = new OpenCVFrameConverter.ToMat();
-        this.classifier = ClassifierFactory.Instance.create(CASCADE_XML);
+        this.classifiers = cascades.stream().map(ClassifierFactory.Instance::create).collect(toList());
+    }
+
+    public void setPrediction(Function<Mat, String> prediction) {
+        this.prediction = of(prediction);
     }
 
     public boolean hasFace(ImageProvideable provider) {
@@ -137,16 +146,19 @@ public class Detector {
         prediction.ifPresent(pred -> {
             //crop out the face
             Mat face = image.apply(pos);
-            //get a label
-            String lbl = pred.apply(face);
             Point point = new Point(pos.x(), pos.y() - 3);
-            putText(image, lbl, point, CV_FONT_NORMAL, 0.5, color);
+            putText(image, pred.apply(face), point, CV_FONT_NORMAL, 0.5, color);
         });
     }
 
     private RectVector findFaces(Mat image) {
         RectVector rect = new RectVector();
-        classifier.detectMultiScale(image, rect);
+        for(CascadeClassifier classifier : classifiers) {
+            classifier.detectMultiScale(image, rect);
+            if (!rect.empty()) {
+                break;
+            }
+        }
         return rect;
     }
 }

@@ -30,7 +30,8 @@ public final class DetectorService implements Runnable {
 
     public DetectorService(CanvasFrame canvas, Function<Mat, String> prediction) {
         this.grabber = new OpenCVFrameGrabber(0);
-        this.detector = new Detector(prediction);
+        this.detector = new Detector();
+        this.detector.setPrediction(prediction);
         this.canvas = canvas;
         run = true;
     }
