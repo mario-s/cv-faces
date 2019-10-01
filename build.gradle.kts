@@ -30,7 +30,6 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("com.google.code.gson:gson:2.8.1")
 
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:27.0.1-jre")
 
     // Use JUnit test framework
@@ -38,7 +37,15 @@ dependencies {
 }
 
 tasks {
-    "wrapper"(Wrapper::class) {
-        gradleVersion = "5.4"
+    wrapper {
+        gradleVersion = "5.6.2"
+    }
+    register<Copy>("copy") {
+        description = "Copy training data to resource folders."
+        val target = "$buildDir/resources/%s/org/javacv/train"
+        from("$rootDir/data/train")
+        include("*.*")
+        into(String.format("$target", "main"))
+        into(String.format("$target", "test"))
     }
 }
