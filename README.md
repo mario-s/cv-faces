@@ -14,4 +14,4 @@ Please refer [OpenCV's documentation](http://opencv-java-tutorials.readthedocs.i
 
 Known Issues 
 ------------
-It still requires Oracle's Java 8 SDK since there are dependencies to JavaFX.
+It still requires Oracle's Java 8 SDK for the UI.
