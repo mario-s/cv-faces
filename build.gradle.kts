@@ -21,6 +21,10 @@ jacoco {
     toolVersion = "0.8.4"
 }
 
+tasks.processResources {
+    dependsOn("copy")
+}
+
 dependencies {
         //JavaCV and more
     implementation("org.bytedeco:javacv:1.4")
@@ -29,7 +33,6 @@ dependencies {
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:macosx-x86_64")
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("com.google.code.gson:gson:2.8.1")
-
     implementation("com.google.guava:guava:27.0.1-jre")
 
     // Use JUnit test framework
@@ -40,6 +43,7 @@ tasks {
     wrapper {
         gradleVersion = "5.6.2"
     }
+
     register<Copy>("copy") {
         description = "Copy training data to resource folders."
         val target = "$buildDir/resources/%s/org/javacv/train"
@@ -47,5 +51,6 @@ tasks {
         include("*.*")
         into(String.format("$target", "main"))
         into(String.format("$target", "test"))
+        shouldRunAfter("compileJava")
     }
 }
