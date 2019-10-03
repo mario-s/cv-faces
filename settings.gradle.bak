@@ -1,2 +1,0 @@
-include 'javacv'
-rootProject.name = 'cv'
