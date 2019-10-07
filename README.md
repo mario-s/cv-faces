@@ -7,10 +7,13 @@ A playground for the Opencv library with Java bindings. This project includes sa
  - exposure fusion
 
 Installing OpenCV
------------------
-Please refer [OpenCV's documentation](http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html)
-
 ---
+Please refer to the installing chapter of [OpenCV's documentation](http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html)
+
+Images
+---
+For the training images of the face recognition feature refer to the 
+[OpenCV topic on face recognition](https://docs.opencv.org/2.4/modules/contrib/doc/facerec/facerec_tutorial.html#face-database).
 
 Known Issues 
 ------------
