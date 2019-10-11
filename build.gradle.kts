@@ -2,6 +2,8 @@ plugins {
     java
     application
     jacoco
+
+    id("com.adarshr.test-logger").version("1.7.0")
 }
 
 repositories {
@@ -34,7 +36,6 @@ dependencies {
     // Use JUnit test framework
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.3.2")
-    testImplementation("org.junit.vintage:junit-vintage-engine:5.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
 }
 
@@ -47,6 +48,10 @@ tasks {
         useJUnitPlatform()
         testLogging.showExceptions = true
         maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
+    }
+
+    testlogger {
+        setTheme("mocha-parallel")
     }
 
     processResources {
