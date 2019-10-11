@@ -22,7 +22,7 @@ jacoco {
 }
 
 tasks.processResources {
-    dependsOn("copyTrainToMain", "copyTrainToTest")
+    dependsOn("copyTrainToMain")
 }
 
 dependencies {
@@ -43,17 +43,10 @@ tasks {
     wrapper {
         gradleVersion = "5.6.2"
     }
-
-    val target = "$buildDir/resources/%s/org/javacv/train"
-    val source = "$rootDir/data/train"
+    
     register<Copy>("copyTrainToMain") {
-        from(source)
+        from("$rootDir/data/train")
         include("*.*")
-        into(String.format("$target", "main"))
-    }
-    register<Copy>("copyTrainToTest") {
-        from(source)
-        include("*.*")
-        into(String.format("$target", "test"))
+        into("$buildDir/resources/main/org/javacv/train")
     }
 }
