@@ -1,16 +1,16 @@
 package org.javacv.ui;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.bytedeco.javacpp.opencv_core.Mat;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -20,7 +20,7 @@ public class ImageConverterTest {
 
     private Mat matrix;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         File file = new File(getClass().getResource("horses.jpg").getFile());
         String path = file.getPath();

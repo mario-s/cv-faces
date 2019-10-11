@@ -6,13 +6,12 @@ import java.util.Collection;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.javacv.common.ImageUtility;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  *
@@ -26,7 +25,7 @@ public class FusionProcessorTest {
     
     private File out;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         classUnderTest = new FusionProcessor();
         images = new ArrayList<>();
@@ -84,7 +83,7 @@ public class FusionProcessorTest {
         Scalar s = new Scalar(255.0,0.0,255.0,0.0);
         Mat filter = new Mat(src.rows(), src.cols(), src.type(), s);
         Mat dest = src.mul(filter).a();
-        assertThat(dest.empty(), is(false));
+        assertFalse(dest.empty());
     }
     
 }

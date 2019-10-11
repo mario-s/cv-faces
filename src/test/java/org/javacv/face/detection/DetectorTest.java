@@ -2,11 +2,11 @@ package org.javacv.face.detection;
 
 import java.io.File;
 import static org.javacv.common.ImageProvideable.read;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.javacv.common.ImageProvideable;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -20,7 +20,7 @@ public class DetectorTest {
     
     private File targetFolder;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         classUnderTest = new Detector();
         

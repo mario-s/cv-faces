@@ -4,20 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.javacv.common.ImageUtility;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class AffineAlignmentProcessTest {
 
     private AffineAlignmentProcess classUnderTest;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         classUnderTest = new AffineAlignmentProcess();
     }
@@ -37,7 +35,7 @@ public class AffineAlignmentProcessTest {
     public void align_SizeAsLoaded() {
         final List<Mat> loaded = load();
         List<Mat> result = classUnderTest.align(loaded);
-        assertThat(result.size(), equalTo(loaded.size()));
+        assertEquals(loaded.size(), result.size());
     }
 
 }

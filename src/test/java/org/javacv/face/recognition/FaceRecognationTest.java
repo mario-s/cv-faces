@@ -1,10 +1,12 @@
 package org.javacv.face.recognition;
 
-import java.net.URL;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import java.net.URL;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  *
@@ -14,7 +16,7 @@ public class FaceRecognationTest {
     
     private String trainingPath;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         URL res = Recognizer.class.getResource("../../train");
         trainingPath = res.getPath();

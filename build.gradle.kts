@@ -21,10 +21,6 @@ jacoco {
     toolVersion = "0.8.4"
 }
 
-tasks.processResources {
-    dependsOn("copyTrainToMain")
-}
-
 dependencies {
         //JavaCV and more
     implementation("org.bytedeco:javacv:1.4")
@@ -36,12 +32,25 @@ dependencies {
     implementation("com.google.guava:guava:27.0.1-jre")
 
     // Use JUnit test framework
-    testImplementation("junit:junit:4.12")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+    testImplementation("org.junit.vintage:junit-vintage-engine:5.3.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
 }
 
 tasks {
     wrapper {
         gradleVersion = "5.6.2"
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging.showExceptions = true
+        maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
+    }
+
+    processResources {
+        dependsOn("copyTrainToMain")
     }
     
     register<Copy>("copyTrainToMain") {
