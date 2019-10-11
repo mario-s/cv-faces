@@ -28,19 +28,19 @@ public class FaceRecognationTest {
         Recognizer classUnderTest = new Recognizer(RecognizerType.Eigen);
         classUnderTest.train(new DefaultTrainer(trainingPath));
         
-        String imgName = getClass().getResource("1_test.jpg").getFile();
+        String imgName = getClass().getResource("f1_0.jpg").getFile();
         int result = classUnderTest.predict(imgName);
         assertEquals(1, result);
         
-        imgName = getClass().getResource("2_test.jpg").getFile();
+        imgName = getClass().getResource("f2_0.jpg").getFile();
         result = classUnderTest.predict(imgName);
         assertEquals(2, result);
         
-        imgName = getClass().getResource("3_test.jpg").getFile();
+        imgName = getClass().getResource("m1_0.jpg").getFile();
         result = classUnderTest.predict(imgName);
         assertEquals(3, result);
         
-        imgName = getClass().getResource("3_salma_test.jpg").getFile();
+        imgName = getClass().getResource("salma.jpg").getFile();
         result = classUnderTest.predict(imgName);
         assertEquals(3, result);
     }
@@ -51,21 +51,17 @@ public class FaceRecognationTest {
         Recognizer classUnderTest = new Recognizer(RecognizerType.Fisher);
         classUnderTest.train(new GenderTrainer(trainingPath));
         
-        String imgName = getClass().getResource("1_test.jpg").getFile();
+        String imgName = getClass().getResource("f1_1.jpg").getFile();
         int result = classUnderTest.predict(imgName);
         assertEquals(0, result);
         
-        imgName = getClass().getResource("2_test.jpg").getFile();
+        imgName = getClass().getResource("f2_0.jpg").getFile();
         result = classUnderTest.predict(imgName);
         assertEquals(0, result);
         
-        imgName = getClass().getResource("3_test.jpg").getFile();
+        imgName = getClass().getResource("m1_1.jpg").getFile();
         result = classUnderTest.predict(imgName);
         assertEquals(1, result);
-        
-        imgName = getClass().getResource("3_salma_test.jpg").getFile();
-        result = classUnderTest.predict(imgName);
-        assertEquals(0, result);
     }
     
 }
