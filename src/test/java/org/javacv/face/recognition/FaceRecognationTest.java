@@ -3,8 +3,8 @@ package org.javacv.face.recognition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.net.URL;
@@ -41,20 +41,11 @@ class FaceRecognationTest {
             classUnderTest.train(new DefaultTrainer(trainingPath));
         }
 
-        @Test
-        @DisplayName("It should return index of a trained image.")
-        void predict() {
-            int result = classUnderTest.predict(resource.apply("f1_0.jpg"));
-            assertEquals(1, result);
-
-            result = classUnderTest.predict(resource.apply("f2_0.jpg"));
-            assertEquals(2, result);
-
-            result = classUnderTest.predict(resource.apply("m1_0.jpg"));
-            assertEquals(3, result);
-
-            result = classUnderTest.predict(resource.apply("salma.jpg"));
-            assertEquals(3, result);
+        @ParameterizedTest(name = "{index} It should return index {0} of a trained image {1}.")
+        @CsvSource(value = {"f1_0.jpg,1", "f2_0.jpg,2", "m1_0.jpg,3", "salma.jpg,3"})
+        void predict(String input, String expected) {
+            int result = classUnderTest.predict(resource.apply(input));
+            assertEquals(expected, Integer.toString(result));
         }
     }
 
