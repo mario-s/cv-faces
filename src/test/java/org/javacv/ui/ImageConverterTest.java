@@ -2,6 +2,7 @@ package org.javacv.ui;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
@@ -31,6 +32,7 @@ class ImageConverterTest {
      * Test of toBufferedImage method, of class ImageConverter.
      */
     @Test
+    @DisplayName("It convert a Mat to a BufferedImage.")
     void testToBufferedImage() throws IOException {
         BufferedImage image = ImageConverter.toBufferedImage(matrix);
         Raster raster = image.getRaster();

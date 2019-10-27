@@ -1,6 +1,7 @@
 package org.javacv.face.recognition;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
@@ -29,6 +30,7 @@ class FaceRecognationTest {
      * Test of predict method, of class SimpleFaceRecognation.
      */
     @Test
+    @DisplayName("It should return index of a trained image.")
     void testPredict_EigenFaces() {
         Recognizer classUnderTest = new Recognizer(RecognizerType.Eigen);
         classUnderTest.train(new DefaultTrainer(trainingPath));
@@ -47,7 +49,8 @@ class FaceRecognationTest {
     }
     
     @Test
-    void testPredict_Gender() {
+    @DisplayName("It should return integer for a picture of male or female.")
+    void testPredict_Gender_Numeric() {
         //0 == female, 1 == male
         Recognizer classUnderTest = new Recognizer(RecognizerType.Fisher);
         classUnderTest.train(new GenderTrainer(trainingPath));
