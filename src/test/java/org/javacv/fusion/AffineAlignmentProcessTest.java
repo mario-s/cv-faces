@@ -2,6 +2,8 @@ package org.javacv.fusion;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.javacv.common.ImageUtility;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,10 +22,10 @@ class AffineAlignmentProcessTest {
     }
 
     private List<Mat> load() {
-        List<String> names = Arrays.asList(
-                getClass().getResource("Picture_201508010708_0.jpg").getFile(),
-                getClass().getResource("Picture_201508010708_1.jpg").getFile(),
-                getClass().getResource("Picture_201508010708_2.jpg").getFile());
+        Function<String, String> resource = f -> getClass().getResource(f).getFile();
+        List<String> names = Arrays.asList(resource.apply("Picture_201508010708_0.jpg"),
+                resource.apply("Picture_201508010708_1.jpg"),
+                resource.apply("Picture_201508010708_2.jpg"));
         return ImageUtility.Instance.read(names);
     }
 

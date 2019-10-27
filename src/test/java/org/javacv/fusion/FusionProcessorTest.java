@@ -3,6 +3,8 @@ package org.javacv.fusion;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Function;
+
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.javacv.common.ImageUtility;
@@ -18,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author spindizzy
  */
 class FusionProcessorTest {
+
+    private final Function<String, String> resource = f -> getClass().getResource(f).getFile();
     
     private FusionProcessor classUnderTest;
     
@@ -48,9 +52,9 @@ class FusionProcessorTest {
      */
     @Test
     void process_memorial() {
-        images.add(getClass().getResource("memorial0061.png").getFile());
-        images.add(getClass().getResource("memorial0064.png").getFile());
-        images.add(getClass().getResource("memorial0067.png").getFile());
+        images.add(resource.apply("memorial0061.png"));
+        images.add(resource.apply("memorial0064.png"));
+        images.add(resource.apply("memorial0067.png"));
         
         assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());
@@ -58,9 +62,9 @@ class FusionProcessorTest {
     
     @Test
     void process_merge() {
-        images.add(getClass().getResource("Picture_201508010708_0.jpg").getFile());
-        images.add(getClass().getResource("Picture_201508010708_1.jpg").getFile());
-        images.add(getClass().getResource("Picture_201508010708_2.jpg").getFile());
+        images.add(resource.apply("Picture_201508010708_0.jpg"));
+        images.add(resource.apply("Picture_201508010708_1.jpg"));
+        images.add(resource.apply("Picture_201508010708_2.jpg"));
         
         assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());
@@ -69,9 +73,9 @@ class FusionProcessorTest {
     @Test
     void process_with_align() {
         //source images are not matching when put on stack, needs alignment
-        images.add(getClass().getResource("stat_1.jpg").getFile());
-        images.add(getClass().getResource("stat_2.jpg").getFile());
-        images.add(getClass().getResource("stat_3.jpg").getFile());
+        images.add(resource.apply("stat_1.jpg"));
+        images.add(resource.apply("stat_2.jpg"));
+        images.add(resource.apply("stat_3.jpg"));
         
         assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());
@@ -79,7 +83,7 @@ class FusionProcessorTest {
     
     @Test
     void multiply() {
-        Mat src = ImageUtility.Instance.readAsGray(getClass().getResource("Picture_201508010708_0.jpg").getFile());
+        Mat src = ImageUtility.Instance.readAsGray(resource.apply("Picture_201508010708_0.jpg"));
         Scalar s = new Scalar(255.0,0.0,255.0,0.0);
         Mat filter = new Mat(src.rows(), src.cols(), src.type(), s);
         Mat dest = src.mul(filter).a();
