@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-public class AffineAlignmentProcessTest {
+class AffineAlignmentProcessTest {
 
     private AffineAlignmentProcess classUnderTest;
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         classUnderTest = new AffineAlignmentProcess();
     }
 
@@ -32,10 +31,9 @@ public class AffineAlignmentProcessTest {
      * Test of align method, of class AlignProcess.
      */
     @Test
-    public void align_SizeAsLoaded() {
+    void align_SizeAsLoaded() {
         final List<Mat> loaded = load();
         List<Mat> result = classUnderTest.align(loaded);
         assertEquals(loaded.size(), result.size());
     }
-
 }

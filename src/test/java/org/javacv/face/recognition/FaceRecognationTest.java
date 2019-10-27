@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author spindizzy
  */
-public class FaceRecognationTest {
+class FaceRecognationTest {
     
     private String trainingPath;
     
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         URL res = Recognizer.class.getResource("../../train");
         trainingPath = res.getPath();
     }
@@ -26,7 +26,7 @@ public class FaceRecognationTest {
      * Test of predict method, of class SimpleFaceRecognation.
      */
     @Test
-    public void testPredict_EigenFaces() {
+    void testPredict_EigenFaces() {
         Recognizer classUnderTest = new Recognizer(RecognizerType.Eigen);
         classUnderTest.train(new DefaultTrainer(trainingPath));
         
@@ -48,7 +48,7 @@ public class FaceRecognationTest {
     }
     
     @Test
-    public void testPredict_Gender() {
+    void testPredict_Gender() {
         //0 == female, 1 == male
         Recognizer classUnderTest = new Recognizer(RecognizerType.Fisher);
         classUnderTest.train(new GenderTrainer(trainingPath));
@@ -65,5 +65,4 @@ public class FaceRecognationTest {
         result = classUnderTest.predict(imgName);
         assertEquals(1, result);
     }
-    
 }

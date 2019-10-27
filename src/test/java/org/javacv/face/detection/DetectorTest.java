@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author spindizzy
  */
-public class DetectorTest {
+class DetectorTest {
 
     private Detector classUnderTest;
     
@@ -21,7 +21,7 @@ public class DetectorTest {
     private File targetFolder;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         classUnderTest = new Detector();
         
         targetFile = new File(getClass().getResource(".").getFile(), "out.png");
@@ -37,7 +37,7 @@ public class DetectorTest {
     }
     
     @Test
-    public void oneFace_ExpectTrue() {
+    void oneFace_ExpectTrue() {
         assertTrue(classUnderTest.hasFace(() -> read(new File(getClass().getResource("face.jpg").getPath()))));
     }
 
@@ -45,41 +45,40 @@ public class DetectorTest {
      * Test of isFace method, of class FaceDetector.
      */
     @Test
-    public void twentyEightFaces_ExpectTrue() {
+    void twentyEightFaces_ExpectTrue() {
         ImageProvideable provider = () -> read(new File(getClass().getResource("squad.jpg").getPath()));
 
         assertEquals(28, classUnderTest.countFaces(provider));
     }
 
     @Test
-    public void noFace_ExpectFalse() {
+    void noFace_ExpectFalse() {
         assertFalse(classUnderTest.hasFace(() -> read(new File(getClass().getResource("back.jpg").getPath()))));
     }
     
     @Test
-    public void tree_ExpectFalse() {
+    void tree_ExpectFalse() {
         assertFalse(classUnderTest.hasFace(() -> read(new File(getClass().getResource("tree.jpg").getPath()))));
     }
 
     @Test
-    public void testSaveMarkedFaces() {
+    void testSaveMarkedFaces() {
 
         assertTrue(classUnderTest.saveMarkedFaces(() -> read(new File(getClass().getResource("squad.jpg").getPath())), targetFile));
         assertTrue(targetFile.exists());
     }
     
     @Test
-    public void testExtractFaces() {
+    void testExtractFaces() {
 
         assertTrue(classUnderTest.extractFaces(() -> read(new File(getClass().getResource("squad.jpg").getPath())), targetFolder));
         assertTrue(targetFolder.exists());
     }
     
     @Test
-    public void testNoSaveMarkedFaces() {
+    void testNoSaveMarkedFaces() {
 
         assertFalse(classUnderTest.saveMarkedFaces(() -> read(new File(getClass().getResource("tree.jpg").getPath())), targetFile));
         assertFalse(targetFile.exists());
     }
-
 }

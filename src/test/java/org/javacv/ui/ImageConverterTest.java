@@ -16,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author spindizzy
  */
-public class ImageConverterTest {
+class ImageConverterTest {
 
     private Mat matrix;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         File file = new File(getClass().getResource("horses.jpg").getFile());
         String path = file.getPath();
         matrix = imread(path);
@@ -31,12 +31,11 @@ public class ImageConverterTest {
      * Test of toBufferedImage method, of class ImageConverter.
      */
     @Test
-    public void testToBufferedImage() throws IOException {
+    void testToBufferedImage() throws IOException {
         BufferedImage image = ImageConverter.toBufferedImage(matrix);
         Raster raster = image.getRaster();
         //take a sample, it should not be 0
         int sample = raster.getSample(1,1,1);
         assertTrue(sample > 0);
     }
-
 }
