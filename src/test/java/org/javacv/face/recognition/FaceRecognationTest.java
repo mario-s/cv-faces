@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.net.URL;
 import java.util.function.Function;
@@ -67,17 +69,17 @@ class FaceRecognationTest {
             classUnderTest.train(new GenderTrainer(trainingPath));
         }
 
-        @Test
-        @DisplayName("It should return integer for a picture of male or female.")
-        void predict() {
-            //0 == female, 1 == male
-            int result = classUnderTest.predict(resource.apply("f1_1.jpg"));
+        @ParameterizedTest(name = "{index} It should return 0 for a picture ({0}) of a female.")
+        @ValueSource(strings = {"f1_1.jpg", "f2_0.jpg"})
+        void predict_F(String source) {
+            int result = classUnderTest.predict(resource.apply(source));
             assertEquals(0, result);
+        }
 
-            result = classUnderTest.predict(resource.apply("f2_0.jpg"));
-            assertEquals(0, result);
-
-            result = classUnderTest.predict(resource.apply("m1_1.jpg"));
+        @ParameterizedTest(name = "{index} It should return 1 for a picture ({0}) of a male.")
+        @ValueSource(strings = {"m1_1.jpg"})
+        void predict_M(String source) {
+            int result = classUnderTest.predict(resource.apply(source));
             assertEquals(1, result);
         }
     }
