@@ -48,8 +48,8 @@ public class GenderTrainer extends DefaultTrainer {
 
     private static class Gender {
 
-        private List<String> females;
-        private List<String> males;
+        private final List<String> females;
+        private final List<String> males;
 
         public Gender(List<String> females, List<String> males) {
             this.females = females;

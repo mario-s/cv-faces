@@ -16,9 +16,7 @@ public enum ClassifierFactory {
 
     public CascadeClassifier create(String fileName) {
         URL resource = getClass().getResource(fileName);
-        File cFile = new File(resource.getPath());
-        String cPath = cFile.getPath();
-        
-        return new CascadeClassifier(cPath);
+        var path = new File(resource.getPath()).getPath();
+        return new CascadeClassifier(path);
     }
 }

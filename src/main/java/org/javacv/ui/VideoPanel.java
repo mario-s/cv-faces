@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * A panel which extends {@link Canvas} and paints the given {@link Mat}.
  * @author spindizzy
  */
 public class VideoPanel extends Canvas {

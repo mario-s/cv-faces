@@ -6,7 +6,7 @@ import org.javacv.common.ImageUtility;
 import java.util.function.Function;
 
 /**
- * Predict the gender of a face image.
+ * This class predicts the gender of a face image. It will return the gender in plain English.
  */
 public class GenderPredictor implements Function<Mat, String> {
 

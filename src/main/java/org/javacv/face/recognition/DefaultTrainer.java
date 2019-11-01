@@ -9,11 +9,13 @@ import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.javacv.common.ImageUtility;
 
 /**
+ * Default implementation for {@link Trainable}.
  *
  * @author spindizzy
  */
 public class DefaultTrainer implements Trainable{
-    public static final String JPG = ".jpg";
+    private static final String JPG = ".jpg";
+
     private final String trainingDir;
 
     public DefaultTrainer(String trainingDir) {
@@ -44,7 +46,7 @@ public class DefaultTrainer implements Trainable{
     }
 
     protected File[] filterImageFiles(String suffix) {
-        File root = new File(trainingDir);
+        var root = new File(trainingDir);
         return root.listFiles((File dir, String name) -> name.toLowerCase().endsWith(suffix));
     }
     

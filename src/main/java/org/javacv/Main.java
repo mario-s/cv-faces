@@ -13,5 +13,4 @@ public class Main {
         VideoWindow.launch();
     }
 
-
 }

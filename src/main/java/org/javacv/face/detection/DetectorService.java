@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.function.Function;
 
 /**
+ * A service to detect images. It can bbe used in a different thread.
  *
  * @author spindizzy
  */

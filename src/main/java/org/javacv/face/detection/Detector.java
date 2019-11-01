@@ -19,7 +19,7 @@ import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
-import org.javacv.common.ImageProvideable;
+import org.javacv.common.ImageSupplier;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.Collections.singletonList;
@@ -30,8 +30,9 @@ import static org.bytedeco.javacpp.opencv_imgproc.putText;
 import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
 
 /**
+ * A detector for faces in an image.
  *
- * @author schroeder
+ * @author spindizzy
  */
 public class Detector {
 
@@ -64,12 +65,12 @@ public class Detector {
         this.prediction = of(prediction);
     }
 
-    public boolean hasFace(ImageProvideable provider) {
+    public boolean hasFace(ImageSupplier provider) {
         return countFaces(provider) > 0;
     }
 
-    public long countFaces(ImageProvideable provider) {
-        final RectVector rect = findFaces(provider.provide());
+    public long countFaces(ImageSupplier provider) {
+        final RectVector rect = findFaces(provider.get());
         return rect.size();
     }
 
@@ -81,8 +82,8 @@ public class Detector {
      * @return <code>true</code> if any face was extracted and saved in the
      * folder
      */
-    public boolean extractFaces(ImageProvideable provider, File targetFolder) {
-        Mat image = provider.provide();
+    public boolean extractFaces(ImageSupplier provider, File targetFolder) {
+        Mat image = provider.get();
         RectVector rect = findFaces(image);
         long limit = rect.limit();
         if (limit > 0) {
@@ -112,8 +113,8 @@ public class Detector {
      * @param targetFile file with the marked faces
      * @return <code>true</code> if any face was marked and saved to the image
      */
-    public boolean saveMarkedFaces(ImageProvideable provider, File targetFile) {
-        Mat image = provider.provide();
+    public boolean saveMarkedFaces(ImageSupplier provider, File targetFile) {
+        Mat image = provider.get();
         long limit = markFaces(image);
         if (limit > 0) {
             imwrite(targetFile.getPath(), image);

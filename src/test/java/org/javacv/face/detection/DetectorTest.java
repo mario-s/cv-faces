@@ -3,10 +3,10 @@ package org.javacv.face.detection;
 import java.io.File;
 import java.util.function.Function;
 
-import static org.javacv.common.ImageProvideable.read;
+import static org.javacv.common.ImageSupplier.read;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.javacv.common.ImageProvideable;
+import org.javacv.common.ImageSupplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +50,7 @@ class DetectorTest {
      */
     @Test
     void twentyEightFaces_ExpectTrue() {
-        ImageProvideable provider = () -> read(resource.apply("squad.jpg"));
+        ImageSupplier provider = () -> read(resource.apply("squad.jpg"));
 
         assertEquals(28, classUnderTest.countFaces(provider));
     }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import javax.swing.*;
 
 /**
+ * A worker that deals with image update from the camera.
  *
  * @author spindizzy
  */

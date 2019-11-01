@@ -44,7 +44,7 @@ public class Recognizer implements Recognitionable {
     }
 
     private Mat readImage(String imgName) {
-        File f = new File(imgName);
+        var f = new File(imgName);
         return ImageUtility.Instance.readAsGray(f.getAbsolutePath());
     }
 
@@ -55,11 +55,10 @@ public class Recognizer implements Recognitionable {
     }
 
     private Mat resizeImage(Mat image) {
-        Mat target = image;
-        if(!image.size().equals(trainingImageSize)){
-            target = ImageUtility.Instance.resize(image, trainingImageSize);
+        if (!image.size().equals(trainingImageSize)){
+            return ImageUtility.Instance.resize(image, trainingImageSize);
         }
-        return target;
+        return image;
     }
 
     public int predict(String imgName) {

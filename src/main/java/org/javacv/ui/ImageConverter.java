@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
 /**
+ * A utility to convert images.
  *
  * @author spindizzy
  */

@@ -1,6 +1,7 @@
 package org.javacv.face.recognition;
 
 /**
+ * Defines training parameter.
  *
  * @author spindizzy
  */

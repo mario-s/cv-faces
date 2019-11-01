@@ -8,22 +8,19 @@ import javax.swing.JFrame;
 
 import org.bytedeco.javacv.CanvasFrame;
 import org.javacv.face.recognition.GenderPredictor;
-import org.javacv.face.recognition.Recognizer;
 import org.javacv.face.detection.DetectorService;
-import org.javacv.face.recognition.GenderTrainer;
-import org.javacv.face.recognition.RecognizerType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A demo which uses the provided {@link CanvasFrame}.
  *
  * @author spindizzy
  */
 public class CanvasDemo {
 
     private static final Logger LOG = LoggerFactory.getLogger(CanvasDemo.class);
-
 
     private final CanvasFrame canvas;
     
@@ -35,7 +32,6 @@ public class CanvasDemo {
         String trainingPath = getClass().getResource("../train").getPath();
         LOG.debug("using images from {}", trainingPath);
 
-        
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("VideoCanvas");
 
@@ -59,6 +55,5 @@ public class CanvasDemo {
     public void run() {
         executorService.execute(detectorService);
     }
-
 
 }

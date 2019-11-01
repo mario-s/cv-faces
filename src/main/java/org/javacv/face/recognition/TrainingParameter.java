@@ -4,6 +4,7 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 
 /**
+ * The parameter for training are the images and their labels.
  *
  * @author spindizzy
  */
