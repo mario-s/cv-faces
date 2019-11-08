@@ -44,8 +44,7 @@ public class Recognizer implements Recognitionable {
     }
 
     private Mat readImage(String imgName) {
-        var f = new File(imgName);
-        return ImageUtility.Instance.readAsGray(f.getAbsolutePath());
+        return ImageUtility.Instance.readAsGray(new File(imgName).getAbsolutePath());
     }
 
     @Override

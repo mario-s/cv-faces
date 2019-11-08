@@ -46,8 +46,7 @@ public class DefaultTrainer implements Trainable{
     }
 
     protected File[] filterImageFiles(String suffix) {
-        var root = new File(trainingDir);
-        return root.listFiles((File dir, String name) -> name.toLowerCase().endsWith(suffix));
+        return new File(trainingDir).listFiles((File dir, String name) -> name.toLowerCase().endsWith(suffix));
     }
     
 }

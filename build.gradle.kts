@@ -36,7 +36,7 @@ dependencies {
     implementation("com.google.guava:guava:27.0.1-jre")
 
     implementation("ch.qos.logback:logback-classic:1.2.3")
-    
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
@@ -44,7 +44,7 @@ dependencies {
 
 tasks {
     wrapper {
-        gradleVersion = "5.6.2"
+        gradleVersion = "5.6.4"
     }
 
     test {
