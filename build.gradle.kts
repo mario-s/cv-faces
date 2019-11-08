@@ -32,6 +32,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("com.google.code.gson:gson:2.8.1")
     implementation("com.google.guava:guava:27.0.1-jre")
+    implementation("info.picocli:picocli:4.0.4")
 
     // Use JUnit test framework
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
@@ -48,6 +49,12 @@ tasks {
         useJUnitPlatform()
         testLogging.showExceptions = true
         maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
+    }
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule { limit { minimum = BigDecimal(ext.get("min.coverage").toString()) } }
+        }
     }
 
     testlogger {
