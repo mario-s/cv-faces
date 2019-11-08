@@ -24,17 +24,19 @@ jacoco {
 }
 
 dependencies {
-        //JavaCV and more
+    annotationProcessor("info.picocli:picocli-codegen:4.0.4")
+    implementation("info.picocli:picocli:4.0.4")
+
     implementation("org.bytedeco:javacv:1.4")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:windows-x86_64")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:macosx-x86_64")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
+
     implementation("com.google.code.gson:gson:2.8.1")
     implementation("com.google.guava:guava:27.0.1-jre")
-    implementation("info.picocli:picocli:4.0.4")
 
-    // Use JUnit test framework
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
