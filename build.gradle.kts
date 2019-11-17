@@ -24,7 +24,8 @@ jacoco {
 }
 
 dependencies {
-    implementation("com.github.spullara.cli-parser:cli-parser:1.1.5")
+    annotationProcessor("info.picocli:picocli-codegen:4.0.4")
+    implementation("info.picocli:picocli:4.0.4")
 
     implementation("org.bytedeco:javacv:1.4")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3")

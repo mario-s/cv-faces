@@ -10,12 +10,15 @@ import java.awt.image.BufferedImage;
  * @author spindizzy
  */
 public class VideoPanel extends Canvas {
+
+    private static final Color FOREGROUND = Color.white;
+    private static final Color BACKGROUND = Color.black;
     
     private BufferedImage image;
 
     public VideoPanel() {
-        setForeground(Color.white);
-        setBackground(Color.black);
+        setForeground(FOREGROUND);
+        setBackground(BACKGROUND);
     }
 
     /**
@@ -43,9 +46,8 @@ public class VideoPanel extends Canvas {
         // create the offscreenImage buffer and associated Graphics
         Image offscreenImage = createImage(box.width, box.height);
         Graphics offscreenGraphics = offscreenImage.getGraphics();
-        offscreenGraphics.setColor(getBackground());
+        offscreenGraphics.setColor(BACKGROUND);
         offscreenGraphics.fillRect(0, 0, box.width, box.height);
-        offscreenGraphics.setColor(getForeground());
         offscreenGraphics.translate(-box.x, -box.y);
         // do normal redraw
         paint(offscreenGraphics);

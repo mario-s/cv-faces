@@ -25,5 +25,5 @@ With gradle execute the command:
 ``` 
 Or
 ```
-./gradlew run --args='c'
+./gradlew run --args='-c'
 ``` 
