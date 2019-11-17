@@ -33,7 +33,7 @@ public class CanvasDemo {
         LOG.debug("using images from {}", trainingPath);
 
         //Create canvas frame for displaying video.
-        canvas = new CanvasFrame("VideoCanvas");
+        canvas = new CanvasFrame("Video Canvas");
 
         canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         canvas.setCanvasSize(200, 200);
