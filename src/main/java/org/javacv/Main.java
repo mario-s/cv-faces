@@ -13,9 +13,8 @@ public class Main {
     private static Boolean canvas = false;
 
     public static void main(String[] args) {
-        List<String> unparsed = Args.parseOrExit(Main.class, args);
+        Args.parseOrExit(Main.class, args);
         Main command = new Main();
-
         command.run();
     }
 
