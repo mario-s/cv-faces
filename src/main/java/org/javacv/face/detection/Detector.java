@@ -58,7 +58,8 @@ public class Detector {
 
         this.color = new Scalar(CvScalar.GREEN);
         this.converterToMat = new OpenCVFrameConverter.ToMat();
-        this.classifiers = cascades.stream().map(ClassifierFactory.Instance::create).collect(toList());
+        this.classifiers = cascades.stream().map(ClassifierFactory.Instance::create)
+                .filter(Optional::isPresent).map(Optional::get).collect(toList());
     }
 
     public void setPrediction(Function<Mat, String> prediction) {

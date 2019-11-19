@@ -68,7 +68,7 @@ class FaceRecognationTest {
         }
 
         @ParameterizedTest(name = "{index} It should return 1 for a picture ({0}) of a male.")
-        @ValueSource(strings = {"m1_1.jpg"})
+        @ValueSource(strings = {"m1_0.jpg", "m1_1.jpg"})
         void predict_M(String source) {
             int result = classUnderTest.predict(resource.apply(source));
             assertEquals(1, result);

@@ -7,6 +7,8 @@ import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.javacv.common.ImageUtility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation for {@link Trainable}.
@@ -14,6 +16,9 @@ import org.javacv.common.ImageUtility;
  * @author spindizzy
  */
 public class DefaultTrainer implements Trainable{
+
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultTrainer.class);
+
     private static final String JPG = ".jpg";
 
     private final String trainingDir;
@@ -25,19 +30,25 @@ public class DefaultTrainer implements Trainable{
     @Override
     public TrainingParameter getParameter() {
         File[] imageFiles = filterImageFiles(JPG);
-        
-        MatVector images = new MatVector(imageFiles.length);
-        Mat labels = new Mat(imageFiles.length, 1, CV_32SC1);
-        IntBuffer labelBuffer = labels.createBuffer();
-        int counter = 0;
+        int len = imageFiles.length;
 
-        for (File file : imageFiles) {
+        MatVector images = new MatVector(len);
+        Mat labels = new Mat(len, 1, CV_32SC1);
+        IntBuffer labelBuffer = labels.createBuffer();
+
+        for (int i = 0; i < len; i++) {
+            File file = imageFiles[i];
+
             Mat img = ImageUtility.Instance.readAsGray(file.getAbsolutePath());
-            images.put(counter, img);
-            labelBuffer.put(counter, createLabel(file));
-            counter++;
+            images.put(i, img);
+
+            int label = createLabel(file);
+            LOG.trace("label {} for file {}", label, file);
+            labelBuffer.put(i, label);
         }
-        
+
+        LOG.debug("labels for training: {}", labelBuffer);
+
         return new TrainingParameter(images, labels);
     }
 

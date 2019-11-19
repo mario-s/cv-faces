@@ -12,7 +12,7 @@ import static org.bytedeco.javacpp.opencv_core.*;
 
 
 /**
- *
+ * Default implementation of {@link Recognitionable} to find recognize faces.
  * @author spindizzy
  */
 public class Recognizer implements Recognitionable {
@@ -31,11 +31,10 @@ public class Recognizer implements Recognitionable {
 
     @Override
     public void train(Trainable trainer) {
-        train(trainer.getParameter());
-    }
-
-    private void train(TrainingParameter param) {
-        train(param.getImages(), param.getLabels());
+        TrainingParameter parameter = trainer.getParameter();
+        MatVector images = parameter.getImages();
+        Mat labels = parameter.getLabels();
+        train(images, labels);
     }
 
     private void train(MatVector images, Mat labels) {

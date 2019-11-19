@@ -4,8 +4,13 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.util.Optional;
+
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 
 /**
  * Factory for {@link CascadeClassifier}.
@@ -18,10 +23,16 @@ public enum ClassifierFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClassifierFactory.class);
 
-    public CascadeClassifier create(String fileName) {
-        URL resource = getClass().getResource(fileName);
-        LOG.debug("using classifier from {}", resource);
+    public Optional<CascadeClassifier> create(String fileName) {
+        try {
+            URL resource = getClass().getResource(fileName);
 
-        return new CascadeClassifier(new File(resource.getPath()).getPath());
+            String path = Paths.get(resource.toURI()).toString();
+            LOG.debug("using classifier from {}", path);
+
+            return of(new CascadeClassifier(path));
+        } catch (URISyntaxException exc) {
+            return empty();
+        }
     }
 }

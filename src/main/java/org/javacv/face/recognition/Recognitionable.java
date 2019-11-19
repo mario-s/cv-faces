@@ -1,15 +1,25 @@
 package org.javacv.face.recognition;
 
-import org.bytedeco.javacpp.opencv_core;
+import org.bytedeco.javacpp.opencv_core.Mat;
 
 /**
- *
+ * Defines a way to recognize images.
+ * 
  * @author spindizzy
  */
 public interface Recognitionable {
 
-    int predict(opencv_core.Mat image);
+    /**
+     * Predict the category of the given image.
+     * @param image an image as {@link Mat}.
+     * @return
+     */
+    int predict(Mat image);
 
+    /**
+     * Feed the implementation with training images.
+     * @param trainer
+     */
     void train(Trainable trainer);
     
 }
