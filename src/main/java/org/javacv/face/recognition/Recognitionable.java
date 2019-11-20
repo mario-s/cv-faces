@@ -20,6 +20,6 @@ public interface Recognitionable {
      * Feed the implementation with training images.
      * @param trainer
      */
-    void train(Trainable trainer);
+    void train(TrainingSupplier trainer);
     
 }

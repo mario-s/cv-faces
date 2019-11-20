@@ -30,8 +30,8 @@ public class Recognizer implements Recognitionable {
     }
 
     @Override
-    public void train(Trainable trainer) {
-        TrainingParameter parameter = trainer.getParameter();
+    public void train(TrainingSupplier trainer) {
+        TrainingParameter parameter = trainer.get();
         MatVector images = parameter.getImages();
         Mat labels = parameter.getLabels();
         train(images, labels);

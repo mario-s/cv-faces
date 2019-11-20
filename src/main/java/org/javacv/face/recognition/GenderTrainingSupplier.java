@@ -15,17 +15,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * This class provides {@link TrainingParameter} for gender recognition.
  * @author spindizzy
  */
-public class GenderTrainer extends DefaultTrainer {
+public class GenderTrainingSupplier extends DefaultTrainingSupplier {
 
     private static final String GENDER_JSON = "gender.json";
-    private static final Logger LOG = LoggerFactory.getLogger(GenderTrainer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GenderTrainingSupplier.class);
 
     private Optional<Gender> gender = empty();
 
-    public GenderTrainer(String trainingDir) {
+    public GenderTrainingSupplier(String trainingDir) {
         super(trainingDir);
         readGenders(trainingDir);
     }

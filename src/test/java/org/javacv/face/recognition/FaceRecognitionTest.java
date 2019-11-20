@@ -19,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author spindizzy
  */
 @DisplayName("Integration test for Recognizer")
-class FaceRecognationTest {
+class FaceRecognitionTest {
 
-    private final Function<String, String> resource = f -> FaceRecognationTest.class.getResource(f).getFile();
+    private final Function<String, String> resource = f -> FaceRecognitionTest.class.getResource(f).getFile();
 
     private String trainingPath;
 
@@ -38,7 +38,7 @@ class FaceRecognationTest {
         @BeforeEach
         void setup() {
             classUnderTest = new Recognizer(RecognizerType.Eigen);
-            classUnderTest.train(new DefaultTrainer(trainingPath));
+            classUnderTest.train(new DefaultTrainingSupplier(trainingPath));
         }
 
         @ParameterizedTest(name = "{index} It should return index {0} of a trained image {1}.")
@@ -57,7 +57,7 @@ class FaceRecognationTest {
         @BeforeEach
         void setup() {
             classUnderTest = new Recognizer(RecognizerType.Fisher);
-            classUnderTest.train(new GenderTrainer(trainingPath));
+            classUnderTest.train(new GenderTrainingSupplier(trainingPath));
         }
 
         @ParameterizedTest(name = "{index} It should return 0 for a picture ({0}) of a female.")

@@ -1,12 +1,12 @@
 package org.javacv.face.recognition;
 
+import java.util.function.Supplier;
+
 /**
  * Defines training parameter.
  *
  * @author spindizzy
  */
-@FunctionalInterface
-public interface Trainable {
+public interface TrainingSupplier extends Supplier<TrainingParameter> {
     
-    TrainingParameter getParameter();
 }

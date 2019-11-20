@@ -11,24 +11,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Default implementation for {@link Trainable}.
+ * Default implementation for {@link TrainingSupplier}.
  *
  * @author spindizzy
  */
-public class DefaultTrainer implements Trainable{
+public class DefaultTrainingSupplier implements TrainingSupplier {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultTrainer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultTrainingSupplier.class);
 
     private static final String JPG = ".jpg";
 
     private final String trainingDir;
 
-    public DefaultTrainer(String trainingDir) {
+    public DefaultTrainingSupplier(String trainingDir) {
         this.trainingDir = trainingDir;
     }
     
     @Override
-    public TrainingParameter getParameter() {
+    public TrainingParameter get() {
         File[] imageFiles = filterImageFiles(JPG);
         int len = imageFiles.length;
 

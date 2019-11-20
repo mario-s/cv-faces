@@ -17,7 +17,7 @@ public class GenderPredictor implements Function<Mat, String> {
         utility = ImageUtility.Instance;
 
         recognizer = new Recognizer(RecognizerType.Fisher);
-        recognizer.train(new GenderTrainer(trainingPath));
+        recognizer.train(new GenderTrainingSupplier(trainingPath));
     }
 
     @Override
