@@ -1,4 +1,5 @@
 import org.apache.tools.ant.taskdefs.condition.Os
+import java.lang.UnsupportedOperationException
 
 plugins {
     java
@@ -26,12 +27,13 @@ jacoco {
 }
 
 fun os(): String {
+    val arch = System.getenv("sun.arch.data.model")
     val families = listOf(Os.FAMILY_WINDOWS, Os.FAMILY_MAC, Os.FAMILY_UNIX)
-    val family = families.first { Os.isFamily(it) };
-    return when (family) {
-        Os.FAMILY_UNIX -> "linux-x86_64"
+    return when (val family = families.firstOrNull{ Os.isFamily(it) }) {
+        Os.FAMILY_UNIX -> "linux-${arch}"
         Os.FAMILY_MAC -> "${family}osx-x86_64"
-        else -> "${family}-x86_64"
+        Os.FAMILY_WINDOWS -> "${family}-${arch}"
+        else -> throw UnsupportedOperationException("the OS is not supported")
     }
 }
 
