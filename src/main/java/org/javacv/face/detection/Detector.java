@@ -20,6 +20,8 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.javacv.common.ImageSupplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.Collections.singletonList;
@@ -35,6 +37,8 @@ import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
  * @author spindizzy
  */
 public class Detector {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Detector.class);
 
     /**
      * Default cascade file. For others see the resource folder.
@@ -87,11 +91,9 @@ public class Detector {
         Mat image = provider.get();
         RectVector rect = findFaces(image);
         long limit = rect.limit();
-        if (limit > 0) {
-            for (int i = 0; i < limit; i++) {
-                Mat face = extractFace(rect, i, image);
-                saveFace(targetFolder, face, i);
-            }
+        for (int i = 0; i < limit; i++) {
+            Mat face = extractFace(rect, i, image);
+            saveFace(targetFolder, face, i);
         }
         return limit > 0;
     }
@@ -145,12 +147,12 @@ public class Detector {
     }
 
     private void predict(Mat image, Rect pos) {
-        prediction.ifPresent(pred -> {
+        prediction.ifPresentOrElse(pred -> {
             //crop out the face
             Mat face = image.apply(pos);
             Point point = new Point(pos.x(), pos.y() - 3);
             putText(image, pred.apply(face), point, CV_FONT_NORMAL, 0.5, color);
-        });
+        }, () -> LOG.info("No predictor set!"));
     }
 
     private RectVector findFaces(Mat image) {
