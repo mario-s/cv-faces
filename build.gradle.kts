@@ -28,12 +28,12 @@ jacoco {
 
 fun os(): String {
     val arch = System.getenv("sun.arch.data.model")
-    val families = listOf(Os.FAMILY_WINDOWS, Os.FAMILY_MAC, Os.FAMILY_UNIX)
+    val families = listOf(Os.FAMILY_MAC, Os.FAMILY_UNIX, Os.FAMILY_WINDOWS)
     return when (val family = families.firstOrNull{ Os.isFamily(it) }) {
         Os.FAMILY_UNIX -> "linux-${arch}"
         Os.FAMILY_MAC -> "${family}osx-x86_64"
         Os.FAMILY_WINDOWS -> "${family}-${arch}"
-        else -> throw UnsupportedOperationException("the OS is not supported")
+        else -> throw UnsupportedOperationException("OS is unsupported")
     }
 }
 
