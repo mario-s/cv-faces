@@ -42,8 +42,9 @@ public class GenderTrainingSupplier extends DefaultTrainingSupplier {
     }
 
     @Override
-    protected int createLabel(File file) {
-        return parseInt(file.getName().split("\\-")[0]);
+    protected int createLabel(String fileName) {
+        String chunk = fileName.split("\\-")[0];
+        return parseInt(chunk);
     }
 
     private static class Gender {
