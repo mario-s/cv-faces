@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
     java
     application
@@ -23,14 +25,22 @@ jacoco {
     toolVersion = "0.8.4"
 }
 
+fun os(): String {
+    val families = listOf(Os.FAMILY_WINDOWS, Os.FAMILY_MAC, Os.FAMILY_UNIX)
+    val family = families.first { Os.isFamily(it) };
+    return when (family) {
+        Os.FAMILY_MAC -> "${family}osx-x86_64"
+        else -> "${family}-x86_64"
+    }
+}
+
 dependencies {
     annotationProcessor("info.picocli:picocli-codegen:4.0.4")
     implementation("info.picocli:picocli:4.0.4")
 
     implementation("org.bytedeco:javacv:1.4")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3")
-    implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:windows-x86_64")
-    implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:macosx-x86_64")
+    implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:${os()}")
 
     implementation("com.google.code.gson:gson:2.8.1")
     implementation("com.google.guava:guava:27.0.1-jre")
