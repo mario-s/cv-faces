@@ -29,6 +29,7 @@ fun os(): String {
     val families = listOf(Os.FAMILY_WINDOWS, Os.FAMILY_MAC, Os.FAMILY_UNIX)
     val family = families.first { Os.isFamily(it) };
     return when (family) {
+        Os.FAMILY_UNIX -> "linux-x86_64"
         Os.FAMILY_MAC -> "${family}osx-x86_64"
         else -> "${family}-x86_64"
     }
