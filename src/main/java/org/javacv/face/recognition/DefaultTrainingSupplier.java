@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.IntBuffer;
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.StreamSupport;
+import java.util.stream.Stream;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
@@ -14,7 +14,6 @@ import org.javacv.common.ImageUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 
@@ -30,12 +29,12 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
     /**
      * Constant for jpg files filter.
      */
-    protected static final String SUFFIX_JPG = "jpg";
+    protected static final String SUFFIX_JPG = ".jpg";
 
     /**
      * Constant for pgm files filter.
      */
-    protected static final String SUFFIX_PGM = "pgm";
+    protected static final String SUFFIX_PGM = ".pgm";
 
     private final String trainingDir;
 
@@ -87,24 +86,23 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
      * @return a collection of {@link Path} to the images files
      */
     protected List<Path> filterImageFiles(String[] suffixes) {
-        String syntax = createSyntax(suffixes);
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(trainingDir), syntax)) {
-            return asList(stream);
+        try (Stream<Path> stream = Files.walk(Paths.get(trainingDir))) {
+            return stream
+                    .filter(Files::isRegularFile)
+                    .filter(path -> hasMatchingSuffix(suffixes, path))
+                    .collect(toList());
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage(), e);
         }
     }
 
-    private List<Path> asList(DirectoryStream<Path> stream) {
-        Iterable<Path> iterable = () -> stream.iterator();
-        return StreamSupport.stream(iterable.spliterator(), false).collect(toList());
-    }
-
-    private String createSyntax(String[] suffixes) {
-        StringJoiner joiner = new StringJoiner(",", "{", "}");
+    private boolean hasMatchingSuffix(String[] suffixes, Path path) {
+        var name = path.getFileName().toString().toLowerCase();
         for (String suffix : suffixes) {
-            joiner.add(suffix);
+            if (name.endsWith(suffix)) {
+                return true;
+            }
         }
-        return format("*.%s", joiner.toString());
+        return false;
     }
 }
