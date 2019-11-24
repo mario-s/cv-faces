@@ -40,19 +40,15 @@ public final class DetectorService implements Runnable {
         boolean sizeAdjusted = false;
 
         try {
-            //Start grabber to capture video
-            grabber.start();
-            LOG.debug("giving camera some time...");
-            Thread.sleep(3000);
+            startGrabber();
 
             while (run) {
 
                 if (!sizeAdjusted) {
-                    //Set canvas size as per dimentions of video frame.
+                    //Set canvas size as per dimensions of video frame.
                     canvas.setCanvasSize(grabber.getImageWidth(), grabber.getImageHeight());
                 }
 
-                //insert grabed video frame to IplImage img
                 Frame img = grabber.grab();
 
                 if (img != null) {
@@ -65,6 +61,14 @@ public final class DetectorService implements Runnable {
         } catch (Exception e) {
             LOG.warn(e.getMessage(), e);
         }
+    }
+
+    //Start grabber to capture video
+    private void startGrabber() throws FrameGrabber.Exception, InterruptedException {
+        grabber.start();
+        LOG.debug("giving camera some time...");
+        Thread.sleep(3000);
+        LOG.debug("...camera should be ready");
     }
 
     public void stop() {

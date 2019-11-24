@@ -152,7 +152,7 @@ public class Detector {
             Mat face = image.apply(pos);
             Point point = new Point(pos.x(), pos.y() - 3);
             putText(image, pred.predict(face), point, CV_FONT_NORMAL, 0.5, color);
-        }, () -> LOG.info("No predictor set!"));
+        }, () -> LOG.trace("No predictor set!"));
     }
 
     private RectVector findFaces(Mat image) {

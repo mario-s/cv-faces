@@ -37,6 +37,7 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
     @Override
     protected Void doInBackground() throws Exception {
+        long lastMarked = 0;
 
         Thread.sleep(1000);
         Mat webcamImage = new Mat();
@@ -50,8 +51,13 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
                     updated = true;
                 }
                 
-                faceDetector.markFaces(webcamImage);
+                long marked = faceDetector.markFaces(webcamImage);
                 videoPanel.updateImage(webcamImage);
+
+                if (LOG.isDebugEnabled() && marked != lastMarked) {
+                    LOG.debug("number of faces: {}", marked);
+                    lastMarked = marked;
+                }
             } else {
                 LOG.warn(" --(!) No captured frame -- Break!");
                 break;
