@@ -5,7 +5,6 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
-import org.javacv.face.recognition.Predictable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,22 +16,35 @@ import org.slf4j.LoggerFactory;
  */
 public final class DetectorService implements Runnable {
 
+    private static final long DEFAULT_DELAY = 3000;
+
     private static final Logger LOG = LoggerFactory.getLogger(DetectorService.class);
 
     private boolean run;
 
+    private long delay;
+
     private final FrameGrabber grabber;
 
-    private final Detector detector;
+    private final Detectable detector;
 
     private final CanvasFrame canvas;
 
-    public DetectorService(CanvasFrame canvas, Predictable<String> prediction) {
-        this.grabber = new OpenCVFrameGrabber(0);
-        this.detector = new Detector();
-        this.detector.setPrediction(prediction);
+    public DetectorService(CanvasFrame canvas, Detectable detectable) {
+        this(new OpenCVFrameGrabber(0), canvas, detectable);
+    }
+
+    public DetectorService(FrameGrabber grabber, CanvasFrame canvas, Detectable detectable) {
+        this.grabber = grabber;
+        this.detector = detectable;
         this.canvas = canvas;
+
         run = true;
+        delay = DEFAULT_DELAY;
+    }
+
+    public void setDelay(long delay) {
+        this.delay = delay;
     }
 
     @Override
@@ -67,7 +79,7 @@ public final class DetectorService implements Runnable {
     private void startGrabber() throws FrameGrabber.Exception, InterruptedException {
         grabber.start();
         LOG.debug("giving camera some time...");
-        Thread.sleep(3000);
+        Thread.sleep(delay);
         LOG.debug("...camera should be ready");
     }
 

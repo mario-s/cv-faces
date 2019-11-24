@@ -36,7 +36,7 @@ import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
  *
  * @author spindizzy
  */
-public class Detector {
+public class Detector implements Detectable{
 
     private static final Logger LOG = LoggerFactory.getLogger(Detector.class);
 
@@ -124,7 +124,8 @@ public class Detector {
         }
         return limit > 0;
     }
-    
+
+    @Override
     public long markFaces(Frame img){
         return markFaces(converterToMat.convert(img));
     }
