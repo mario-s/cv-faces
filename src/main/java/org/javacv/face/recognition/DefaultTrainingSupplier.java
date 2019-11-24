@@ -9,7 +9,7 @@ import java.util.*;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.javacv.common.FileUtil;
-import org.javacv.common.ImageUtility;
+import org.javacv.common.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +52,7 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
         for (int i = 0; i < len; i++) {
             Path path = paths.get(i);
 
-            Mat img = ImageUtility.Instance.readAsGray(path.toString());
+            Mat img = ImageUtil.readAsGray(path.toString());
             images.put(i, img);
 
             int label = createLabel(path.getFileName().toString());

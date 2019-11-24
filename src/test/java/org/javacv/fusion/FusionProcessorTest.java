@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.javacv.common.ImageUtility;
+import org.javacv.common.ImageUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -83,7 +83,7 @@ class FusionProcessorTest {
     
     @Test
     void multiply() {
-        Mat src = ImageUtility.Instance.readAsGray(resource.apply("Picture_201508010708_0.jpg"));
+        Mat src = ImageUtil.readAsGray(resource.apply("Picture_201508010708_0.jpg"));
         Scalar s = new Scalar(255.0,0.0,255.0,0.0);
         Mat filter = new Mat(src.rows(), src.cols(), src.type(), s);
         Mat dest = src.mul(filter).a();

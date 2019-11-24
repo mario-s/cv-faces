@@ -6,8 +6,8 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.bytedeco.javacpp.opencv_face.EigenFaceRecognizer;
 import org.bytedeco.javacpp.opencv_face.FisherFaceRecognizer;
-import org.javacv.common.ImageUtility;
 
+import static org.javacv.common.ImageUtil.*;
 import static org.bytedeco.javacpp.opencv_core.*;
 
 
@@ -43,7 +43,7 @@ public class Recognizer implements Trainable<Integer> {
     }
 
     private Mat readImage(String imgName) {
-        return ImageUtility.Instance.readAsGray(new File(imgName).getAbsolutePath());
+        return readAsGray(new File(imgName).getAbsolutePath());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Recognizer implements Trainable<Integer> {
 
     private Mat resizeImage(Mat image) {
         if (!image.size().equals(trainingImageSize)){
-            return ImageUtility.Instance.resize(image, trainingImageSize);
+            return resize(image, trainingImageSize);
         }
         return image;
     }

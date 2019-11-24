@@ -19,27 +19,29 @@ import static org.bytedeco.javacpp.opencv_imgproc.CV_RGB2GRAY;
  *
  * @author spindizzy
  */
-public enum ImageUtility {
+public final class ImageUtil {
 
-    Instance;
+    private ImageUtil() {
+        //nothing here
+    }
 
-    public Mat readAsGray(String path) {
+    public static Mat readAsGray(String path) {
         return imread(path, CV_LOAD_IMAGE_GRAYSCALE);
     }
 
-    private Mat readAsRgb(String path) {
+    private static Mat readAsRgb(String path) {
         return imread(path);
     }
 
-    public List<Mat> read(Collection<String> pics) {
-        return pics.stream().map(this::readAsRgb).collect(Collectors.toList());
+    public static List<Mat> read(Collection<String> pics) {
+        return pics.stream().map(ImageUtil::readAsRgb).collect(Collectors.toList());
     }
 
-    public void write(Mat img, File out) {
+    public static void write(Mat img, File out) {
         imwrite(out.getPath(), img);
     }
 
-    public Mat resize(Mat src, Size size) {
+    public static Mat resize(Mat src, Size size) {
         Mat target = new Mat();
         opencv_imgproc.resize(src, target, size);
         return target;
@@ -50,7 +52,7 @@ public enum ImageUtility {
      * @param src source image
      * @return image as gray
      */
-    public Mat toGray(Mat src) {
+    public static Mat toGray(Mat src) {
         Mat target = new Mat(src.size(), src.type());
         opencv_imgproc.cvtColor(src, target, CV_RGB2GRAY);
         return target;
