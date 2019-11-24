@@ -3,12 +3,11 @@ package org.javacv.ui;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
-import java.io.File;
-import java.io.IOException;
 
 import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,17 +22,16 @@ class ImageConverterTest {
 
     @BeforeEach
     void setUp() {
-        File file = new File(getClass().getResource("horses.jpg").getFile());
-        String path = file.getPath();
-        matrix = imread(path);
+        matrix = imread(getClass().getResource("horses.jpg").getFile());
     }
 
     /**
      * Test of toBufferedImage method, of class ImageConverter.
      */
     @Test
-    @DisplayName("It convert a Mat to a BufferedImage.")
-    void testToBufferedImage() throws IOException {
+    @Tag("convert")
+    @DisplayName("It should convert a Mat to a BufferedImage.")
+    void testToBufferedImage() {
         BufferedImage image = ImageConverter.toBufferedImage(matrix);
         Raster raster = image.getRaster();
         //take a sample, it should not be 0
