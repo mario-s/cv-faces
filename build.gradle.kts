@@ -87,4 +87,8 @@ tasks {
         include("*.*")
         into("$buildDir/resources/main/org/javacv/train")
     }
+
+    check {
+        dependsOn(jacocoTestCoverageVerification)
+    }
 }
