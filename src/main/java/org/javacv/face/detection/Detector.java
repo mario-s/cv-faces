@@ -67,7 +67,7 @@ public class Detector implements Detectable{
     }
 
     public void setPrediction(Predictable<String> prediction) {
-        this.prediction = ofNullable(prediction);
+        this.prediction = of(prediction);
     }
 
     public boolean hasFace(ImageSupplier provider) {
