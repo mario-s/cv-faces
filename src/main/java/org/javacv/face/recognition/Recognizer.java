@@ -12,10 +12,10 @@ import static org.bytedeco.javacpp.opencv_core.*;
 
 
 /**
- * Default implementation of {@link Recognitionable} to find recognize faces.
+ * Default implementation of {@link Trainable} to find recognize faces.
  * @author spindizzy
  */
-public class Recognizer implements Recognitionable {
+public class Recognizer implements Trainable<Integer> {
     
     private Size trainingImageSize;
 
@@ -47,7 +47,7 @@ public class Recognizer implements Recognitionable {
     }
 
     @Override
-    public int predict(Mat image) {
+    public Integer predict(Mat image) {
         Mat target = resizeImage(image);
         return faceRecognizer.predict_label(target);
     }

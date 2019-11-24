@@ -1,16 +1,14 @@
 package org.javacv.face.detection;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
-import org.javacv.face.recognition.Recognitionable;
+import org.javacv.face.recognition.Predictable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Function;
 
 /**
  * A service to detect images. It can bbe used in a different thread.
@@ -29,7 +27,7 @@ public final class DetectorService implements Runnable {
 
     private final CanvasFrame canvas;
 
-    public DetectorService(CanvasFrame canvas, Function<Mat, String> prediction) {
+    public DetectorService(CanvasFrame canvas, Predictable<String> prediction) {
         this.grabber = new OpenCVFrameGrabber(0);
         this.detector = new Detector();
         this.detector.setPrediction(prediction);

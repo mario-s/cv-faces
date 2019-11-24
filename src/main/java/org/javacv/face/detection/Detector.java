@@ -8,7 +8,6 @@ package org.javacv.face.detection;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.Mat;
@@ -20,6 +19,7 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.javacv.common.ImageSupplier;
+import org.javacv.face.recognition.Predictable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +49,7 @@ public class Detector {
 
     private final List<CascadeClassifier> classifiers;
 
-    private Optional<Function<Mat, String>> prediction;
+    private Optional<Predictable<String>> prediction;
 
     private OpenCVFrameConverter.ToMat converterToMat;
 
@@ -66,7 +66,7 @@ public class Detector {
                 .filter(Optional::isPresent).map(Optional::get).collect(toList());
     }
 
-    public void setPrediction(Function<Mat, String> prediction) {
+    public void setPrediction(Predictable<String> prediction) {
         this.prediction = of(prediction);
     }
 
@@ -151,7 +151,7 @@ public class Detector {
             //crop out the face
             Mat face = image.apply(pos);
             Point point = new Point(pos.x(), pos.y() - 3);
-            putText(image, pred.apply(face), point, CV_FONT_NORMAL, 0.5, color);
+            putText(image, pred.predict(face), point, CV_FONT_NORMAL, 0.5, color);
         }, () -> LOG.info("No predictor set!"));
     }
 

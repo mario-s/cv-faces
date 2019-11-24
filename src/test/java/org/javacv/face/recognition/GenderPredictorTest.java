@@ -25,12 +25,12 @@ class GenderPredictorTest {
     @Test
     @DisplayName("It should return male for a male picture.")
     void apply_M() {
-        assertEquals("male", classUnderTest.apply(imread(resource.apply("m1_1.jpg"))));
+        assertEquals("male", classUnderTest.predict(imread(resource.apply("m1_1.jpg"))));
     }
 
     @Test
     @DisplayName("It should return female for a female picture.")
     void apply_F() {
-        assertEquals("female", classUnderTest.apply(imread(resource.apply("salma.jpg"))));
+        assertEquals("female", classUnderTest.predict(imread(resource.apply("salma.jpg"))));
     }
 }
