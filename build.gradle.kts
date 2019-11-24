@@ -6,7 +6,7 @@ plugins {
     application
     jacoco
 
-    id("com.adarshr.test-logger").version("1.7.0")
+    id("com.adarshr.test-logger").version("2.0.0")
 }
 
 repositories {
@@ -76,6 +76,7 @@ tasks {
 
     testlogger {
         setTheme("mocha-parallel")
+        setSlowThreshold(5000)
     }
 
     processResources {
