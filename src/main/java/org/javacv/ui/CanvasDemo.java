@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 
 import org.bytedeco.javacv.CanvasFrame;
+import org.javacv.face.detection.Detector;
 import org.javacv.face.recognition.GenderPredictor;
 import org.javacv.face.detection.DetectorService;
 
@@ -47,8 +48,11 @@ public class CanvasDemo {
             }
 
         });
-        
-        detectorService = new DetectorService(canvas, new GenderPredictor(trainingPath));
+
+        Detector detector = new Detector();
+        detector.setPrediction(new GenderPredictor(trainingPath));
+
+        detectorService = new DetectorService(canvas, detector);
         executorService = Executors.newFixedThreadPool(3);
     }
 
