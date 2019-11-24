@@ -2,19 +2,17 @@ package org.javacv.face.recognition;
 
 import static java.lang.Integer.parseInt;
 
-import java.io.IOException;
 import java.nio.IntBuffer;
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.Stream;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
+import org.javacv.common.FileUtil;
 import org.javacv.common.ImageUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static java.util.stream.Collectors.toList;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 
 /**
@@ -86,23 +84,6 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
      * @return a collection of {@link Path} to the images files
      */
     protected List<Path> filterImageFiles(String[] suffixes) {
-        try (Stream<Path> stream = Files.walk(Paths.get(trainingDir))) {
-            return stream
-                    .filter(Files::isRegularFile)
-                    .filter(path -> hasMatchingSuffix(suffixes, path))
-                    .collect(toList());
-        } catch (IOException e) {
-            throw new IllegalStateException(e.getMessage(), e);
-        }
-    }
-
-    private boolean hasMatchingSuffix(String[] suffixes, Path path) {
-        var name = path.getFileName().toString().toLowerCase();
-        for (String suffix : suffixes) {
-            if (name.endsWith(suffix)) {
-                return true;
-            }
-        }
-        return false;
+        return FileUtil.filterFiles(trainingDir, suffixes);
     }
 }
