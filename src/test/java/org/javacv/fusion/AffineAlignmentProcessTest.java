@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.javacv.common.ImageUtility;
+import org.javacv.common.ImageUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ class AffineAlignmentProcessTest {
         List<String> names = Arrays.asList(resource.apply("Picture_201508010708_0.jpg"),
                 resource.apply("Picture_201508010708_1.jpg"),
                 resource.apply("Picture_201508010708_2.jpg"));
-        return ImageUtility.Instance.read(names);
+        return ImageUtil.read(names);
     }
 
     /**

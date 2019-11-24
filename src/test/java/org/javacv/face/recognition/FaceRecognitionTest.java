@@ -42,8 +42,8 @@ class FaceRecognitionTest {
         }
 
         @ParameterizedTest(name = "{index} It should return index {0} of a trained image {1}.")
-        @CsvSource(value = {"f1_0.jpg,1", "f2_0.jpg,2", "m1_0.jpg,3", "salma.jpg,3"})
-        void predict(String input, String expected) {
+        @CsvSource(value = {"1, f1_0.jpg", "2, f2_0.jpg", "3, m1_0.jpg", "3, salma.jpg"})
+        void predict(String expected, String input) {
             int result = classUnderTest.predict(resource.apply(input));
             assertEquals(expected, Integer.toString(result));
         }

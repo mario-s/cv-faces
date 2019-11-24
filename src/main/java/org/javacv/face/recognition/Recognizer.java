@@ -6,16 +6,16 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.bytedeco.javacpp.opencv_face.EigenFaceRecognizer;
 import org.bytedeco.javacpp.opencv_face.FisherFaceRecognizer;
-import org.javacv.common.ImageUtility;
 
+import static org.javacv.common.ImageUtil.*;
 import static org.bytedeco.javacpp.opencv_core.*;
 
 
 /**
- * Default implementation of {@link Recognitionable} to find recognize faces.
+ * Default implementation of {@link Trainable} to find recognize faces.
  * @author spindizzy
  */
-public class Recognizer implements Recognitionable {
+public class Recognizer implements Trainable<Integer> {
     
     private Size trainingImageSize;
 
@@ -43,18 +43,18 @@ public class Recognizer implements Recognitionable {
     }
 
     private Mat readImage(String imgName) {
-        return ImageUtility.Instance.readAsGray(new File(imgName).getAbsolutePath());
+        return readAsGray(new File(imgName).getAbsolutePath());
     }
 
     @Override
-    public int predict(Mat image) {
+    public Integer predict(Mat image) {
         Mat target = resizeImage(image);
         return faceRecognizer.predict_label(target);
     }
 
     private Mat resizeImage(Mat image) {
         if (!image.size().equals(trainingImageSize)){
-            return ImageUtility.Instance.resize(image, trainingImageSize);
+            return resize(image, trainingImageSize);
         }
         return image;
     }

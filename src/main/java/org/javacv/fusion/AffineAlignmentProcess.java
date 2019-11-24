@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.javacv.common.ImageUtility;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.javacv.common.ImageUtil.toGray;
 
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgproc.warpAffine;
@@ -22,12 +24,9 @@ public class AffineAlignmentProcess {
 
     private static final Logger LOG = LoggerFactory.getLogger(AffineAlignmentProcess.class);
 
-    private final ImageUtility imageUtility;
-    
     private final Mat warpMatrix;
     
     public AffineAlignmentProcess() {
-        imageUtility = ImageUtility.Instance;
         warpMatrix = Mat.eye(2, 3, CV_32F).asMat();
     }
 
@@ -41,7 +40,7 @@ public class AffineAlignmentProcess {
             List<Mat> tail = images.subList(1, size);
             
             //convert first image to gray
-            Mat headGray = imageUtility.toGray(head);
+            Mat headGray = toGray(head);
             //warp each other image
             result.addAll(tail.stream().map(i -> warp(headGray, i)).collect(Collectors.toList()));
 
@@ -55,8 +54,7 @@ public class AffineAlignmentProcess {
     }
 
     private Mat warp(Mat template, Mat img) {
-        Mat gray = imageUtility.toGray(img);
-        findTransformECC(template, gray, warpMatrix);
+        findTransformECC(template, toGray(img), warpMatrix);
 
         Mat dest = new Mat();
         warpAffine(img, dest, warpMatrix, template.size());

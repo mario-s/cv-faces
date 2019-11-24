@@ -1,8 +1,8 @@
 package org.javacv.face.recognition;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 
 import java.util.function.Function;
@@ -22,15 +22,10 @@ class GenderPredictorTest {
         classUnderTest = new GenderPredictor(trainingPath);
     }
 
-    @Test
-    @DisplayName("It should return male for a male picture.")
-    void apply_M() {
-        assertEquals("male", classUnderTest.apply(imread(resource.apply("m1_1.jpg"))));
+    @ParameterizedTest(name = "{index} It should return {0} of a trained image {1}.")
+    @CsvSource(value = {"male, m1_1.jpg", "female, salma.jpg"})
+    void predict(String expected, String file) {
+        assertEquals(expected, classUnderTest.predict(imread(resource.apply(file))));
     }
 
-    @Test
-    @DisplayName("It should return female for a female picture.")
-    void apply_F() {
-        assertEquals("female", classUnderTest.apply(imread(resource.apply("salma.jpg"))));
-    }
 }
