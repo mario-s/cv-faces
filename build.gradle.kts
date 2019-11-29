@@ -45,7 +45,6 @@ dependencies {
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:${os()}")
 
-    implementation("com.google.code.gson:gson:2.8.1")
     implementation("com.google.guava:guava:27.0.1-jre")
 
     implementation("ch.qos.logback:logback-classic:1.2.3")
