@@ -7,9 +7,9 @@ import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 
 import org.bytedeco.javacv.CanvasFrame;
-import org.javacv.face.detection.Detector;
+import org.javacv.face.detection.haar.Detector;
 import org.javacv.face.recognition.GenderPredictor;
-import org.javacv.face.detection.DetectorService;
+import org.javacv.face.detection.haar.DetectorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
