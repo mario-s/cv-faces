@@ -1,5 +1,6 @@
 package org.javacv.detect;
 
+import org.javacv.detect.face.dnn.DnnDetector;
 import org.javacv.detect.face.haar.HaarDetector;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -22,8 +23,9 @@ class DetectorFactoryTest {
 
     @Test
     @Tag("detector")
-    @DisplayName("It should throw an exception for unsupported type")
-    void create_Unsupported() {
-        assertThrows(UnsupportedOperationException.class, () -> DetectorFactory.create(DetectorFactory.DetectorType.DNN));
+    @DisplayName("It should create an instance of a DnnDetector")
+    void create_Dnn() {
+        Detectable result = DetectorFactory.create(DetectorFactory.DetectorType.DNN);
+        assertTrue(result instanceof DnnDetector);
     }
 }

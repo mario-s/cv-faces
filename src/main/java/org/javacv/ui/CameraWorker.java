@@ -51,7 +51,7 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
                     updated = true;
                 }
                 
-                long marked = faceDetector.markObject(webcamImage);
+                long marked = faceDetector.markObjects(webcamImage);
                 videoPanel.updateImage(webcamImage);
 
                 if (LOG.isDebugEnabled() && marked != lastMarked) {
