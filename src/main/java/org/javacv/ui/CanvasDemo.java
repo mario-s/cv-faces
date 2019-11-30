@@ -60,4 +60,7 @@ public class CanvasDemo {
         executorService.execute(detectorService);
     }
 
+    public static void launch() {
+        new CanvasDemo().run();
+    }
 }

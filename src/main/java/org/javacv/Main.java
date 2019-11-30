@@ -40,8 +40,7 @@ public class Main implements Runnable, IVersionProvider {
     @Override
     public void run() {
         if (canvas) {
-            CanvasDemo demo = new CanvasDemo();
-            demo.run();
+            CanvasDemo.launch();
         } else {
             VideoWindow.launch();
         }
