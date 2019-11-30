@@ -119,7 +119,7 @@ public class HaarDetector implements Detectable {
      */
     public boolean saveMarkedFaces(ImageSupplier provider, File targetFile) {
         Mat image = provider.get();
-        long limit = markFaces(image);
+        long limit = markObjects(image);
         if (limit > 0) {
             imwrite(targetFile.getPath(), image);
         }
@@ -128,7 +128,7 @@ public class HaarDetector implements Detectable {
 
     @Override
     public long markObjects(Frame img){
-        return markFaces(converterToMat.convert(img));
+        return markObjects(converterToMat.convert(img));
     }
 
     /**
@@ -137,7 +137,7 @@ public class HaarDetector implements Detectable {
      * @param image
      * @return number of detected faces.
      */
-    public long markFaces(Mat image) {
+    public long markObjects(Mat image) {
         RectVector rect = findFaces(image);
         long size = rect.size();
         for (int i = 0; i < size; i++) {
