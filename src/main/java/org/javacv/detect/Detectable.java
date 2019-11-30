@@ -1,4 +1,4 @@
-package org.javacv.detect.face.haar;
+package org.javacv.detect;
 
 import org.bytedeco.javacv.Frame;
 
@@ -7,5 +7,5 @@ import org.bytedeco.javacv.Frame;
  */
 public interface Detectable {
 
-    long markFaces(Frame img);
+    long markObjects(Frame img);
 }

@@ -1,7 +1,7 @@
 package org.javacv.ui;
 
 import org.bytedeco.javacpp.opencv_core.Size;
-import org.javacv.detect.face.haar.Detector;
+import org.javacv.detect.face.haar.HaarDetector;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_videoio.VideoCapture;
 import org.slf4j.Logger;
@@ -18,20 +18,20 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CameraWorker.class);
 
-    private final VideoPanel videoPanel;
+    private final VideoCanvas videoPanel;
 
     private final JFrame videoWindow;
 
-    private final Detector faceDetector;
+    private final HaarDetector faceDetector;
 
     private final VideoCapture capture;
 
     private boolean updated;
     
-    public CameraWorker(JFrame videoWindow, VideoPanel videoPanel) {
+    public CameraWorker(JFrame videoWindow, VideoCanvas videoPanel) {
         this.videoWindow = videoWindow;
         this.videoPanel = videoPanel;
-        faceDetector = new Detector();
+        faceDetector = new HaarDetector();
         capture = new VideoCapture(0);
     }
 

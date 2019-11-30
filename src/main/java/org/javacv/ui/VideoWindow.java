@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
  */
 public class VideoWindow extends JFrame {
 
-    private final VideoPanel videoPanel;
+    private final VideoCanvas videoPanel;
 
     private SwingWorker worker;
     
@@ -24,7 +24,7 @@ public class VideoWindow extends JFrame {
     public VideoWindow() {
         super("Face Detection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        videoPanel = new VideoPanel();
+        videoPanel = new VideoCanvas();
         getContentPane().add(videoPanel, BorderLayout.CENTER);
         worker = new CameraWorker(this, videoPanel);
         

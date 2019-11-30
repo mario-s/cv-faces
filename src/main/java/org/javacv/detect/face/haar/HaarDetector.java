@@ -19,6 +19,7 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.javacv.common.ImageSupplier;
+import org.javacv.detect.Detectable;
 import org.javacv.detect.face.haar.recognize.Predictable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,13 +33,13 @@ import static org.bytedeco.javacpp.opencv_imgproc.putText;
 import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
 
 /**
- * A detector for faces in an image.
- *
+ * A detector for faces in an image based on Haar like features.
+ * @see <a href="https://en.wikipedia.org/wiki/Haar-like_feature">Wikipedia</a>
  * @author spindizzy
  */
-public class Detector implements Detectable{
+public class HaarDetector implements Detectable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Detector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HaarDetector.class);
 
     /**
      * Default cascade file. For others see the resource folder.
@@ -53,11 +54,11 @@ public class Detector implements Detectable{
 
     private OpenCVFrameConverter.ToMat converterToMat;
 
-    public Detector() {
+    public HaarDetector() {
         this(singletonList(CASCADE_XML));
     }
 
-    public Detector(List<String> cascades) {
+    public HaarDetector(List<String> cascades) {
         this.prediction = empty();
 
         this.color = new Scalar(CvScalar.GREEN);
@@ -126,7 +127,7 @@ public class Detector implements Detectable{
     }
 
     @Override
-    public long markFaces(Frame img){
+    public long markObjects(Frame img){
         return markFaces(converterToMat.convert(img));
     }
 

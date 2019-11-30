@@ -1,16 +1,16 @@
-package org.javacv.detect.face.haar;
+package org.javacv.detect;
 
-import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
+import org.javacv.glue.ImagePaintable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 /**
- * A service to detect images. It can bbe used in a different thread.
+ * A service to detect objects. It can be used to run in a different thread to avoid blocking.
  *
  * @author spindizzy
  */
@@ -28,13 +28,13 @@ public final class DetectorService implements Runnable {
 
     private final Detectable detector;
 
-    private final CanvasFrame canvas;
+    private final ImagePaintable canvas;
 
-    public DetectorService(CanvasFrame canvas, Detectable detectable) {
+    public DetectorService(ImagePaintable canvas, Detectable detectable) {
         this(new OpenCVFrameGrabber(0), canvas, detectable);
     }
 
-    public DetectorService(FrameGrabber grabber, CanvasFrame canvas, Detectable detectable) {
+    public DetectorService(FrameGrabber grabber, ImagePaintable canvas, Detectable detectable) {
         this.grabber = grabber;
         this.detector = detectable;
         this.canvas = canvas;
@@ -58,7 +58,7 @@ public final class DetectorService implements Runnable {
 
                 if (!sizeAdjusted) {
                     //Set canvas size as per dimensions of video frame.
-                    canvas.setCanvasSize(grabber.getImageWidth(), grabber.getImageHeight());
+                    canvas.setSize(grabber.getImageWidth(), grabber.getImageHeight());
                 }
 
                 Frame img = grabber.grab();
@@ -66,8 +66,8 @@ public final class DetectorService implements Runnable {
                 if (img != null) {
                     sizeAdjusted = true;
                     //Show video frame in canvas
-                    detector.markFaces(img);
-                    canvas.showImage(img);
+                    detector.markObjects(img);
+                    canvas.paint(img);
                 }
             }
         } catch (Exception e) {

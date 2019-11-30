@@ -6,17 +6,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * A panel which extends {@link Canvas} and paints the given {@link Mat}.
+ * A canvas which extends {@link Canvas} and paints the given {@link Mat}.
  * @author spindizzy
  */
-public class VideoPanel extends Canvas {
+public class VideoCanvas extends Canvas {
 
     private static final Color FOREGROUND = Color.white;
     private static final Color BACKGROUND = Color.black;
     
     private BufferedImage image;
 
-    public VideoPanel() {
+    public VideoCanvas() {
         setForeground(FOREGROUND);
         setBackground(BACKGROUND);
     }

@@ -16,11 +16,11 @@ import org.junit.jupiter.params.provider.CsvSource;
  *
  * @author spindizzy
  */
-class DetectorTest {
+class HaarDetectorTest {
 
     private final Function<String, File> resource = f -> new File(getClass().getResource("../" + f).getPath());
 
-    private Detector classUnderTest;
+    private HaarDetector classUnderTest;
     
     private File targetFile;
     
@@ -28,7 +28,7 @@ class DetectorTest {
 
     @BeforeEach
     void setUp() {
-        classUnderTest = new Detector();
+        classUnderTest = new HaarDetector();
         
         targetFile = new File(getClass().getResource(".").getFile(), "out.png");
         if (targetFile.exists()) {
