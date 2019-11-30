@@ -1,10 +1,10 @@
 package org.javacv.detect.face.haar;
 
-import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.javacv.detect.Detectable;
 import org.javacv.detect.DetectorService;
+import org.javacv.glue.ImageShowable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +31,7 @@ import static org.mockito.Mockito.verify;
 class DetectorServiceTest {
 
     @Mock
-    private CanvasFrame canvas;
+    private ImageShowable canvas;
 
     @Mock
     private Detectable detectable;

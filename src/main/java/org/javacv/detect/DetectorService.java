@@ -4,7 +4,7 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
-import org.javacv.glue.ImagePaintable;
+import org.javacv.glue.ImageShowable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,13 +28,13 @@ public final class DetectorService implements Runnable {
 
     private final Detectable detector;
 
-    private final ImagePaintable canvas;
+    private final ImageShowable canvas;
 
-    public DetectorService(ImagePaintable canvas, Detectable detectable) {
+    public DetectorService(ImageShowable canvas, Detectable detectable) {
         this(new OpenCVFrameGrabber(0), canvas, detectable);
     }
 
-    public DetectorService(FrameGrabber grabber, ImagePaintable canvas, Detectable detectable) {
+    public DetectorService(FrameGrabber grabber, ImageShowable canvas, Detectable detectable) {
         this.grabber = grabber;
         this.detector = detectable;
         this.canvas = canvas;
@@ -67,7 +67,7 @@ public final class DetectorService implements Runnable {
                     sizeAdjusted = true;
                     //Show video frame in canvas
                     detector.markObjects(img);
-                    canvas.paint(img);
+                    canvas.showImage(img);
                 }
             }
         } catch (Exception e) {

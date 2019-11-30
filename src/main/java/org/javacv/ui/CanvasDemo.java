@@ -8,13 +8,11 @@ import javax.swing.JFrame;
 
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
+import org.javacv.detect.DetectorFactory;
+import org.javacv.detect.DetectorFactory.DetectorType;
 import org.javacv.detect.DetectorService;
-import org.javacv.detect.face.haar.HaarDetector;
-import org.javacv.detect.face.haar.recognize.GenderPredictor;
 
-import org.javacv.glue.ImagePaintable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.javacv.glue.ImageShowable;
 
 /**
  * A demo which uses the provided {@link CanvasFrame}.
@@ -23,8 +21,6 @@ import org.slf4j.LoggerFactory;
  */
 public class CanvasDemo {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CanvasDemo.class);
-
     private final CanvasFrame canvas;
     
     private final ExecutorService executorService;
@@ -32,9 +28,6 @@ public class CanvasDemo {
     private final DetectorService detectorService;
 
     public CanvasDemo() {
-        String trainingPath = getClass().getResource("../train").getPath();
-        LOG.debug("using images from {}", trainingPath);
-
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("Video Canvas");
 
@@ -51,9 +44,7 @@ public class CanvasDemo {
 
         });
 
-        HaarDetector detector = new HaarDetector();
-        detector.setPrediction(new GenderPredictor(trainingPath));
-
+        var detector = DetectorFactory.create(DetectorType.HAAR);
         detectorService = new DetectorService(new CanvasProxy(canvas), detector);
         executorService = Executors.newFixedThreadPool(3);
     }
@@ -66,7 +57,7 @@ public class CanvasDemo {
         new CanvasDemo().run();
     }
 
-    private static class CanvasProxy implements ImagePaintable {
+    private static class CanvasProxy implements ImageShowable {
         private final CanvasFrame canvas;
 
         CanvasProxy(CanvasFrame canvas) {
@@ -79,7 +70,7 @@ public class CanvasDemo {
         }
 
         @Override
-        public void paint(Frame image) {
+        public void showImage(Frame image) {
             canvas.showImage(image);
         }
     }
