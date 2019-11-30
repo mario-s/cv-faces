@@ -1,4 +1,4 @@
-package org.javacv.face.detection.haar;
+package org.javacv.detect.face.haar;
 
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;

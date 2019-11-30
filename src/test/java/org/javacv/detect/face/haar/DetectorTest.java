@@ -1,4 +1,4 @@
-package org.javacv.face.detection.haar;
+package org.javacv.detect.face.haar;
 
 import java.io.File;
 import java.util.function.Function;
@@ -7,7 +7,6 @@ import static org.javacv.common.ImageSupplier.read;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.javacv.common.ImageSupplier;
-import org.javacv.face.detection.haar.Detector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

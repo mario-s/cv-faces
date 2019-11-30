@@ -1,4 +1,4 @@
-package org.javacv.face.recognition;
+package org.javacv.detect.face.haar.recognize;
 
 import java.util.function.Supplier;
 

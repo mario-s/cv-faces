@@ -1,10 +1,8 @@
-package org.javacv.face.detection.haar;
+package org.javacv.detect.face.haar;
 
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
-import org.javacv.face.detection.haar.Detectable;
-import org.javacv.face.detection.haar.DetectorService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

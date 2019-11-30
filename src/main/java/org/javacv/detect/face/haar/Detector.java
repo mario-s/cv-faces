@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javacv.face.detection.haar;
+package org.javacv.detect.face.haar;
 
 import java.io.File;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.javacv.common.ImageSupplier;
-import org.javacv.face.recognition.Predictable;
+import org.javacv.detect.face.haar.recognize.Predictable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package org.javacv.face.detection.haar;
+package org.javacv.detect.face.haar;
 
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.slf4j.Logger;

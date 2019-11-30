@@ -1,4 +1,4 @@
-package org.javacv.face.recognition;
+package org.javacv.detect.face.haar.recognize;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.javacv.common.ImageUtil;

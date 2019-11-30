@@ -1,9 +1,9 @@
-package org.javacv.face.recognition;
+package org.javacv.detect.face.haar.recognize;
 
+import org.javacv.Main;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
 
 import java.util.function.Function;
 
@@ -18,7 +18,8 @@ class GenderPredictorTest {
 
     @BeforeEach
     void setUp() {
-        String trainingPath = Recognizer.class.getResource("../../train").getPath();
+        var resource = Main.class.getResource("train");
+        var trainingPath = resource.getPath();
         classUnderTest = new GenderPredictor(trainingPath);
     }
 

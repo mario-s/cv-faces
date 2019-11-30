@@ -1,5 +1,6 @@
-package org.javacv.face.recognition;
+package org.javacv.detect.face.haar.recognize;
 
+import org.javacv.Main;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -7,7 +8,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.net.URL;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,8 +27,8 @@ class FaceRecognitionTest {
 
     @BeforeEach
     void setUp() {
-        URL res = Recognizer.class.getResource("../../train");
-        trainingPath = res.getPath();
+        var resource = Main.class.getResource("train");
+        trainingPath = resource.getPath();
     }
 
     @Nested

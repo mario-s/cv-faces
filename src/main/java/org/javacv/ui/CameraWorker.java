@@ -1,7 +1,7 @@
 package org.javacv.ui;
 
 import org.bytedeco.javacpp.opencv_core.Size;
-import org.javacv.face.detection.haar.Detector;
+import org.javacv.detect.face.haar.Detector;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_videoio.VideoCapture;
 import org.slf4j.Logger;
