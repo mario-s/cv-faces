@@ -38,7 +38,4 @@ public class FusionProcessor {
 
         return success;
     }
-
-
-
 }
