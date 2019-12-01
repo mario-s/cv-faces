@@ -16,10 +16,8 @@ import org.bytedeco.javacpp.opencv_core.Rect;
 import org.bytedeco.javacpp.opencv_core.RectVector;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
-import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.javacv.common.ImageSupplier;
-import org.javacv.detect.Detectable;
+import org.javacv.detect.AbstractDetector;
 import org.javacv.detect.face.haar.recognize.Predictable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +35,7 @@ import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
  * @see <a href="https://en.wikipedia.org/wiki/Haar-like_feature">Wikipedia</a>
  * @author spindizzy
  */
-public class HaarDetector implements Detectable {
+public class HaarDetector extends AbstractDetector {
 
     private static final Logger LOG = LoggerFactory.getLogger(HaarDetector.class);
 
@@ -52,8 +50,6 @@ public class HaarDetector implements Detectable {
 
     private Optional<Predictable<String>> prediction;
 
-    private OpenCVFrameConverter.ToMat converterToMat;
-
     public HaarDetector() {
         this(singletonList(CASCADE_XML));
     }
@@ -62,7 +58,7 @@ public class HaarDetector implements Detectable {
         this.prediction = empty();
 
         this.color = new Scalar(CvScalar.GREEN);
-        this.converterToMat = new OpenCVFrameConverter.ToMat();
+
         this.classifiers = cascades.stream().map(ClassifierFactory.Instance::create)
                 .filter(Optional::isPresent).map(Optional::get).collect(toList());
     }
@@ -127,16 +123,6 @@ public class HaarDetector implements Detectable {
     }
 
     @Override
-    public long markObjects(Frame img){
-        return markObjects(converterToMat.convert(img));
-    }
-
-    /**
-     * Marks the faces on the image.
-     *
-     * @param image
-     * @return number of detected faces.
-     */
     public long markObjects(Mat image) {
         RectVector rect = findFaces(image);
         long size = rect.size();
