@@ -13,7 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 /**
- *
+ * Unit test for {@link HaarDetector}.
  * @author spindizzy
  */
 class HaarDetectorTest {
