@@ -58,7 +58,10 @@ public final class DetectorService implements Runnable {
 
                 if (!sizeAdjusted) {
                     //Set canvas size as per dimensions of video frame.
-                    canvas.setSize(grabber.getImageWidth(), grabber.getImageHeight());
+                    int width = grabber.getImageWidth();
+                    int height = grabber.getImageHeight();
+                    LOG.debug("canvas size: {}x{}", width, height);
+                    canvas.setSize(width, height);
                 }
 
                 Frame img = grabber.grab();

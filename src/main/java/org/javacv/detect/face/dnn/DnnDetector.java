@@ -99,6 +99,6 @@ public class DnnDetector extends AbstractDetector {
     }
 
     private int scale(float in) {
-        return (int) (in * 300);
+        return (int) (in * 1280);
     }
 }
