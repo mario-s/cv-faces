@@ -3,10 +3,13 @@ package org.javacv.detect.face.dnn;
 import org.bytedeco.javacpp.indexer.FloatIndexer;
 import org.javacv.detect.AbstractDetector;
 import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Point;
+import org.bytedeco.javacpp.opencv_core.Rect;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_core.Size;
 import org.bytedeco.javacpp.opencv_dnn.Net;
 
+import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
 import static org.javacv.common.ImageUtil.resize;
 import static org.bytedeco.javacpp.opencv_core.CV_32F;
 import static org.bytedeco.javacpp.opencv_dnn.readNetFromCaffe;
@@ -16,7 +19,7 @@ import static org.bytedeco.javacpp.opencv_dnn.blobFromImage;
  * Detector which uses a pretrained model to detect faces.
  */
 public class DnnDetector extends AbstractDetector {
-    private static final double THRESHOLD = 0.6;
+    private static final double THRESHOLD = 0.8;
     private static final double SCALE_FACTOR = 1.0;
 
     private static final String PROTO_FILE = "deploy.proto.txt";
@@ -49,6 +52,8 @@ public class DnnDetector extends AbstractDetector {
             float confidence = indexer.get(i, 2);
             if (confidence > THRESHOLD) {
                 objects++;
+
+                rectangle(img, getPos(indexer, i), color);
             }
         }
 
@@ -72,5 +77,13 @@ public class DnnDetector extends AbstractDetector {
         //extract a 2d matrix
         Mat mat = new Mat(new Size(output.size(3), output.size(2)), CV_32F, output.ptr(0, 0));
         return mat.createIndexer();
+    }
+
+    private Rect getPos(FloatIndexer indexer, int index) {
+        int tx = (int)indexer.get(index, 3);
+        int ty = (int) indexer.get(index, 4);
+        int bx = (int) indexer.get(index, 5);
+        int by = (int) indexer.get(index, 6);
+        return new Rect(new Point(tx, ty), new Point(bx, by));
     }
 }

@@ -24,10 +24,11 @@ class DnnDetectorTest {
         classUnderTest = new DnnDetector();
     }
 
-    @ParameterizedTest(name = "{index} It should return 0 for image {0}.")
-    @CsvSource(value = {"back.jpg", "tree.jpg"})
-    void markObjects_Zero(String image) {
+    @ParameterizedTest(name = "{index} It should return {0} for image {1}.")
+    @CsvSource(value = {"0, back.jpg", "0, tree.jpg", "0, koala.jpg", "1, face.jpg"})
+    void markObjects(int expected, String image) {
         var res = read(resource.apply(image));
-        assertEquals(0, classUnderTest.markObjects(res));
+        assertEquals(expected, classUnderTest.markObjects(res));
     }
+
 }

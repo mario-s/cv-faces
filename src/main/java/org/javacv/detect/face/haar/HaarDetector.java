@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
-import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Point;
 import org.bytedeco.javacpp.opencv_core.Rect;
 import org.bytedeco.javacpp.opencv_core.RectVector;
-import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.javacv.common.ImageSupplier;
 import org.javacv.detect.AbstractDetector;
@@ -39,8 +37,6 @@ public class HaarDetector extends AbstractDetector {
      */
     private static final String CASCADE_XML = "haarcascade_frontalface_alt_tree.xml";
 
-    private final Scalar color;
-
     private final List<CascadeClassifier> classifiers;
 
     private Optional<Predictable<String>> prediction;
@@ -51,8 +47,6 @@ public class HaarDetector extends AbstractDetector {
 
     public HaarDetector(List<String> cascades) {
         this.prediction = empty();
-
-        this.color = new Scalar(CvScalar.GREEN);
 
         this.classifiers = cascades.stream().map(ClassifierFactory.Instance::create)
                 .filter(Optional::isPresent).map(Optional::get).collect(toList());
