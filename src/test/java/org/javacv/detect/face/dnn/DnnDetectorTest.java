@@ -1,17 +1,21 @@
 package org.javacv.detect.face.dnn;
 
-import org.bytedeco.javacv.Frame;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
+import java.io.File;
+import java.util.function.Function;
+
+import static org.javacv.common.ImageSupplier.read;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for {@link DnnDetector}.
  */
 class DnnDetectorTest {
+
+    private final Function<String, File> resource = f -> new File(getClass().getResource("../" + f).getPath());
 
     private DnnDetector classUnderTest;
 
@@ -20,11 +24,10 @@ class DnnDetectorTest {
         classUnderTest = new DnnDetector();
     }
 
-    @Test
-    @Tag("detection")
-    @DisplayName("It should return 0 for an empty frame")
-    void markObjects() {
-        long result = classUnderTest.markObjects(new Frame());
-        assertEquals(0, result);
+    @ParameterizedTest(name = "{index} It should return 0 for image {0}.")
+    @CsvSource(value = {"back.jpg", "tree.jpg"})
+    void markObjects_Zero(String image) {
+        var res = read(resource.apply(image));
+        assertEquals(0, classUnderTest.markObjects(res));
     }
 }
