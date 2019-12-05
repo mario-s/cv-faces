@@ -32,7 +32,7 @@ public class CanvasDemo {
         canvas = new CanvasFrame("Video Canvas");
 
         canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        canvas.setCanvasSize(200, 200);
+        canvas.setCanvasSize(300, 300);
 
         canvas.addWindowListener(new WindowAdapter() {
 
@@ -44,7 +44,7 @@ public class CanvasDemo {
 
         });
 
-        var detector = DetectorFactory.create(DetectorType.HAAR);
+        var detector = DetectorFactory.create(DetectorType.DNN);
         detectorService = new DetectorService(new CanvasProxy(canvas), detector);
         executorService = Executors.newFixedThreadPool(3);
     }
