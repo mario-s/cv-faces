@@ -1,11 +1,9 @@
 package org.javacv.detect.face.dnn;
 
 import org.bytedeco.javacpp.indexer.FloatIndexer;
-import org.bytedeco.javacpp.opencv_imgproc;
 import org.javacv.detect.AbstractDetector;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Point;
-import org.bytedeco.javacpp.opencv_core.Rect;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_core.Size;
 import org.bytedeco.javacpp.opencv_dnn.Net;
@@ -20,7 +18,7 @@ import static org.bytedeco.javacpp.opencv_dnn.readNetFromCaffe;
 import static org.bytedeco.javacpp.opencv_dnn.blobFromImage;
 
 /**
- * Detector which uses a pretrained model to detect faces.
+ * Detector which uses a predefined model to detect faces.
  */
 public class DnnDetector extends AbstractDetector {
 
@@ -51,8 +49,11 @@ public class DnnDetector extends AbstractDetector {
 
     @Override
     public long markObjects(Mat img) {
-        Mat resized = resize(img, TARGET_SIZE);
-        Mat output = forward(resized);
+        //keep origin size
+        Size size = img.size();
+
+        //resize origin image and forward to dnn
+        Mat output = forward(resize(img, TARGET_SIZE));
         FloatIndexer indexer = createIndexer(output);
 
         long objects = 0;
@@ -60,7 +61,7 @@ public class DnnDetector extends AbstractDetector {
             float confidence = indexer.get(i, 2);
             if (confidence > THRESHOLD) {
                 objects++;
-                var pos = getPos(indexer, i);
+                var pos = getPositions(size, indexer, i);
                 rectangle(img, pos[0], pos[1], color);
             }
         }
@@ -85,20 +86,16 @@ public class DnnDetector extends AbstractDetector {
         return mat.createIndexer();
     }
 
-    private Point[] getPos(FloatIndexer indexer, int index) {
-        int tx = scale(indexer.get(index, 3));
-        int ty = scale(indexer.get(index, 4));
-        int bx = scale(indexer.get(index, 5));
-        int by = scale(indexer.get(index, 6));
+    private Point[] getPositions(Size size, FloatIndexer indexer, int index) {
+        int tx = (int) (indexer.get(index, 3) * size.width());
+        int ty = (int) (indexer.get(index, 4) * size.height());
+        int bx = (int) (indexer.get(index, 5) * size .width());
+        int by = (int) (indexer.get(index, 6) * size.height());
 
         Point pt1 = new Point(tx, ty);
         Point pt2 = new Point(bx, by);
-        LOG.debug("({},{})x({},{})", tx, ty, bx, by);
 
         return new Point[] {pt1, pt2};
     }
 
-    private int scale(float in) {
-        return (int) (in * 1280);
-    }
 }
