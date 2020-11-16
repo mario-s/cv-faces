@@ -61,6 +61,7 @@ public class DnnDetector extends AbstractDetector {
             float confidence = indexer.get(i, 2);
             if (confidence > THRESHOLD) {
                 objects++;
+                LOG.debug("found {} objects", objects);
                 var pos = getPositions(size, indexer, i);
                 rectangle(img, pos[0], pos[1], color);
             }

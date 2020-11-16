@@ -19,6 +19,7 @@ public class DetectorFactory {
     }
 
     public static Detectable create(DetectorType type) {
+        LOG.debug("using detector type: {}", type);
         switch (type) {
             case HAAR: return haarDetector();
             case DNN: return dnnDetector();
