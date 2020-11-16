@@ -17,7 +17,7 @@ class DetectorFactoryTest {
     @Tag("detector")
     @DisplayName("It should create an instance of a HaarDetector")
     void create_Haar() {
-        Detectable result = DetectorFactory.create(DetectorFactory.DetectorType.HAAR);
+        Detectable result = DetectorFactory.create("HAAR");
         assertTrue(result instanceof HaarDetector);
     }
 
@@ -25,7 +25,7 @@ class DetectorFactoryTest {
     @Tag("detector")
     @DisplayName("It should create an instance of a DnnDetector")
     void create_Dnn() {
-        Detectable result = DetectorFactory.create(DetectorFactory.DetectorType.DNN);
+        Detectable result = DetectorFactory.create("DNN");
         assertTrue(result instanceof DnnDetector);
     }
 }

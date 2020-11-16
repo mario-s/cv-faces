@@ -7,22 +7,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static java.lang.String.format;
+import static java.util.Optional.ofNullable;
 
 /**
- * Create a new detector.
+ * Factory to create a new detector.
+ *
  */
 public class DetectorFactory {
     private static final Logger LOG = LoggerFactory.getLogger(DetectorFactory.class);
 
-    public enum DetectorType {
-        DNN, HAAR
-    }
-
-    public static Detectable create(DetectorType type) {
+    /**
+     * Create a new detector.
+     * @param type Possible values: "HARR", "DNN"
+     * @return a new {@link Detectable}
+     */
+    public static Detectable create(String type) {
         LOG.debug("using detector type: {}", type);
+        var t = ofNullable(type).map(String::toUpperCase).orElseGet(() -> "");
         switch (type) {
-            case HAAR: return haarDetector();
-            case DNN: return dnnDetector();
+            case "HAAR": return haarDetector();
+            case "DNN": return dnnDetector();
             default: throw new UnsupportedOperationException(format("%s is unsupported", type));
         }
     }

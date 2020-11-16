@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.javacv.detect.DetectorFactory;
-import org.javacv.detect.DetectorFactory.DetectorType;
 import org.javacv.detect.DetectorService;
 
 import org.javacv.glue.ImageShowable;
@@ -44,7 +43,7 @@ public class CanvasDemo {
 
         });
 
-        var detector = DetectorFactory.create(DetectorType.DNN);
+        var detector = DetectorFactory.create("dnn");
         detectorService = new DetectorService(new CanvasProxy(canvas), detector);
         executorService = Executors.newFixedThreadPool(3);
     }

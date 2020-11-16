@@ -53,7 +53,7 @@ public class DnnDetector extends AbstractDetector {
         Size size = img.size();
 
         //resize origin image and forward to dnn
-        Mat output = forward(resize(img, TARGET_SIZE));
+        Mat output = forwardToDnn(resize(img, TARGET_SIZE));
         FloatIndexer indexer = createIndexer(output);
 
         long objects = 0;
@@ -70,8 +70,7 @@ public class DnnDetector extends AbstractDetector {
         return objects;
     }
 
-    //forward image to network
-    private Mat forward(Mat img) {
+    private Mat forwardToDnn(Mat img) {
         //create a 4-dimensional blob from image
         //for more details @see https://docs.opencv.org/trunk/d6/d0f/group__dnn.html#gabd0e76da3c6ad15c08b01ef21ad55dd8
         Mat input = blobFromImage(img, SCALE_FACTOR, TARGET_SIZE, MEAN, false, false, CV_32F);
