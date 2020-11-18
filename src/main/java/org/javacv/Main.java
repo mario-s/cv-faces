@@ -19,8 +19,15 @@ public class Main implements Runnable, IVersionProvider {
 
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
-    @Option(names = "-c", description = "use canvas frame from OpenCV library")
-    boolean canvas;
+    @Option(names = "-c", description = "Use canvas frame from OpenCV library")
+    private boolean canvas;
+
+    @Option(names = "-d", description = "The face detector type. Values: dnn (default), haar")
+    private String detector;
+
+    public Main() {
+        this.detector = "DNN";
+    }
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -40,8 +47,9 @@ public class Main implements Runnable, IVersionProvider {
     @Override
     public void run() {
         if (canvas) {
-            CanvasDemo.launch();
+            CanvasDemo.launch(detector);
         } else {
+            LOG.info("different detector are not supported yet for custom UI.");
             VideoWindow.launch();
         }
         join();
@@ -49,6 +57,6 @@ public class Main implements Runnable, IVersionProvider {
 
     @Override
     public String[] getVersion() throws Exception {
-        return new String[] {"201911"};
+        return new String[] {"202011"};
     }
 }

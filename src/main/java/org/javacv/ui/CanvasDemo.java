@@ -26,7 +26,7 @@ public class CanvasDemo {
     
     private final DetectorService detectorService;
 
-    public CanvasDemo() {
+    public CanvasDemo(String detector) {
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("Video Canvas");
 
@@ -43,8 +43,8 @@ public class CanvasDemo {
 
         });
 
-        var detector = DetectorFactory.create("dnn");
-        detectorService = new DetectorService(new CanvasProxy(canvas), detector);
+        var det = DetectorFactory.create(detector);
+        detectorService = new DetectorService(new CanvasProxy(canvas), det);
         executorService = Executors.newFixedThreadPool(3);
     }
 
@@ -52,8 +52,8 @@ public class CanvasDemo {
         executorService.execute(detectorService);
     }
 
-    public static void launch() {
-        new CanvasDemo().run();
+    public static void launch(String detector) {
+        new CanvasDemo(detector).run();
     }
 
     private static class CanvasProxy implements ImageShowable {
