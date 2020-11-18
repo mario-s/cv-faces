@@ -7,6 +7,8 @@ plugins {
     jacoco
 
     id("com.adarshr.test-logger").version("2.0.0")
+    id("org.owasp.dependencycheck").version("5.2.1")
+    id("com.github.spotbugs").version("3.0.0")
 }
 
 repositories {
@@ -24,6 +26,12 @@ application {
 
 jacoco {
     toolVersion = "0.8.4"
+}
+
+spotbugs {
+    toolVersion = "4.1.4"
+    effort = "min"
+    reportLevel = "high"
 }
 
 fun os(): String {
