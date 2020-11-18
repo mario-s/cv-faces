@@ -1,5 +1,9 @@
 package org.javacv.ui;
 
+import org.javacv.glue.Launcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -9,27 +13,34 @@ import java.awt.event.WindowEvent;
  *
  * @author spindizzy
  */
-public class VideoWindow extends JFrame {
+public class VideoWindow extends JFrame implements Launcher {
 
-    private final VideoCanvas videoPanel;
+    private static final Logger LOG = LoggerFactory.getLogger(VideoWindow.class);
+
+    private VideoCanvas videoPanel;
 
     private SwingWorker worker;
-    
-    public static void launch() {
+
+    @Override
+    public void launch(String ... args) {
+        LOG.info("arguments are not supported yet");
         SwingUtilities.invokeLater(() -> {
-             new VideoWindow();
+            run();
          });
     }
 
     public VideoWindow() {
         super("Face Detection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void run() {
         videoPanel = new VideoCanvas();
         getContentPane().add(videoPanel, BorderLayout.CENTER);
-        worker = new CameraWorker(this, videoPanel);
-        
         pack();
         setSize(400, 400);
+
+        worker = new CameraWorker(this, videoPanel);
         setVisible(true);
 
         addWindowListener(new WindowAdapter() {

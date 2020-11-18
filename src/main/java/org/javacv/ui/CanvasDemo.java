@@ -12,21 +12,28 @@ import org.javacv.detect.DetectorFactory;
 import org.javacv.detect.DetectorService;
 
 import org.javacv.glue.ImageShowable;
+import org.javacv.glue.Launcher;
 
 /**
  * A demo which uses the provided {@link CanvasFrame}.
  *
  * @author spindizzy
  */
-public class CanvasDemo {
+public class CanvasDemo implements Launcher {
 
-    private final CanvasFrame canvas;
+    private CanvasFrame canvas;
     
     private final ExecutorService executorService;
     
-    private final DetectorService detectorService;
+    private DetectorService detectorService;
 
-    public CanvasDemo(String detector) {
+    public CanvasDemo() {
+        executorService = Executors.newFixedThreadPool(3);
+    }
+
+    @Override
+    public void launch(String ... args) {
+        var detector = (args != null && args.length > 0) ? args[0] : "dnn";
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("Video Canvas");
 
@@ -45,15 +52,7 @@ public class CanvasDemo {
 
         var det = DetectorFactory.create(detector);
         detectorService = new DetectorService(new CanvasProxy(canvas), det);
-        executorService = Executors.newFixedThreadPool(3);
-    }
-
-    public void run() {
         executorService.execute(detectorService);
-    }
-
-    public static void launch(String detector) {
-        new CanvasDemo(detector).run();
     }
 
     private static class CanvasProxy implements ImageShowable {

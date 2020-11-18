@@ -23,7 +23,13 @@ With gradle execute the command:
 ```
 ./gradlew run
 ``` 
-Or
+
+To run with user interface from OpenCV and DNN detector:
 ```
-./gradlew run --args='-c'
+./gradlew run --args='-u o'
+``` 
+
+To see all possible arguments
+```
+./gradlew run --args='-h'
 ``` 

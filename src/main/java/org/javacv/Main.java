@@ -1,7 +1,5 @@
 package org.javacv;
 
-import org.javacv.ui.CanvasDemo;
-import org.javacv.ui.VideoWindow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
@@ -19,13 +17,20 @@ public class Main implements Runnable, IVersionProvider {
 
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
-    @Option(names = "-c", description = "Use canvas frame from OpenCV library")
-    private boolean canvas;
+    @Option(names = "-u",
+        description = "User interface. Possible Values:\n" +
+        "[s] Swing face detector (default),\n" +
+        "[o] canvas face detector from OpenCV,\n" +
+        "[m] merge pictures to produce HDR")
+    private String ui;
 
-    @Option(names = "-d", description = "The face detector type. Values: dnn (default), haar")
+    @Option(names = "-d", description = "The face detector type. Possible Values:\n" +
+    "[dnn] Deep Neural Network (default),\n" +
+    "[haar] Haar Classifier (outdated)")
     private String detector;
 
     public Main() {
+        this.ui = LauncherFactory.SWING;
         this.detector = "DNN";
     }
 
@@ -36,23 +41,19 @@ public class Main implements Runnable, IVersionProvider {
         System.exit(exitCode);
     }
 
+    @Override
+    public void run() {
+        var launcher = LauncherFactory.create(ui);
+        launcher.launch(detector);
+        join();
+    }
+
     private void join() {
         try {
             Thread.currentThread().join();
         } catch (InterruptedException e) {
             LOG.warn(e.getMessage(), e);
         }
-    }
-
-    @Override
-    public void run() {
-        if (canvas) {
-            CanvasDemo.launch(detector);
-        } else {
-            LOG.info("different detector are not supported yet for custom UI.");
-            VideoWindow.launch();
-        }
-        join();
     }
 
     @Override
