@@ -17,11 +17,18 @@ public class Main implements Runnable, IVersionProvider {
 
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
+    @Option(names = "-s",
+    description = "Source path of images with different exposures which should be merged into one HDR")
+    private String sourcePath;
+
+    @Option(names = "-t",
+    description = "Target file of the image which is the result of the merge process")
+    private String targetFile;
+
     @Option(names = "-u",
-        description = "User interface. Possible Values:\n" +
-        "[s] Swing face detector (default),\n" +
-        "[o] canvas face detector from OpenCV,\n" +
-        "[m] merge pictures to produce HDR")
+        description = "User interface for face detector. Possible Values:\n" +
+        "[s] Swing (default),\n" +
+        "[o] canvas from OpenCV")
     private String ui;
 
     @Option(names = "-d", description = "The face detector type. Possible Values:\n" +
@@ -43,9 +50,16 @@ public class Main implements Runnable, IVersionProvider {
 
     @Override
     public void run() {
-        var launcher = LauncherFactory.create(ui);
-        launcher.launch(detector);
-        join();
+        if (ui != null) {
+            LOG.debug("starting ui");
+            var launcher = LauncherFactory.create(ui);
+            launcher.launch(detector);
+            join();
+        } else {
+            LOG.debug("executing merge process");
+            var launcher = LauncherFactory.create(LauncherFactory.MERGER);
+            launcher.launch(sourcePath, targetFile);
+        }
     }
 
     private void join() {

@@ -1,7 +1,9 @@
 package org.javacv.ui;
 
+import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.Size;
-import org.javacv.detect.face.haar.HaarDetector;
+import org.javacv.detect.Detectable;
+import org.javacv.detect.DetectorFactory;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_videoio.VideoCapture;
 import org.slf4j.Logger;
@@ -22,7 +24,7 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
     private final JFrame videoWindow;
 
-    private final HaarDetector faceDetector;
+    private final Detectable faceDetector;
 
     private final VideoCapture capture;
 
@@ -31,7 +33,7 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
     public CameraWorker(JFrame videoWindow, VideoCanvas videoPanel) {
         this.videoWindow = videoWindow;
         this.videoPanel = videoPanel;
-        faceDetector = new HaarDetector();
+        faceDetector = DetectorFactory.create("haar");
         capture = new VideoCapture(0);
     }
 
@@ -50,9 +52,8 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
                     videoWindow.setSize(size.width() + 40, size.height() + 60);
                     updated = true;
                 }
-                
-                long marked = faceDetector.markObjects(webcamImage);
-                videoPanel.updateImage(webcamImage);
+
+                long marked = markObjects(webcamImage);
 
                 if (LOG.isDebugEnabled() && marked != lastMarked) {
                     LOG.debug("number of faces: {}", marked);
@@ -65,6 +66,12 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
         }
 
         return null;
+    }
+
+    private long markObjects(Mat webcamImage) {
+        long marked = faceDetector.markObjects(webcamImage);
+        videoPanel.updateImage(webcamImage);
+        return marked;
     }
 
     @Override
