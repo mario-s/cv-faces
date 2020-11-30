@@ -30,6 +30,6 @@ class FusionLauncherTest {
   @Tag("merge")
   @DisplayName("It should read from a provided source directory")
   void launch_Source() {
-    classUnderTest.launch(resource.apply("launch"));
+    classUnderTest.launch(resource.apply("collect"));
   }
 }

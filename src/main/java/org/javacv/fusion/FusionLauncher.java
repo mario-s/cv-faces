@@ -2,6 +2,7 @@ package org.javacv.fusion;
 
 import org.javacv.glue.Launcher;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
@@ -28,9 +29,17 @@ public class FusionLauncher implements Launcher {
       if (pics.isEmpty()) {
         throw new IllegalArgumentException(format(FOLDER_CONTAINS_NO_IMAGE_FILES, collector.getSupportedSuffixes()));
       }
+      process(collector, pics);
     } catch (IOException exc) {
       throw new IllegalStateException(exc);
     }
+  }
+
+  private void process(ImageFilesCollector collector, Collection<String> pics) {
+    var target = collector.getTarget().orElseGet(() -> "out.jpg");
+    var targetFile = new File(target);
+    var processor = new FusionProcessor();
+    processor.process(pics, targetFile);
   }
 
 
