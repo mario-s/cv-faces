@@ -46,13 +46,8 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
         while (!isCancelled()) {
             capture.read(webcamImage);
             if (!webcamImage.empty()) {
-                
-                if(!updated){
-                    Size size = webcamImage.size();
-                    videoWindow.setSize(size.width() + 40, size.height() + 60);
-                    updated = true;
-                }
 
+                updateWindowSize(webcamImage);
                 long marked = markObjects(webcamImage);
 
                 if (LOG.isDebugEnabled() && marked != lastMarked) {
@@ -66,6 +61,14 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
         }
 
         return null;
+    }
+
+    private void updateWindowSize(Mat webcamImage) {
+        if(!updated){
+            Size size = webcamImage.size();
+            videoWindow.setSize(size.width() + 40, size.height() + 60);
+            updated = true;
+        }
     }
 
     private long markObjects(Mat webcamImage) {
