@@ -5,9 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Function;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FusionLauncherTest {
+  private final Function<String, String> resource = f -> getClass().getResource(f).getFile();
+
   private FusionLauncher classUnderTest;
 
   @BeforeEach
@@ -24,8 +28,8 @@ class FusionLauncherTest {
 
   @Test
   @Tag("merge")
-  @DisplayName("It should read from a provided txt file")
+  @DisplayName("It should read from a provided source directory")
   void launch_Source() {
-    classUnderTest.launch("test.txt");
+    classUnderTest.launch(resource.apply("launch"));
   }
 }
