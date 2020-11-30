@@ -27,7 +27,8 @@ public class FusionLauncher implements Launcher {
       var collector = new ImageFilesCollector(sourceFolder);
       Collection<String> pics = collector.listFiles();
       if (pics.isEmpty()) {
-        throw new IllegalArgumentException(format(FOLDER_CONTAINS_NO_IMAGE_FILES, collector.getSupportedSuffixes()));
+        var supportedSuffixes = (Object[])collector.getSupportedSuffixes();
+        throw new IllegalArgumentException(format(FOLDER_CONTAINS_NO_IMAGE_FILES, supportedSuffixes));
       }
       process(collector, pics);
     } catch (IOException exc) {
