@@ -87,16 +87,6 @@ subprojects {
             setSlowThreshold(5000)
         }
 
-        processResources {
-            dependsOn("copyTrainToMain")
-        }
-
-        register<Copy>("copyTrainToMain") {
-            from("$rootDir/data/train")
-            include("*.*")
-            into("$buildDir/resources/main/org/javacv/train")
-        }
-
         check {
             dependsOn(jacocoTestCoverageVerification)
         }
