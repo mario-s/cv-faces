@@ -46,7 +46,7 @@ class ImageFilesCollectorTest {
   @Test
   @DisplayName("It should return an empty list of source files for an empty directory.")
   void emptyList() {
-    var instance = new ImageFilesCollector(resource.apply("../common"));
+    var instance = new ImageFilesCollector(resource.apply("empty"));
     var result = instance.listFiles();
     assertTrue(result.isEmpty());
   }

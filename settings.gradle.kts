@@ -1,1 +1,3 @@
-rootProject.name = "opencv_jvm"
+rootProject.name = "opencv_jv"
+include("common", "detect")
+
