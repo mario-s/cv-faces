@@ -77,14 +77,4 @@ class FusionProcessorTest {
         assertTrue(out.exists());
     }
     
-    @Test
-    @DisplayName("Test to verify that multiply a source image works.")
-    void multiply() {
-        Mat src = ImageUtil.readAsGray(resource.apply("stat_1.jpg"));
-        Scalar s = new Scalar(255.0,0.0,255.0,0.0);
-        Mat filter = new Mat(src.rows(), src.cols(), src.type(), s);
-        Mat dest = src.mul(filter).a();
-        assertFalse(dest.empty());
-    }
-    
 }
