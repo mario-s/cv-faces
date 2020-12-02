@@ -9,6 +9,8 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.javacv.common.ImageUtil;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -43,14 +45,16 @@ class FusionProcessorTest {
      * Test of process method, of class FusionProcessor.
      */
     @Test
+    @Tag("merge")
+    @DisplayName("It should create an empty output when there are no images.")
     void create_Empty() {
         assertFalse(classUnderTest.process(images, out));
     }
-    
-     /**
-     * Test of process method, of class FusionProcessor.
-     */
+
+
     @Test
+    @Tag("merge")
+    @DisplayName("It should merge images into one with different exposures.")
     void process_memorial() {
         images.add(resource.apply("memorial0061.png"));
         images.add(resource.apply("memorial0064.png"));
@@ -61,16 +65,8 @@ class FusionProcessorTest {
     }
     
     @Test
-    void process_merge() {
-        images.add(resource.apply("Picture_201508010708_0.jpg"));
-        images.add(resource.apply("Picture_201508010708_1.jpg"));
-        images.add(resource.apply("Picture_201508010708_2.jpg"));
-        
-        assertTrue(classUnderTest.process(images, out));
-        assertTrue(out.exists());
-    }
-    
-    @Test
+    @Tag("merge")
+    @DisplayName("It should align and merge images.")
     void process_with_align() {
         //source images are not matching when put on stack, needs alignment
         images.add(resource.apply("stat_1.jpg"));
@@ -82,8 +78,9 @@ class FusionProcessorTest {
     }
     
     @Test
+    @DisplayName("Test to verify that multiply a source image works.")
     void multiply() {
-        Mat src = ImageUtil.readAsGray(resource.apply("Picture_201508010708_0.jpg"));
+        Mat src = ImageUtil.readAsGray(resource.apply("stat_1.jpg"));
         Scalar s = new Scalar(255.0,0.0,255.0,0.0);
         Mat filter = new Mat(src.rows(), src.cols(), src.type(), s);
         Mat dest = src.mul(filter).a();

@@ -23,7 +23,8 @@ With gradle execute the command:
 ```
 ./gradlew run
 ``` 
-Or
+
+To see all possible arguments
 ```
-./gradlew run --args='-c'
+./gradlew run --args='-h'
 ``` 
