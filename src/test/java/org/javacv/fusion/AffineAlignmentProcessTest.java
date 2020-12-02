@@ -22,7 +22,7 @@ class AffineAlignmentProcessTest {
     }
 
     private List<Mat> load() {
-        Function<String, String> resource = f -> getClass().getResource(f).getFile();
+        Function<String, String> resource = f -> getClass().getResource("collect/" + f).getFile();
         List<String> names = Arrays.asList(resource.apply("Picture_201508010708_0.jpg"),
                 resource.apply("Picture_201508010708_1.jpg"),
                 resource.apply("Picture_201508010708_2.jpg"));
