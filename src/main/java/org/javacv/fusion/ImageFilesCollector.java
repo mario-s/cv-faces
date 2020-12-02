@@ -1,19 +1,16 @@
 package org.javacv.fusion;
 
+import org.javacv.common.FileUtil;
+
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Locale;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static java.util.Optional.ofNullable;
 
 class ImageFilesCollector {
 
@@ -22,7 +19,7 @@ class ImageFilesCollector {
   private static final String PNG = ".png";
 
   private final String sourcePath;
-  private String target;
+  private Optional<String> target;
 
   ImageFilesCollector(String sourcePath) {
     this.sourcePath = sourcePath;
@@ -33,51 +30,33 @@ class ImageFilesCollector {
   }
 
   Optional<String> getTarget() {
-    return ofNullable(target);
+    return target;
   }
 
-  Collection<String> listFiles() throws IOException {
-    Set<String> fileList = new HashSet<>();
-    try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(sourcePath))) {
-      stream.forEach(path -> {
-        if (isImageFile(path)) {
-          fileList.add(path.toString());
-        }
-      });
-    }
-
-    createTarget(fileList);
-
-    return fileList;
+  Collection<String> listFiles() {
+    Collection<Path> files = FileUtil.filterFiles(sourcePath, getSupportedSuffixes());
+    createTarget(files.stream().findFirst());
+    return filterOutTarget(files);
   }
 
-  private void createTarget(Set<String> fileList) {
-    var iterator = fileList.iterator();
-    if (iterator.hasNext()) {
-      var first = iterator.next();
-      var path = getPath(first);
-      var suffix = getSuffix(first);
-      target = format("%s%sout%s", path, File.separator, suffix);
-    }
+  private Set<String> filterOutTarget(Collection<Path> files) {
+    return target.map(t -> {
+      var stream = files.stream().map(Path::toString);
+      return stream.filter(s -> !s.equals(t)).collect(Collectors.toSet());
+    }).orElseGet(() -> Collections.emptySet());
   }
 
-  private String getPath(String name) {
-    var sep = name.lastIndexOf(File.separator);
-    return name.substring(0, sep);
-  }
 
+  private void createTarget(Optional<Path> first) {
+    target = first.map(f -> {
+      var path = f.getParent().toString();
+      var suffix = getSuffix(f.getFileName().toString());
+      return format("%s%sout%s", path, File.separator, suffix);
+    });
+  }
 
   private String getSuffix(String name) {
     int dot = name.lastIndexOf(".");
     return name.substring(dot);
-  }
-
-  private boolean isImageFile(Path path) {
-    boolean isImage = false;
-    if (!Files.isDirectory(path)) {
-      var name = path.getFileName().toString().toLowerCase(Locale.ENGLISH);
-      isImage =  name.endsWith(JPG) || name.endsWith(JPEG) || name.endsWith(PNG);
-    }
-    return isImage;
   }
 }

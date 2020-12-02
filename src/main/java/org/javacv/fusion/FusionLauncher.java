@@ -23,17 +23,13 @@ public class FusionLauncher implements Launcher {
     }
     var sourceFolder = args[0];
 
-    try {
-      var collector = new ImageFilesCollector(sourceFolder);
-      Collection<String> pics = collector.listFiles();
-      if (pics.isEmpty()) {
-        var supportedSuffixes = (Object[])collector.getSupportedSuffixes();
-        throw new IllegalArgumentException(format(FOLDER_CONTAINS_NO_IMAGE_FILES, supportedSuffixes));
-      }
-      process(collector, pics);
-    } catch (IOException exc) {
-      throw new IllegalStateException(exc);
+    var collector = new ImageFilesCollector(sourceFolder);
+    Collection<String> pics = collector.listFiles();
+    if (pics.isEmpty()) {
+      var supportedSuffixes = (Object[])collector.getSupportedSuffixes();
+      throw new IllegalArgumentException(format(FOLDER_CONTAINS_NO_IMAGE_FILES, supportedSuffixes));
     }
+    process(collector, pics);
   }
 
   private void process(ImageFilesCollector collector, Collection<String> pics) {

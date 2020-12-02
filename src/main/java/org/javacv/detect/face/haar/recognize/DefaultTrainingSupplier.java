@@ -42,26 +42,28 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
     
     @Override
     public TrainingParameter get() {
-        List<Path> paths = filterImageFiles(filesSuffix());
-        int len = paths.size();
+        var paths = filterImageFiles(filesSuffix());
 
-        MatVector images = new MatVector(len);
+        int len = paths.size();
+        var images = new MatVector(len);
         Mat labels = new Mat(len, 1, CV_32SC1);
         IntBuffer labelBuffer = labels.createBuffer();
 
-        for (int i = 0; i < len; i++) {
-            Path path = paths.get(i);
+        int index = 0;
+        var it = paths.iterator();
+        while (it.hasNext()) {
+            Path path = it.next();
 
             Mat img = ImageUtil.readAsGray(path.toString());
-            images.put(i, img);
+            images.put(index, img);
 
             int label = createLabel(path.getFileName().toString());
             LOG.trace("label {} for file {}", label, path);
-            labelBuffer.put(i, label);
+            labelBuffer.put(index, label);
+            index++;
         }
 
         LOG.debug("labels for training: {}", labelBuffer);
-
         return new TrainingParameter(images, labels);
     }
 
@@ -83,7 +85,7 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
      * @param suffixes suffixes for the files which should be returned
      * @return a collection of {@link Path} to the images files
      */
-    protected List<Path> filterImageFiles(String[] suffixes) {
+    protected Collection<Path> filterImageFiles(String[] suffixes) {
         return FileUtil.filterFiles(trainingDir, suffixes);
     }
 }

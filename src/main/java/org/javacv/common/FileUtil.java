@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -24,13 +26,13 @@ public final class FileUtil {
      * @param suffixes suffixes for the files which should be returned
      * @return a collection of {@link Path} to the images files
      */
-    public static List<Path> filterFiles(String startDir, String[] suffixes) {
+    public static Collection<Path> filterFiles(String startDir, String[] suffixes) {
         Path start = Paths.get(startDir);
         try (Stream<Path> stream = Files.walk(start)) {
             return stream
                     .filter(Files::isRegularFile)
                     .filter(path -> hasMatchingSuffix(suffixes, path))
-                    .collect(toList());
+                    .collect(Collectors.toSet());
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage(), e);
         }
