@@ -1,4 +1,4 @@
-package org.javacv.ui;
+package org.javacv.ui.swing;
 
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.opencv_core.Mat;

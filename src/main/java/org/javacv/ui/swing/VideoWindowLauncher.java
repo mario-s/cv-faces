@@ -1,4 +1,4 @@
-package org.javacv.ui;
+package org.javacv.ui.swing;
 
 import org.javacv.glue.Launcher;
 import org.slf4j.Logger;
@@ -13,9 +13,9 @@ import java.awt.event.WindowEvent;
  *
  * @author spindizzy
  */
-public class VideoWindow extends JFrame implements Launcher {
+public class VideoWindowLauncher extends JFrame implements Launcher {
 
-    private static final Logger LOG = LoggerFactory.getLogger(VideoWindow.class);
+    private static final Logger LOG = LoggerFactory.getLogger(VideoWindowLauncher.class);
 
     private VideoCanvas videoCanvas;
 
@@ -29,7 +29,7 @@ public class VideoWindow extends JFrame implements Launcher {
          });
     }
 
-    public VideoWindow() {
+    public VideoWindowLauncher() {
         super("Face Detection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

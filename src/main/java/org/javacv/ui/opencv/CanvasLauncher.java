@@ -1,4 +1,4 @@
-package org.javacv.ui;
+package org.javacv.ui.opencv;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -19,7 +19,7 @@ import org.javacv.glue.Launcher;
  *
  * @author spindizzy
  */
-public class CanvasDemo implements Launcher {
+public class CanvasLauncher implements Launcher {
 
     private CanvasFrame canvas;
     
@@ -27,7 +27,7 @@ public class CanvasDemo implements Launcher {
     
     private DetectorService detectorService;
 
-    public CanvasDemo() {
+    public CanvasLauncher() {
         executorService = Executors.newFixedThreadPool(3);
     }
 

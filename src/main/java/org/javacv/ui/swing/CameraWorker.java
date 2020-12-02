@@ -1,6 +1,5 @@
-package org.javacv.ui;
+package org.javacv.ui.swing;
 
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.Size;
 import org.javacv.detect.Detectable;
 import org.javacv.detect.DetectorFactory;

@@ -2,8 +2,8 @@ package org.javacv;
 
 import org.javacv.fusion.FusionLauncher;
 import org.javacv.glue.Launcher;
-import org.javacv.ui.CanvasDemo;
-import org.javacv.ui.VideoWindow;
+import org.javacv.ui.opencv.CanvasLauncher;
+import org.javacv.ui.swing.VideoWindowLauncher;
 
 public interface LauncherFactory {
   String SWING = "s";
@@ -13,11 +13,11 @@ public interface LauncherFactory {
   static Launcher create(String type) {
     var t = (type != null) ? type.toLowerCase() : SWING;
     if (OPEN_CV.equals(t)) {
-      return new CanvasDemo();
+      return new CanvasLauncher();
     }
     if (MERGER.equals(t)) {
       return new FusionLauncher();
     }
-    return new VideoWindow();
+    return new VideoWindowLauncher();
   }
 }

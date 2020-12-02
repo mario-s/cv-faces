@@ -1,6 +1,7 @@
-package org.javacv.ui;
+package org.javacv.ui.swing;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
+import org.javacv.ui.ImageConverter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
