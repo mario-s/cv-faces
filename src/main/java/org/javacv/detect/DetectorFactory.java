@@ -24,7 +24,7 @@ public class DetectorFactory {
     public static Detectable create(String type) {
         LOG.debug("using detector type: {}", type);
         var t = ofNullable(type).map(String::toUpperCase).orElseGet(() -> "");
-        switch (type) {
+        switch (t) {
             case "HAAR": return haarDetector();
             case "DNN": return dnnDetector();
             default: throw new UnsupportedOperationException(format("%s is unsupported", type));

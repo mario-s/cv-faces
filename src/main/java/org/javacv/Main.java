@@ -27,8 +27,8 @@ public class Main implements Runnable, IVersionProvider {
 
     @Option(names = "-u",
         description = "User interface for face detector. Possible Values:\n" +
-        "[s] Swing (default),\n" +
-        "[o] canvas from OpenCV")
+        "[c] canvas from OpenCV (default)\n"+
+        "[s] Swing")
     private String ui;
 
     @Option(names = "-d", description = "The face detector type. Possible Values:\n" +
@@ -37,7 +37,7 @@ public class Main implements Runnable, IVersionProvider {
     private String detector;
 
     public Main() {
-        this.ui = LauncherFactory.SWING;
+        this.ui = LauncherFactory.OPEN_CV;
         this.detector = "DNN";
     }
 

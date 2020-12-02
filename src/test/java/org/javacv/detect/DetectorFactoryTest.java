@@ -30,4 +30,11 @@ class DetectorFactoryTest {
         Detectable result = DetectorFactory.create("DNN");
         assertTrue(result instanceof DnnDetector);
     }
+
+    @Test
+    @Tag("detector")
+    @DisplayName("It should throw an exception if type is unknown.")
+    void create_Unknow() {
+        assertThrows(UnsupportedOperationException.class, () -> DetectorFactory.create("foo"));
+    }
 }

@@ -17,7 +17,7 @@ public class VideoWindow extends JFrame implements Launcher {
 
     private static final Logger LOG = LoggerFactory.getLogger(VideoWindow.class);
 
-    private VideoCanvas videoPanel;
+    private VideoCanvas videoCanvas;
 
     private SwingWorker worker;
 
@@ -35,12 +35,12 @@ public class VideoWindow extends JFrame implements Launcher {
     }
 
     private void run() {
-        videoPanel = new VideoCanvas();
-        getContentPane().add(videoPanel, BorderLayout.CENTER);
+        videoCanvas = new VideoCanvas();
+        getContentPane().add(videoCanvas, BorderLayout.CENTER);
         pack();
         setSize(400, 400);
 
-        worker = new CameraWorker(this, videoPanel);
+        worker = new CameraWorker(this, videoCanvas);
         setVisible(true);
 
         addWindowListener(new WindowAdapter() {

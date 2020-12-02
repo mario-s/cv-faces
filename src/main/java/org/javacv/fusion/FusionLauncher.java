@@ -42,6 +42,4 @@ public class FusionLauncher implements Launcher {
     var processor = new FusionProcessor();
     processor.process(pics, targetFile);
   }
-
-
 }

@@ -24,11 +24,6 @@ With gradle execute the command:
 ./gradlew run
 ``` 
 
-To run with user interface from OpenCV and DNN detector:
-```
-./gradlew run --args='-u o'
-``` 
-
 To see all possible arguments
 ```
 ./gradlew run --args='-h'
