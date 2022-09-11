@@ -36,11 +36,6 @@ public class Main implements Runnable, IVersionProvider {
     "[haar] Haar Classifier (outdated)")
     private String detector;
 
-    public Main() {
-        this.ui = LauncherFactory.OPEN_CV;
-        this.detector = "DNN";
-    }
-
     public static void main(String[] args) {
         Main main = new Main();
         CommandLine cmd = new CommandLine(main);
@@ -50,6 +45,7 @@ public class Main implements Runnable, IVersionProvider {
 
     @Override
     public void run() {
+        LOG.debug("argument: {}", ui);
         if (ui != null) {
             LOG.debug("starting ui");
             var launcher = LauncherFactory.create(ui);
