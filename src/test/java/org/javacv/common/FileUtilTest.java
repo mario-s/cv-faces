@@ -9,9 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 
+import static java.util.Optional.ofNullable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Unit test for {@link FileUtil}.
@@ -22,8 +23,11 @@ class FileUtilTest {
 
     @BeforeEach
     void setup() {
-        Path p = Paths.get(getClass().getResource("1.txt").getFile());
-        startDir = p.getParent().toString();
+        startDir = ofNullable(getClass().getResource("1.txt"))
+            .map(res -> Paths.get(res.getFile()))
+            .map(p -> p.getParent().toString())
+            .orElse(null);
+        assumeTrue(startDir != null, "expected a start directory.");
     }
 
     @Test

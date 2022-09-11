@@ -13,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -23,12 +25,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Unit test for {@link DetectorService}.
  */
 @ExtendWith(MockitoExtension.class)
 class DetectorServiceTest {
+    private static final Logger LOG = LoggerFactory.getLogger(DetectorServiceTest.class);
 
     @Mock
     private ImageShowable canvas;
@@ -71,7 +75,8 @@ class DetectorServiceTest {
         given(grabber.grab()).willReturn(new Frame());
 
         executorService.submit(classUnderTest);
-        latch.await(50, TimeUnit.MILLISECONDS);
+        boolean b = latch.await(50, TimeUnit.MILLISECONDS);
+        LOG.debug("count reached zero: {}", b);
 
         verify(canvas, atLeastOnce()).showImage(any(Frame.class));
     }

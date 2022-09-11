@@ -1,5 +1,6 @@
 package org.javacv.common;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,12 +10,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static java.util.stream.Collectors.toList;
+import static java.util.Optional.ofNullable;
 
 /**
  * Utility for file operations.
  */
 public final class FileUtil {
+    private static final Logger LOG = LoggerFactory.getLogger(FileUtil.class);
 
     private FileUtil() {
         //nothing to see here
@@ -39,12 +45,24 @@ public final class FileUtil {
     }
 
     private static boolean hasMatchingSuffix(String[] suffixes, Path path) {
-        var name = path.getFileName().toString().toLowerCase();
+        var name = ofNullable(path)
+            .map(p -> p.getFileName())
+            .map(n -> n.toString().toLowerCase()).orElse("");
         for (String suffix : suffixes) {
             if (name.endsWith(suffix)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Delete the file silent if present, success will be written to log
+     */
+    public static void deleteIfPresent(File file) {
+        if(file.exists()){
+            boolean success = file.delete();
+            LOG.debug("delete file {} successful: {}", file, success);
+        }
     }
 }

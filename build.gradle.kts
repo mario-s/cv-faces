@@ -8,7 +8,7 @@ plugins {
 
     id("com.adarshr.test-logger").version("2.0.0")
     id("org.owasp.dependencycheck").version("5.2.1")
-    id("com.github.spotbugs").version("3.0.0")
+    id("com.github.spotbugs").version("4.6.1")
 }
 
 repositories {
@@ -29,9 +29,7 @@ jacoco {
 }
 
 spotbugs {
-    toolVersion = "4.1.4"
-    effort = "min"
-    reportLevel = "high"
+    toolVersion.value("4.2.1")
 }
 
 fun os(): String {
@@ -66,7 +64,7 @@ dependencies {
 
 tasks {
     wrapper {
-        gradleVersion = "5.6.4"
+        gradleVersion = "6.0.1"
     }
 
     test {
@@ -89,7 +87,7 @@ tasks {
     processResources {
         dependsOn("copyTrainToMain")
     }
-    
+
     register<Copy>("copyTrainToMain") {
         from("$rootDir/data/train")
         include("*.*")

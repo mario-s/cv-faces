@@ -7,6 +7,7 @@ import java.util.function.Function;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Scalar;
+import org.javacv.common.FileUtil;
 import org.javacv.common.ImageUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,21 +25,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class FusionProcessorTest {
 
     private final Function<String, String> resource = f -> getClass().getResource(f).getFile();
-    
+
     private FusionProcessor classUnderTest;
-    
+
     private Collection<String> images;
-    
+
     private File out;
-    
+
     @BeforeEach
     void setUp() {
         classUnderTest = new FusionProcessor();
         images = new ArrayList<>();
         out = new File(getClass().getResource(".").getFile(), "ldr.jpg");
-        if(out.exists()){
-            out.delete();
-        }
+        FileUtil.deleteIfPresent(out);
     }
 
     /**
@@ -59,11 +58,11 @@ class FusionProcessorTest {
         images.add(resource.apply("memorial0061.png"));
         images.add(resource.apply("memorial0064.png"));
         images.add(resource.apply("memorial0067.png"));
-        
+
         assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());
     }
-    
+
     @Test
     @Tag("merge")
     @DisplayName("It should align and merge images.")
@@ -72,11 +71,11 @@ class FusionProcessorTest {
         images.add(resource.apply("stat_1.jpg"));
         images.add(resource.apply("stat_2.jpg"));
         images.add(resource.apply("stat_3.jpg"));
-        
+
         assertTrue(classUnderTest.process(images, out));
         assertTrue(out.exists());
     }
-    
+
     @Test
     @DisplayName("Test to verify that multiply a source image works.")
     void multiply() {
@@ -86,5 +85,5 @@ class FusionProcessorTest {
         Mat dest = src.mul(filter).a();
         assertFalse(dest.empty());
     }
-    
+
 }

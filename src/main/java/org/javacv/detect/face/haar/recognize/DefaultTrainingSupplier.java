@@ -5,6 +5,7 @@ import static java.lang.Integer.parseInt;
 import java.nio.IntBuffer;
 import java.nio.file.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
@@ -13,6 +14,7 @@ import org.javacv.common.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static java.util.Optional.ofNullable;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 
 /**
@@ -39,7 +41,7 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
     public DefaultTrainingSupplier(String trainingDir) {
         this.trainingDir = trainingDir;
     }
-    
+
     @Override
     public TrainingParameter get() {
         var paths = filterImageFiles(filesSuffix());
@@ -49,18 +51,20 @@ public class DefaultTrainingSupplier implements TrainingSupplier {
         Mat labels = new Mat(len, 1, CV_32SC1);
         IntBuffer labelBuffer = labels.createBuffer();
 
-        int index = 0;
+        AtomicInteger index = new AtomicInteger();
         var it = paths.iterator();
         while (it.hasNext()) {
             Path path = it.next();
 
-            Mat img = ImageUtil.readAsGray(path.toString());
-            images.put(index, img);
+            ofNullable(path.getFileName()).ifPresent(name -> {
+                Mat img = ImageUtil.readAsGray(path.toString());
+                images.put(index.get(), img);
 
-            int label = createLabel(path.getFileName().toString());
-            LOG.trace("label {} for file {}", label, path);
-            labelBuffer.put(index, label);
-            index++;
+                int label = createLabel(name.toString());
+                LOG.trace("label {} for file {}", label, path);
+                labelBuffer.put(index.get(), label);
+                index.getAndIncrement();
+            });
         }
 
         LOG.debug("labels for training: {}", labelBuffer);
