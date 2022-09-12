@@ -55,11 +55,11 @@ dependencies {
 
     implementation("ch.qos.logback:logback-classic:1.2.3")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.3.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
-    testImplementation("org.mockito:mockito-core:3.1.0")
-    testImplementation("org.mockito:mockito-junit-jupiter:3.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
+    testImplementation("org.mockito:mockito-core:4.8.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.8.0")
 }
 
 tasks {
