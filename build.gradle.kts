@@ -44,16 +44,16 @@ fun os(): String {
 }
 
 dependencies {
-    annotationProcessor("info.picocli:picocli-codegen:4.0.4")
-    implementation("info.picocli:picocli:4.0.4")
+    annotationProcessor("info.picocli:picocli-codegen:4.6.3")
+    implementation("info.picocli:picocli:4.6.3")
 
     implementation("org.bytedeco:javacv:1.4")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3")
     implementation("org.bytedeco.javacpp-presets:opencv:3.4.3-1.4.3:${os()}")
 
-    implementation("com.google.guava:guava:27.0.1-jre")
+    implementation("com.google.guava:guava:31.1-jre")
 
-    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("ch.qos.logback:logback-classic:1.4.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
