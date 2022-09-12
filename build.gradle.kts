@@ -64,7 +64,7 @@ dependencies {
 
 tasks {
     wrapper {
-        gradleVersion = "6.0.1"
+        gradleVersion = "6.8.1"
     }
 
     test {
