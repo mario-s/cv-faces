@@ -12,7 +12,7 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 java {
@@ -64,7 +64,7 @@ dependencies {
 
 tasks {
     wrapper {
-        gradleVersion = "6.8.1"
+        gradleVersion = "7.2"
     }
 
     test {
