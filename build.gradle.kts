@@ -6,7 +6,7 @@ plugins {
     application
     jacoco
 
-    id("com.adarshr.test-logger").version("2.0.0")
+    id("com.adarshr.test-logger").version("3.2.0")
     id("org.owasp.dependencycheck").version("7.1.2")
     id("com.github.spotbugs").version("4.6.1")
 }
