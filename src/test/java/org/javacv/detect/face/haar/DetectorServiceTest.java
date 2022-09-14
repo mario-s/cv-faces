@@ -75,7 +75,7 @@ class DetectorServiceTest {
         given(grabber.grab()).willReturn(new Frame());
 
         executorService.submit(classUnderTest);
-        boolean b = latch.await(50, TimeUnit.MILLISECONDS);
+        boolean b = latch.await(500, TimeUnit.MILLISECONDS);
         LOG.debug("count reached zero: {}", b);
 
         verify(canvas, atLeastOnce()).showImage(any(Frame.class));

@@ -21,7 +21,7 @@ java {
 }
 
 application {
-    mainClassName = "org.javacv.Main"
+    getMainClass().set("org.javacv.Main")
 }
 
 jacoco {
@@ -64,7 +64,7 @@ dependencies {
 
 tasks {
     wrapper {
-        gradleVersion = "7.2"
+        gradleVersion = "7.5.1"
     }
 
     test {
