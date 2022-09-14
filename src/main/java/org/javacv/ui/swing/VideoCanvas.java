@@ -4,16 +4,17 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.function.Consumer;
 
 /**
  * A canvas which extends {@link Canvas} and paints the given {@link Mat}.
  * @author spindizzy
  */
-public class VideoCanvas extends Canvas {
+public class VideoCanvas extends Canvas implements Consumer<Mat> {
 
     private static final Color FOREGROUND = Color.white;
     private static final Color BACKGROUND = Color.black;
-    
+
     private BufferedImage image;
 
     public VideoCanvas() {
@@ -26,7 +27,8 @@ public class VideoCanvas extends Canvas {
      *
      * @param matrix Mat of type CV_8UC3 or CV_8UC1
      */
-    public void updateImage(Mat matrix) {
+    @Override
+    public void accept(Mat matrix) {
         image = ImageConverter.toBufferedImage(matrix);
         repaint();
     }

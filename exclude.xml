@@ -1,0 +1,14 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="org.javacv.detect.DetectorService" />
+        <Bug code="EI2" />
+    </Match>
+    <Match>
+        <Class name="org.javacv.detect.face.haar.recognize.TrainingParameter" />
+        <Bug code="EI" />
+    </Match>
+    <Match>
+        <Class name="org.javacv.detect.face.haar.recognize.TrainingParameter" />
+        <Bug code="EI2" />
+    </Match>
+</FindBugsFilter>

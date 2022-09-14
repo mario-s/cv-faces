@@ -14,7 +14,7 @@ public class TrainingParameter {
 
     public TrainingParameter(MatVector images, Mat labels) {
         this.images = images;
-        this.labels = labels;
+        this.labels = labels.clone();
     }
 
     public MatVector getImages() {
@@ -22,7 +22,7 @@ public class TrainingParameter {
     }
 
     public Mat getLabels() {
-        return labels;
+        return labels.clone();
     }
 
 }

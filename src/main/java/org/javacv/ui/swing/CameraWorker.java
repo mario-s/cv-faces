@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.util.function.Consumer;
 
 /**
  * A worker that deals with image update from the camera.
@@ -19,19 +20,19 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CameraWorker.class);
 
-    private final VideoCanvas videoPanel;
+    private final Consumer<Mat> videoCanvas;
 
-    private final JFrame videoWindow;
+    private final Consumer<Size> videoWindow;
 
     private final Detectable faceDetector;
 
     private final VideoCapture capture;
 
     private boolean updated;
-    
-    public CameraWorker(JFrame videoWindow, VideoCanvas videoPanel) {
+
+    public CameraWorker(Consumer<Size> videoWindow, Consumer<Mat> videoCanvas) {
         this.videoWindow = videoWindow;
-        this.videoPanel = videoPanel;
+        this.videoCanvas = videoCanvas;
         faceDetector = DetectorFactory.create("haar");
         capture = new VideoCapture(0);
     }
@@ -65,14 +66,14 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
     private void updateWindowSize(Mat webcamImage) {
         if(!updated){
             Size size = webcamImage.size();
-            videoWindow.setSize(size.width() + 40, size.height() + 60);
+            videoWindow.accept(size);
             updated = true;
         }
     }
 
     private long markObjects(Mat webcamImage) {
         long marked = faceDetector.markObjects(webcamImage);
-        videoPanel.updateImage(webcamImage);
+        videoCanvas.accept(webcamImage);
         return marked;
     }
 

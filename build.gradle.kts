@@ -8,7 +8,7 @@ plugins {
 
     id("com.adarshr.test-logger").version("3.2.0")
     id("org.owasp.dependencycheck").version("7.1.2")
-    id("com.github.spotbugs").version("4.6.1")
+    id("com.github.spotbugs").version("5.0.12")
 }
 
 repositories {
@@ -29,7 +29,8 @@ jacoco {
 }
 
 spotbugs {
-    toolVersion.value("4.2.1")
+    toolVersion.value("4.7.2")
+    excludeFilter.set(file("exclude.xml"))
 }
 
 fun os(): String {

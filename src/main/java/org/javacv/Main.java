@@ -52,8 +52,8 @@ public class Main implements Runnable, IVersionProvider {
             launcher.launch(detector);
             join();
         } else {
-            LOG.debug("executing merge process");
             var launcher = LauncherFactory.create(LauncherFactory.MERGER);
+            LOG.debug("executing merge process for {}", sourcePath);
             launcher.launch(sourcePath, targetFile);
         }
     }

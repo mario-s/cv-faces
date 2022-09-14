@@ -14,11 +14,11 @@ import static java.lang.String.format;
 public class FusionLauncher implements Launcher {
 
   private static final String FOLDER_CONTAINS_NO_IMAGE_FILES = "The folder contains no source image files.";
-  private static final String REQUIRES_FOLDER_WITH_IMAGE_FILES = "It requires at least a folder with image files: %s.";
+  private static final String REQUIRES_FOLDER_WITH_IMAGE_FILES = "It requires at least a folder with image files.";
 
   @Override
   public void launch(String... args) {
-    if (args == null || args[0].isEmpty()) {
+    if (args == null || args[0] == null || args[0].isEmpty()) {
       throw new IllegalArgumentException(REQUIRES_FOLDER_WITH_IMAGE_FILES);
     }
     var sourceFolder = args[0];
