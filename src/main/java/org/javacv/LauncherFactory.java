@@ -12,12 +12,10 @@ public interface LauncherFactory {
 
   static Launcher create(String type) {
     var t = (type != null) ? type.toLowerCase() : SWING;
-    if (OPEN_CV.equals(t)) {
-      return new CanvasLauncher();
-    }
-    if (MERGER.equals(t)) {
-      return new FusionLauncher();
-    }
-    return new VideoWindowLauncher();
+    return switch(t) {
+        case MERGER -> new FusionLauncher();
+        case OPEN_CV -> new CanvasLauncher();
+        default -> new VideoWindowLauncher();
+    };
   }
 }
