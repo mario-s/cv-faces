@@ -1,12 +1,11 @@
 package org.javacv.fusion;
 
-import org.javacv.glue.Launcher;
+import static java.lang.String.format;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 
-import static java.lang.String.format;
+import org.javacv.glue.Launcher;
 
 /**
  * power plant ;-)

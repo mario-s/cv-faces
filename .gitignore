@@ -11,4 +11,5 @@ hs_err*.log
 .classpath
 .project
 .settings/
+.vscode/
 bin/
