@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit test for {@link DnnDetector}.
  */
-@Disabled
 class DnnDetectorTest {
 
     private final Function<String, File> resource = f -> new File(getClass().getResource("../" + f).getPath());

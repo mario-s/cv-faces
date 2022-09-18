@@ -2,7 +2,6 @@ package org.javacv.ui.swing;
 
 import org.bytedeco.javacpp.opencv_core.Size;
 import org.javacv.detect.Detectable;
-import org.javacv.detect.DetectorFactory;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_videoio.VideoCapture;
 import org.slf4j.Logger;
@@ -30,10 +29,10 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
     private boolean updated;
 
-    public CameraWorker(Consumer<Size> videoWindow, Consumer<Mat> videoCanvas) {
+    public CameraWorker(Consumer<Size> videoWindow, Consumer<Mat> videoCanvas, Detectable faceDetector) {
         this.videoWindow = videoWindow;
         this.videoCanvas = videoCanvas;
-        faceDetector = DetectorFactory.create("haar");
+        this.faceDetector = faceDetector;
         capture = new VideoCapture(0);
     }
 

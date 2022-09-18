@@ -10,6 +10,8 @@ import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.javacv.detect.DetectorFactory;
 import org.javacv.detect.DetectorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.javacv.glue.ImageShowable;
 import org.javacv.glue.Launcher;
@@ -21,10 +23,12 @@ import org.javacv.glue.Launcher;
  */
 public class CanvasLauncher implements Launcher {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CanvasLauncher.class);
+
     private CanvasFrame canvas;
-    
+
     private final ExecutorService executorService;
-    
+
     private DetectorService detectorService;
 
     public CanvasLauncher() {
@@ -33,7 +37,8 @@ public class CanvasLauncher implements Launcher {
 
     @Override
     public void launch(String ... args) {
-        var detector = (args != null && args.length > 0) ? args[0] : "dnn";
+        LOG.info("arguments: {}", (Object[])args);
+
         //Create canvas frame for displaying video.
         canvas = new CanvasFrame("Video Canvas");
 
@@ -50,7 +55,7 @@ public class CanvasLauncher implements Launcher {
 
         });
 
-        var det = DetectorFactory.create(detector);
+        var det = DetectorFactory.create(detectorType.apply(args));
         detectorService = new DetectorService(new CanvasProxy(canvas), det);
         executorService.execute(detectorService);
     }

@@ -2,7 +2,6 @@ package org.javacv.detect;
 
 import org.javacv.detect.face.dnn.DnnDetector;
 import org.javacv.detect.face.haar.HaarDetector;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,6 @@ class DetectorFactoryTest {
         assertTrue(result instanceof HaarDetector);
     }
 
-    @Disabled("FIXME")
     @Test
     @Tag("detector")
     @DisplayName("It should create an instance of a DnnDetector")
