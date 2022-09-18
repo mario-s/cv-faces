@@ -7,13 +7,10 @@ import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 
 import org.bytedeco.javacv.CanvasFrame;
-import org.bytedeco.javacv.Frame;
 import org.javacv.detect.DetectorFactory;
 import org.javacv.detect.DetectorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.javacv.glue.ImageShowable;
 import org.javacv.glue.Launcher;
 
 /**
@@ -58,23 +55,5 @@ public class CanvasLauncher implements Launcher {
         var det = DetectorFactory.create(detectorType.apply(args));
         detectorService = new DetectorService(new CanvasProxy(canvas), det);
         executorService.execute(detectorService);
-    }
-
-    private static class CanvasProxy implements ImageShowable {
-        private final CanvasFrame canvas;
-
-        CanvasProxy(CanvasFrame canvas) {
-            this.canvas = canvas;
-        }
-
-        @Override
-        public void setSize(int width, int height) {
-            canvas.setCanvasSize(width, height);
-        }
-
-        @Override
-        public void showImage(Frame image) {
-            canvas.showImage(image);
-        }
     }
 }

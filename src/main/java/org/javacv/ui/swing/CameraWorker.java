@@ -3,7 +3,6 @@ package org.javacv.ui.swing;
 import org.bytedeco.javacpp.opencv_core.Size;
 import org.javacv.detect.Detectable;
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_videoio.VideoCapture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,15 +24,19 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
     private final Detectable faceDetector;
 
-    private final VideoCapture capture;
+    private final VideoCaptureProxy capture;
 
     private boolean updated;
 
     public CameraWorker(Consumer<Size> videoWindow, Consumer<Mat> videoCanvas, Detectable faceDetector) {
+        this(videoWindow, videoCanvas, faceDetector, new VideoCaptureProxy());
+    }
+
+    CameraWorker(Consumer<Size> videoWindow, Consumer<Mat> videoCanvas, Detectable faceDetector, VideoCaptureProxy capture) {
         this.videoWindow = videoWindow;
         this.videoCanvas = videoCanvas;
         this.faceDetector = faceDetector;
-        capture = new VideoCapture(0);
+        this.capture = capture;
     }
 
     @Override
@@ -80,5 +83,4 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
     protected void done() {
         capture.release();
     }
-
 }
