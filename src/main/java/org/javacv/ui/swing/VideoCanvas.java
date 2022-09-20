@@ -14,6 +14,8 @@ public class VideoCanvas extends Canvas implements Consumer<Mat> {
 
     private static final Color FOREGROUND = Color.white;
     private static final Color BACKGROUND = Color.black;
+    static final String STARTING = "Camera ...";
+    static final int PAD = 10;
 
     private BufferedImage image;
 
@@ -34,12 +36,13 @@ public class VideoCanvas extends Canvas implements Consumer<Mat> {
     }
 
     @Override
+
     public void paint(Graphics g) {
         if (image == null) {
-            g.drawString("Camera ...", 10, 10);
+            g.drawString(STARTING, PAD, PAD);
             return;
         }
-        g.drawImage(this.image, 10, 10, this.image.getWidth(), this.image.getHeight(), null);
+        g.drawImage(this.image, PAD, PAD, this.image.getWidth(), this.image.getHeight(), null);
     }
 
     @Override
@@ -57,4 +60,7 @@ public class VideoCanvas extends Canvas implements Consumer<Mat> {
         g.drawImage(offscreenImage, box.x, box.y, this);
     }
 
+    BufferedImage getImage() {
+        return image;
+    }
 }
