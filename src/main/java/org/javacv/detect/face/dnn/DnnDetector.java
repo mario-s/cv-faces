@@ -86,6 +86,10 @@ public class DnnDetector extends AbstractDetector {
         return mat.createIndexer();
     }
 
+    /**
+     * Return top left and bottom right of as points from the indexer.
+     * @return array of points. First element is top left, second is bottom right.
+     */
     private Point[] getPositions(Size size, FloatIndexer indexer, int index) {
         int tx = (int) (indexer.get(index, 3) * size.width());
         int ty = (int) (indexer.get(index, 4) * size.height());
