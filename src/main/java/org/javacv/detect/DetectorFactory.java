@@ -6,6 +6,8 @@ import org.javacv.detect.face.haar.recognize.GenderPredictor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Function;
+
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 
@@ -16,6 +18,10 @@ import static java.util.Optional.ofNullable;
 public class DetectorFactory {
     private static final Logger LOG = LoggerFactory.getLogger(DetectorFactory.class);
 
+    public static Detectable create(String ... args) {
+        String type = (args != null && args[0] != null) ? args[0] : "DNN";
+        return create(type);
+    }
     /**
      * Create a new detector.
      * @param type Possible values: "HARR", "DNN"
@@ -24,11 +30,11 @@ public class DetectorFactory {
     public static Detectable create(String type) {
         LOG.debug("using detector type: {}", type);
         var t = ofNullable(type).map(String::toUpperCase).orElseGet(() -> "");
-        switch (t) {
-            case "HAAR": return haarDetector();
-            case "DNN": return dnnDetector();
-            default: throw new UnsupportedOperationException(format("%s is unsupported", type));
-        }
+        return switch (t) {
+            case "HAAR" -> haarDetector();
+            case "DNN" -> dnnDetector();
+            default -> throw new UnsupportedOperationException(format("%s is unsupported", type));
+        };
     }
 
     private static Detectable haarDetector() {

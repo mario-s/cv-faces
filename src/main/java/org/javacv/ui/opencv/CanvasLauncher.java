@@ -58,7 +58,7 @@ public class CanvasLauncher implements Launcher {
 
         });
 
-        var det = DetectorFactory.create(detectorType.apply(args));
+        var det = DetectorFactory.create(args);
         detectorService = new DetectorService(new CanvasProxy(canvas), det);
         executorService.execute(detectorService);
     }

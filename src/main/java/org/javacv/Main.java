@@ -32,7 +32,7 @@ public class Main implements Runnable, IVersionProvider {
     private String ui;
 
     @Option(names = "-d", description = "The face detector type. Possible Values:\n" +
-    "[dnn] Deep Neural Network,\n" +
+    "[dnn] Deep Neural Network (default),\n" +
     "[haar] Haar Classifier (outdated)")
     private String detector;
 

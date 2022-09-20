@@ -31,7 +31,7 @@ public class VideoWindowLauncher extends JFrame implements Consumer<Size>, Launc
     @Override
     public void launch(String ... args) {
         LOG.info("arguments: {}", (Object[])args);
-        detector = DetectorFactory.create(detectorType.apply(args));
+        detector = DetectorFactory.create(args);
         SwingUtilities.invokeLater(() -> {
             run();
          });

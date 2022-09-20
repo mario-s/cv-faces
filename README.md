@@ -23,6 +23,11 @@ To start the Swing UI with face detection using a DNN:
 ```
 ./gradlew run --args='-u=s -d=dnn'
 ```
+Since DNN is default, the detector type can be skipped:
+```
+./gradlew run --args='-u=s'
+```
+
 To use the GUI from OpenCV use `-u=c` as an argument.
 
 ### Gender Prediction
