@@ -51,10 +51,12 @@ public class Main implements Runnable, IVersionProvider {
             var launcher = LauncherFactory.create(ui);
             launcher.launch(detector);
             join();
-        } else {
+        } else if (sourcePath != null) {
             var launcher = LauncherFactory.create(LauncherFactory.MERGER);
             LOG.debug("executing merge process for {}", sourcePath);
             launcher.launch(sourcePath, targetFile);
+        } else {
+            LOG.info("use '-h' to see all options");
         }
     }
 
