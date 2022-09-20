@@ -45,7 +45,7 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
 
         Thread.sleep(1000);
         Mat webcamImage = new Mat();
-        while (!isCancelled()) {
+        while (isRunning()) {
             capture.read(webcamImage);
             if (!webcamImage.empty()) {
 
@@ -63,6 +63,10 @@ public class CameraWorker extends SwingWorker<Void, Mat> {
         }
 
         return null;
+    }
+
+    boolean isRunning() {
+        return !isCancelled();
     }
 
     private void updateWindowSize(Mat webcamImage) {
