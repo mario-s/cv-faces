@@ -70,6 +70,6 @@ public class Main implements Runnable, IVersionProvider {
 
     @Override
     public String[] getVersion() throws Exception {
-        return new String[] {"202011"};
+        return new String[] {"202209"};
     }
 }
