@@ -18,10 +18,10 @@ public class GenderPredictor implements Predictable<String> {
     @Override
     public String predict(Mat mat) {
         Mat face = ImageUtil.toGray(mat);
-        switch (recognizer.predict(face)) {
-            case 0: return "female";
-            case 1: return "male";
-            default: return "";
-        }
+        return switch (recognizer.predict(face)) {
+            case 0 -> "female";
+            case 1 -> "male";
+            default -> "";
+        };
     }
 }

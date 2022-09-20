@@ -32,6 +32,7 @@ public enum ClassifierFactory {
 
             return of(new CascadeClassifier(path));
         } catch (URISyntaxException exc) {
+            LOG.warn(exc.getMessage());
             return empty();
         }
     }

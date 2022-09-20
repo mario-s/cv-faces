@@ -101,5 +101,4 @@ public class DnnDetector extends AbstractDetector {
 
         return new Point[] {pt1, pt2};
     }
-
 }
