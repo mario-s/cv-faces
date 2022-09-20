@@ -21,6 +21,8 @@ import org.javacv.glue.Launcher;
 public class CanvasLauncher implements Launcher {
 
     private static final Logger LOG = LoggerFactory.getLogger(CanvasLauncher.class);
+    private static final String TITLE = "Video Canvas";
+    public static final int MIN = 300;
 
     private CanvasFrame canvas;
 
@@ -29,7 +31,11 @@ public class CanvasLauncher implements Launcher {
     private DetectorService detectorService;
 
     public CanvasLauncher() {
-        executorService = Executors.newFixedThreadPool(3);
+        this(Executors.newFixedThreadPool(3));
+    }
+
+    CanvasLauncher(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
     @Override
@@ -37,10 +43,10 @@ public class CanvasLauncher implements Launcher {
         LOG.info("arguments: {}", (Object[])args);
 
         //Create canvas frame for displaying video.
-        canvas = new CanvasFrame("Video Canvas");
+        canvas = createFrame(TITLE);
 
         canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        canvas.setCanvasSize(300, 300);
+        canvas.setCanvasSize(MIN, MIN);
 
         canvas.addWindowListener(new WindowAdapter() {
 
@@ -55,5 +61,9 @@ public class CanvasLauncher implements Launcher {
         var det = DetectorFactory.create(detectorType.apply(args));
         detectorService = new DetectorService(new CanvasProxy(canvas), det);
         executorService.execute(detectorService);
+    }
+
+    CanvasFrame createFrame(String title) {
+        return new CanvasFrame(title);
     }
 }

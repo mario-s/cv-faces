@@ -27,12 +27,12 @@ public class Main implements Runnable, IVersionProvider {
 
     @Option(names = "-u",
         description = "User interface for face detector. Possible Values:\n" +
-        "[c] canvas from OpenCV (default)\n"+
+        "[c] canvas from OpenCV\n"+
         "[s] Swing")
     private String ui;
 
     @Option(names = "-d", description = "The face detector type. Possible Values:\n" +
-    "[dnn] Deep Neural Network (default),\n" +
+    "[dnn] Deep Neural Network,\n" +
     "[haar] Haar Classifier (outdated)")
     private String detector;
 
