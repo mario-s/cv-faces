@@ -25,10 +25,20 @@ public final class ImageUtil {
         //nothing here
     }
 
+    /**
+     * Read a image from the source path and returns it as grayscale.
+     * @param path source path to image file
+     * @return image as gray
+     */
     public static Mat readAsGray(String path) {
         return imread(path, CV_LOAD_IMAGE_GRAYSCALE);
     }
 
+    /**
+     * Read a image from the source path and returns it as RGB
+     * @param path source path to image file
+     * @return image as RGB
+     */
     private static Mat readAsRgb(String path) {
         return imread(path);
     }
@@ -41,6 +51,12 @@ public final class ImageUtil {
         imwrite(out.getPath(), img);
     }
 
+    /**
+     * Resizes a image according to the given size.
+     * @param src The image that should be resized.
+     * @param size The size of the target image.
+     * @return a new image with the given size.
+     */
     public static Mat resize(Mat src, Size size) {
         Mat target = new Mat();
         opencv_imgproc.resize(src, target, size);
@@ -49,7 +65,7 @@ public final class ImageUtil {
 
     /**
      * Converts a RGB color image to a gray image.
-     * @param src source image
+     * @param src The source image.
      * @return image as gray
      */
     public static Mat toGray(Mat src) {

@@ -1,6 +1,9 @@
 package org.javacv.ui.swing;
 
+import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Size;
+import org.javacv.detect.Detectable;
+import org.javacv.detect.DetectorFactory;
 import org.javacv.glue.Launcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +24,14 @@ public class VideoWindowLauncher extends JFrame implements Consumer<Size>, Launc
 
     private VideoCanvas videoCanvas;
 
-    private SwingWorker worker;
+    private SwingWorker<Void, Mat> worker;
+
+    private Detectable detector;
 
     @Override
     public void launch(String ... args) {
-        LOG.info("arguments are not supported yet");
+        LOG.info("arguments: {}", (Object[])args);
+        detector = DetectorFactory.create(args);
         SwingUtilities.invokeLater(() -> {
             run();
          });
@@ -42,7 +48,7 @@ public class VideoWindowLauncher extends JFrame implements Consumer<Size>, Launc
         pack();
         setSize(400, 400);
 
-        worker = new CameraWorker(this, videoCanvas);
+        worker = new CameraWorker(this, videoCanvas, detector);
         setVisible(true);
 
         addWindowListener(new WindowAdapter() {

@@ -7,11 +7,10 @@ import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 
 import org.bytedeco.javacv.CanvasFrame;
-import org.bytedeco.javacv.Frame;
 import org.javacv.detect.DetectorFactory;
 import org.javacv.detect.DetectorService;
-
-import org.javacv.glue.ImageShowable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.javacv.glue.Launcher;
 
 /**
@@ -21,24 +20,33 @@ import org.javacv.glue.Launcher;
  */
 public class CanvasLauncher implements Launcher {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CanvasLauncher.class);
+    private static final String TITLE = "Video Canvas";
+    public static final int MIN = 300;
+
     private CanvasFrame canvas;
-    
+
     private final ExecutorService executorService;
-    
+
     private DetectorService detectorService;
 
     public CanvasLauncher() {
-        executorService = Executors.newFixedThreadPool(3);
+        this(Executors.newFixedThreadPool(3));
+    }
+
+    CanvasLauncher(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
     @Override
     public void launch(String ... args) {
-        var detector = (args != null && args.length > 0) ? args[0] : "dnn";
+        LOG.info("arguments: {}", (Object[])args);
+
         //Create canvas frame for displaying video.
-        canvas = new CanvasFrame("Video Canvas");
+        canvas = createFrame(TITLE);
 
         canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        canvas.setCanvasSize(300, 300);
+        canvas.setCanvasSize(MIN, MIN);
 
         canvas.addWindowListener(new WindowAdapter() {
 
@@ -50,26 +58,12 @@ public class CanvasLauncher implements Launcher {
 
         });
 
-        var det = DetectorFactory.create(detector);
+        var det = DetectorFactory.create(args);
         detectorService = new DetectorService(new CanvasProxy(canvas), det);
         executorService.execute(detectorService);
     }
 
-    private static class CanvasProxy implements ImageShowable {
-        private final CanvasFrame canvas;
-
-        CanvasProxy(CanvasFrame canvas) {
-            this.canvas = canvas;
-        }
-
-        @Override
-        public void setSize(int width, int height) {
-            canvas.setCanvasSize(width, height);
-        }
-
-        @Override
-        public void showImage(Frame image) {
-            canvas.showImage(image);
-        }
+    CanvasFrame createFrame(String title) {
+        return new CanvasFrame(title);
     }
 }

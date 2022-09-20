@@ -27,7 +27,7 @@ public class Main implements Runnable, IVersionProvider {
 
     @Option(names = "-u",
         description = "User interface for face detector. Possible Values:\n" +
-        "[c] canvas from OpenCV (default)\n"+
+        "[c] canvas from OpenCV\n"+
         "[s] Swing")
     private String ui;
 
@@ -51,10 +51,12 @@ public class Main implements Runnable, IVersionProvider {
             var launcher = LauncherFactory.create(ui);
             launcher.launch(detector);
             join();
-        } else {
+        } else if (sourcePath != null) {
             var launcher = LauncherFactory.create(LauncherFactory.MERGER);
             LOG.debug("executing merge process for {}", sourcePath);
             launcher.launch(sourcePath, targetFile);
+        } else {
+            LOG.info("use '-h' to see all options");
         }
     }
 
@@ -68,6 +70,6 @@ public class Main implements Runnable, IVersionProvider {
 
     @Override
     public String[] getVersion() throws Exception {
-        return new String[] {"202011"};
+        return new String[] {"202209"};
     }
 }
